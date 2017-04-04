@@ -1,8 +1,10 @@
 package de.pixlpommes.jam.units.base;
 
 /**
+ * Position of a unit as tuple (x,y).
+ * 
  * @author Thomas Borck - http://www.pixlpommes.de
- * @version 0.0 - 0
+ * @version 0.1
  */
 public class Position {
 	

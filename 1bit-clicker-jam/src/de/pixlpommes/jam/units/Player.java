@@ -4,8 +4,10 @@ import de.pixlpommes.jam.units.base.Position;
 import de.pixlpommes.jam.units.base.Unit;
 
 /**
+ * The player unit.
+ * 
  * @author Thomas Borck - http://www.pixlpommes.de
- * @version 0.0 - 0
+ * @version 0.1
  */
 public class Player extends Unit {
 

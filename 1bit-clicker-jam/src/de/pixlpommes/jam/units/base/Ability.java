@@ -1,10 +1,18 @@
 package de.pixlpommes.jam.units.base;
 
 /**
+ * Basic structure for abilities.
+ * 
  * @author Thomas Borck - http://www.pixlpommes.de
- * @version 0.0 - 0
+ * @version 0.1
  */
 public class Ability {
+	
+	/** TODO: describe '_name' */
+	protected String _name;
+	
+	///** TODO: describe '_icon' */
+	//protected Icon _icon;
 	
 	/** TODO: describe '_useTime' */
 	protected float _useTime;

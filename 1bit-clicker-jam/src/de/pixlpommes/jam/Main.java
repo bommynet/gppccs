@@ -1,8 +1,10 @@
 package de.pixlpommes.jam;
 
 /**
+ * Game entry point.
+ * 
  * @author Thomas Borck - http://www.pixlpommes.de
- * @version 0.0 - 0
+ * @version 0.1
  */
 public class Main {
 

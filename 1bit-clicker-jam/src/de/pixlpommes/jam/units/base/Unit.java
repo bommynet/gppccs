@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Basic setup for all units in game.
+ * 
  * @author Thomas Borck - http://www.pixlpommes.de
- * @version 0.0 - 0
+ * @version 0.1
  */
 public abstract class Unit {
 

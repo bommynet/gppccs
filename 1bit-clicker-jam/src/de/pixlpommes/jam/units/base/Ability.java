@@ -96,7 +96,14 @@ public class Ability {
 	
 	/**  */
 	public static enum Type {
-		MELEE, RANGE, MAGIC, HEAL;
+		/** melee attacks can reach the first column of enemies only */
+		MELEE,
+		
+		/** range attacks can reach both columns directly, except the healers position */
+		RANGE,
+		
+		/** magic attacks can reach every position */
+		MAGIC;
 	}
 
 	/**  */
@@ -152,5 +159,22 @@ public class Ability {
 		Ability tmp = Ability.createAttack(useTime, damage);
 		tmp.setType(Ability.Type.RANGE);
 		return tmp;
+	}
+	
+	/**
+	 * @param useTime
+	 * @param heal
+	 * @return
+	 */
+	public static Ability createHeal(float useTime, float heal) {
+		// healing has to be negative
+		float checkedHeal = -Math.abs(heal);
+		
+		return new Ability(
+				"Heal",
+				Ability.Type.MAGIC,
+				Ability.TargetType.POINT,
+				useTime,
+				checkedHeal);
 	}
 }

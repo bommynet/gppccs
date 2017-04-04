@@ -93,6 +93,18 @@ public class Ability {
 	}
 
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Ability['"+ _name + "', "
+				+ _type + ", "
+				+ _damage + ", "
+				+ _useTime + "sec, "
+				+ _targetType + "]";
+	}
+	
 	
 	/**  */
 	public static enum Type {
@@ -137,12 +149,14 @@ public class Ability {
 	 * @return
 	 */
 	public static Ability createAttack(float useTime, float damage) {
+		float checkedDamage = Math.abs(damage);
+		
 		return new Ability(
 				"Attack",
 				Ability.Type.MELEE,
 				Ability.TargetType.POINT,
 				useTime,
-				damage);
+				checkedDamage);
 	}
 	
 	/**
@@ -157,6 +171,7 @@ public class Ability {
 	 */
 	public static Ability createRangeAttack(float useTime, float damage) {
 		Ability tmp = Ability.createAttack(useTime, damage);
+		tmp.setName("Range");
 		tmp.setType(Ability.Type.RANGE);
 		return tmp;
 	}

@@ -44,11 +44,53 @@ public class Ability {
 	public TargetType getTargetType() { return _targetType; }
 	public float getDamage() { return _damage; }
 	
-	public void setName(String name) { _name = name; }
-	public void setUseTime(float time) { _useTime = time; }
-	public void setType(Type type) { _type = type; }
-	public void setTargetType(TargetType type) { _targetType = type; }
-	public void setDamage(float dmg) { _damage = dmg; }
+	/**
+	 * Set a name for the ability.
+	 * 
+	 * @param name
+	 */
+	public void setName(String name) { 
+		if(name == null)
+			_name = "N/A";
+		else
+			_name = name;
+	}
+	
+	/**
+	 * Set using time for the ability.
+	 * 
+	 * @param time values between [0,inf) are accepted, negative values will be translated to positive ones
+	 */
+	public void setUseTime(float time) {
+		_useTime = Math.abs(time);
+	}
+	
+	/**
+	 * Sets type of the ability.
+	 * 
+	 * @param type type to set, if null then type = {@link Ability.Type.MELEE}
+	 */
+	public void setType(Type type) {
+		_type = type == null ? Type.MELEE : type;
+	}
+	
+	/**
+	 * Sets target type of the ability.
+	 * 
+	 * @param type target type to set, if null then type = {@link Ability.TargetType.POINT}
+	 */
+	public void setTargetType(TargetType type) {
+		_targetType = type == null ? Ability.TargetType.POINT : type;
+	}
+	
+	/**
+	 * Sets damage of the ability.
+	 * 
+	 * @param dmg >0 does damage, <0 does heal, =0 does nothing
+	 */
+	public void setDamage(float dmg) {
+		_damage = dmg;
+	}
 
 	
 	
@@ -93,8 +135,7 @@ public class Ability {
 				Ability.Type.MELEE,
 				Ability.TargetType.POINT,
 				useTime,
-				damage
-				);
+				damage);
 	}
 	
 	/**

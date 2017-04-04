@@ -4,7 +4,7 @@ package de.pixlpommes.jam.units.base;
  * Basic structure for abilities.
  * 
  * @author Thomas Borck - http://www.pixlpommes.de
- * @version 0.1
+ * @version 0.2
  */
 public class Ability {
 
@@ -22,15 +22,18 @@ public class Ability {
 
 	/** TODO: describe '_targetType' */
 	protected TargetType _targetType;
+	
+	/** TODO: describe '_damage' */
+	protected float _damage;
 
 	
 	
 	public Ability(String name, Type type, TargetType targetType, float useTime, float dmg) {
-		_name = name;
-		_type = type;
-		_targetType = targetType;
-		_useTime = useTime;
-		/// TODO setup dmg or heal for ability
+		setName(name);
+		setType(type);
+		setTargetType(targetType);
+		setUseTime(useTime);
+		setDamage(dmg);
 	}
 	
 	
@@ -39,11 +42,13 @@ public class Ability {
 	public float getUseTime() { return _useTime; }
 	public Type getType() { return _type; }
 	public TargetType getTargetType() { return _targetType; }
+	public float getDamage() { return _damage; }
 	
 	public void setName(String name) { _name = name; }
 	public void setUseTime(float time) { _useTime = time; }
 	public void setType(Type type) { _type = type; }
 	public void setTargetType(TargetType type) { _targetType = type; }
+	public void setDamage(float dmg) { _damage = dmg; }
 
 	
 	

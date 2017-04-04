@@ -1,0 +1,10 @@
+laufpfeil_down_0 = 0 0 32 32
+laufpfeil_down_1 = 32 0 32 32
+laufpfeil_down_2 = 0 32 32 32
+laufpfeil_down_3 = 32 32 32 32
+laufpfeil_down_4 = 64 0 32 32
+laufpfeil_up_0 = 64 32 32 32
+laufpfeil_up_1 = 96 0 32 32
+laufpfeil_up_2 = 96 32 32 32
+laufpfeil_up_3 = 0 64 32 32
+laufpfeil_up_4 = 0 96 32 32

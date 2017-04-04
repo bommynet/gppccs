@@ -1,0 +1,91 @@
+{"frames": [
+   {
+      "filename": "laufpfeil_down_0",
+      "frame": {"x":0,"y":0,"w":32,"h":32},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+      "sourceSize": {"w":32,"h":32}
+   },
+   {
+      "filename": "laufpfeil_down_1",
+      "frame": {"x":32,"y":0,"w":32,"h":32},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+      "sourceSize": {"w":32,"h":32}
+   },
+   {
+      "filename": "laufpfeil_down_2",
+      "frame": {"x":0,"y":32,"w":32,"h":32},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+      "sourceSize": {"w":32,"h":32}
+   },
+   {
+      "filename": "laufpfeil_down_3",
+      "frame": {"x":32,"y":32,"w":32,"h":32},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+      "sourceSize": {"w":32,"h":32}
+   },
+   {
+      "filename": "laufpfeil_down_4",
+      "frame": {"x":64,"y":0,"w":32,"h":32},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+      "sourceSize": {"w":32,"h":32}
+   },
+   {
+      "filename": "laufpfeil_up_0",
+      "frame": {"x":64,"y":32,"w":32,"h":32},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+      "sourceSize": {"w":32,"h":32}
+   },
+   {
+      "filename": "laufpfeil_up_1",
+      "frame": {"x":96,"y":0,"w":32,"h":32},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+      "sourceSize": {"w":32,"h":32}
+   },
+   {
+      "filename": "laufpfeil_up_2",
+      "frame": {"x":96,"y":32,"w":32,"h":32},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+      "sourceSize": {"w":32,"h":32}
+   },
+   {
+      "filename": "laufpfeil_up_3",
+      "frame": {"x":0,"y":64,"w":32,"h":32},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+      "sourceSize": {"w":32,"h":32}
+   },
+   {
+      "filename": "laufpfeil_up_4",
+      "frame": {"x":0,"y":96,"w":32,"h":32},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+      "sourceSize": {"w":32,"h":32}
+   }
+],
+"meta": {
+   "app": "http://www.bommy.net/nochnix",
+   "version": "1.0",
+   "image": "HighnoonJLE.png",
+   "format": "RGBA8888",
+   "size": {"w":128,"h":128},
+   "scale": "1"
+}
+}

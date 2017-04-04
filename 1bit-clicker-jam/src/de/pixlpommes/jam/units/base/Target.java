@@ -1,4 +1,4 @@
-package de.pixlpommes.jam.units;
+package de.pixlpommes.jam.units.base;
 
 import java.util.ArrayList;
 import java.util.List;

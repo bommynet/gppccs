@@ -1,4 +1,4 @@
-package de.pixlpommes.jam.units;
+package de.pixlpommes.jam.units.base;
 
 /**
  * @author Thomas Borck - http://www.pixlpommes.de

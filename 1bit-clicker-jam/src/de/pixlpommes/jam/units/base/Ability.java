@@ -25,15 +25,19 @@ public class Ability {
 	
 	/** TODO: describe '_damage' */
 	protected float _damage;
+	
+	/** TODO: describe '_mpCosts' */
+	protected float _mpCosts;
 
 	
 	
-	public Ability(String name, Type type, TargetType targetType, float useTime, float dmg) {
+	public Ability(String name, Type type, TargetType targetType, float useTime, float dmg, float mpCosts) {
 		setName(name);
 		setType(type);
 		setTargetType(targetType);
 		setUseTime(useTime);
 		setDamage(dmg);
+		setMpCosts(mpCosts);
 	}
 	
 	
@@ -43,6 +47,7 @@ public class Ability {
 	public Type getType() { return _type; }
 	public TargetType getTargetType() { return _targetType; }
 	public float getDamage() { return _damage; }
+	public float getMpCosts() { return _mpCosts; }
 	
 	/**
 	 * Set a name for the ability.
@@ -90,6 +95,15 @@ public class Ability {
 	 */
 	public void setDamage(float dmg) {
 		_damage = dmg;
+	}
+	
+	/**
+	 * Sets mp costs of the ability.
+	 * 
+	 * @param mpCosts
+	 */
+	public void setMpCosts(float mpCosts) {
+		_mpCosts = mpCosts;
 	}
 
 	
@@ -156,7 +170,8 @@ public class Ability {
 				Ability.Type.MELEE,
 				Ability.TargetType.POINT,
 				useTime,
-				checkedDamage);
+				checkedDamage,
+				0.0f);
 	}
 	
 	/**
@@ -190,6 +205,7 @@ public class Ability {
 				Ability.Type.MAGIC,
 				Ability.TargetType.POINT,
 				useTime,
-				checkedHeal);
+				checkedHeal,
+				1.0f);
 	}
 }

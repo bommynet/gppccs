@@ -1,6 +1,7 @@
 package de.pixlpommes.jam.actions;
 
 import de.pixlpommes.jam.units.base.Ability;
+import de.pixlpommes.jam.units.base.Position;
 import de.pixlpommes.jam.units.base.Target;
 import de.pixlpommes.jam.units.base.Unit;
 
@@ -45,10 +46,13 @@ public class Action {
 		if(_timer > 0) return;
 		
 		// execute ability
-		/// TODO execute algorithm
-		/// for each target 
-		///    -> get unit
-		///    -> sub ability.damage from target.unit.hp
+		/// reduce unit mp
+		_actor.updateMpCurrent(-_ability.getMpCosts());
+		/// for each target
+		for(Position p : _target.get()) {
+			/// TODO   -> get unit
+			/// TODO   -> sub ability.damage from target.unit.hp
+		}
 		
 		// mark action as done and removable
 		_isDone = true;

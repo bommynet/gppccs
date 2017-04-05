@@ -24,10 +24,19 @@ public class ActionManager {
 	
 	
 	/**
+	 * Add a new action to this manager.
+	 * 
 	 * @param action
+	 * @return
 	 */
-	public void add(Action action) {
-		_actions.add(action);
+	public boolean add(Action action) {
+		if(action == null)
+			return false;
+		
+		if(_actions.contains(action))
+			return false;
+		
+		return _actions.add(action);
 	}
 	
 	
@@ -38,6 +47,11 @@ public class ActionManager {
 		// do ticks for all actions available
 		// run reverse through list to kill done entries
 		for(int i=_actions.size()-1; i>=0; i--) {
+			// remove done actions
+			if(_actions.get(i).isDone())
+				_actions.remove(i);
+			
+			// update action
 			_actions.get(i).doTick(delta);
 		}
 	}

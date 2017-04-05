@@ -43,4 +43,16 @@ public abstract class Unit {
 				new Debuff(Debuff.Type.PARALYZE)
 		};
 	}
+	
+	
+	
+	public float getMpCurrent() { return _mpCurrent; }
+	
+	public void setMpCurrent(float mp) {
+		_mpCurrent = mp;
+	}
+	
+	public void updateMpCurrent(float diffMp) {
+		setMpCurrent(_mpCurrent + diffMp);
+	}
 }

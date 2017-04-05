@@ -55,6 +55,7 @@ public class Arena {
 	 * @return
 	 */
 	public Unit getUnit(int x, int y) {
+		// TODO: check x and y
 		return _position[y*COLUMNS + x];
 	}
 	

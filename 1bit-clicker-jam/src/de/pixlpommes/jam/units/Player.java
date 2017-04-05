@@ -1,7 +1,6 @@
 package de.pixlpommes.jam.units;
 
 import de.pixlpommes.jam.units.base.Ability;
-import de.pixlpommes.jam.units.base.Position;
 import de.pixlpommes.jam.units.base.Unit;
 
 /**
@@ -17,7 +16,7 @@ public class Player extends Unit {
 	 */
 	public Player() {
 		// create unit
-		super(50, 50, new Position(0, 3));
+		super(50, 50);
 		
 		// TODO add abilities
 		_abilities.add(Ability.createHeal(2, 1));

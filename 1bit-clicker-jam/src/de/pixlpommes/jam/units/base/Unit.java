@@ -23,18 +23,13 @@ public abstract class Unit {
 	/** TODO: describe '_debuffs' */
 	protected Debuff[] _debuffs;
 	
-	/** TODO: describe '_position' */
-	protected Position _position;
-	
 	/**
 	 * @param hp
 	 * @param mp
-	 * @param position
 	 */
-	protected Unit(int hp, int mp, Position position) {
+	protected Unit(int hp, int mp) {
 		_hpCurrent = _hpMax = hp;
 		_mpCurrent = _mpMax = mp;
-		_position = position;
 		
 		_abilities = new ArrayList<>();
 		_debuffs = new Debuff[] {

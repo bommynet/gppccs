@@ -55,4 +55,15 @@ public abstract class Unit {
 	public void updateMpCurrent(float diffMp) {
 		setMpCurrent(_mpCurrent + diffMp);
 	}
+	
+	
+	public float getHpCurrent() { return _hpCurrent; }
+	
+	public void setHpCurrent(float hp) {
+		_hpCurrent = hp;
+	}
+	
+	public void updateHpCurrent(float diffHp) {
+		setHpCurrent(_hpCurrent + diffHp);
+	}
 }

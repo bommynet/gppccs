@@ -45,15 +45,6 @@ public class Action {
 		// do not execute abilities to early
 		if(_timer > 0) return;
 		
-		// execute ability
-		/// reduce unit mp
-		_actor.updateMpCurrent(-_ability.getMpCosts());
-		/// for each target
-		for(Position p : _target.get()) {
-			/// TODO   -> get unit
-			/// TODO   -> sub ability.damage from target.unit.hp
-		}
-		
 		// mark action as done and removable
 		_isDone = true;
 	}

@@ -3,6 +3,8 @@ package de.pixlpommes.jam.units.base;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.pixlpommes.jam.actions.Action;
+
 /**
  * Basic setup for all units in game.
  * 
@@ -23,6 +25,9 @@ public abstract class Unit {
 	/** TODO: describe '_debuffs' */
 	protected Debuff[] _debuffs;
 	
+	/** TODO: describe '_activeAction' */
+	protected Action _activeAction;
+	
 	/**
 	 * @param hp
 	 * @param mp
@@ -37,6 +42,7 @@ public abstract class Unit {
 				new Debuff(Debuff.Type.SILENCE),
 				new Debuff(Debuff.Type.PARALYZE)
 		};
+		_activeAction = null;
 	}
 	
 	
@@ -60,5 +66,37 @@ public abstract class Unit {
 	
 	public void updateHpCurrent(float diffHp) {
 		setHpCurrent(_hpCurrent + diffHp);
+	}
+	
+	/**
+	 * Set units active action.
+	 * 
+	 * @param action
+	 * @return true, if action was set; false, if another action is active
+	 */
+	public boolean setActiveAction(Action action) {
+		if(_activeAction != null)
+			return false;
+		
+		_activeAction = action;
+		return true;
+	}
+	
+	/**
+	 * @return currently active action or null
+	 */
+	public Action getActiveAction() {
+		return _activeAction;
+	}
+	
+	/**
+	 * @return true, if action was reseted - false, if there was no action to reset
+	 */
+	public boolean resetActiveAction() {
+		if(_activeAction == null)
+			return false;
+		
+		_activeAction = null;
+		return true;
 	}
 }

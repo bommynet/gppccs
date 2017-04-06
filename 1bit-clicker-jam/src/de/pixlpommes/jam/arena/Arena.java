@@ -1,5 +1,6 @@
 package de.pixlpommes.jam.arena;
 
+import de.pixlpommes.jam.units.Player;
 import de.pixlpommes.jam.units.base.Unit;
 
 /**
@@ -33,7 +34,7 @@ public class Arena {
 	public Arena() {
 		_position = new Unit[COLUMNS * ROWS];
 		for(int i=0; i<_position.length; i++) {
-			_position = null;
+			_position[i] = null;
 		}
 	}
 	
@@ -64,5 +65,27 @@ public class Arena {
 	 */
 	public void setPlayer(Unit player) {
 		setUnit(player, 0, 1);
+	}
+	
+	
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		String str = "Arena\n-------\n|";
+		for(int i=0; i<_position.length; i++) {
+			if((i != 0) && (i % COLUMNS == 0))
+				str +="|\n|";
+			
+			if(_position[i] == null)
+				str += "#";
+			else if(_position[i] instanceof Player)
+				str += "P";
+		}
+		
+		str += "|\n-------";
+		return str;
 	}
 }

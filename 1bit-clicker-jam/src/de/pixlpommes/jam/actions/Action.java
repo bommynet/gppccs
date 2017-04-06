@@ -1,7 +1,6 @@
 package de.pixlpommes.jam.actions;
 
 import de.pixlpommes.jam.units.base.Ability;
-import de.pixlpommes.jam.units.base.Position;
 import de.pixlpommes.jam.units.base.Target;
 import de.pixlpommes.jam.units.base.Unit;
 

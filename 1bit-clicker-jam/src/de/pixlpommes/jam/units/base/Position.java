@@ -27,6 +27,16 @@ public class Position {
 		_y = y;
 	}
 	
+	
+	/**
+	 * Create a copy of current position.
+	 * 
+	 * @return
+	 */
+	public Position copy() {
+		return new Position(_x, _y);
+	}
+	
 	/**
 	 * @return
 	 */

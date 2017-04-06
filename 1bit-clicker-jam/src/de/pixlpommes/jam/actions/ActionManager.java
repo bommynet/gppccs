@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.pixlpommes.jam.arena.Arena;
+import de.pixlpommes.jam.units.base.Ability;
 import de.pixlpommes.jam.units.base.Position;
+import de.pixlpommes.jam.units.base.Target;
 import de.pixlpommes.jam.units.base.Unit;
 
 /**
@@ -30,6 +32,36 @@ public class ActionManager {
 		_actions = new ArrayList<>();
 	}
 	
+	
+	
+	/**
+	 * Creates a new action and adds it to the manager.
+	 * 
+	 * @param actor
+	 * @param ability
+	 * @param targetX
+	 * @param targetY
+	 * @return
+	 */
+	public Action create(Unit actor, Ability ability, int targetX, int targetY) {
+		/// TODO: calculate target area by (targetX,targetY) and ability.target
+		Target target = new Target();
+		target.add(targetX, targetY);
+		
+		// create action
+		Action action = new Action(actor, target, ability);
+		
+		// add reference to actor
+		boolean check = actor.setActiveAction(action);
+		
+		// if action can't be set as units active action, cancel create()
+		if(!check)
+			return null;
+		
+		// add new action to manager
+		add(action);
+		return action;
+	}
 	
 	/**
 	 * Add a new action to this manager.
@@ -83,6 +115,7 @@ public class ActionManager {
 				}
 				
 				// after all remove action
+				act.getActor().resetActiveAction();
 				_actions.remove(i);
 			}
 		}

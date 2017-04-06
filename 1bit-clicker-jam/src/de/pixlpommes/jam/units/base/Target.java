@@ -22,4 +22,19 @@ public class Target {
 	}
 	
 	public List<Position> get() { return _positions; }
+	
+	/**
+	 * @param posX
+	 * @param posY
+	 */
+	public void add(int posX, int posY) {
+		_positions.add(new Position(posX, posY));
+	}
+	
+	/**
+	 * @param position
+	 */
+	public void add(Position position) {
+		_positions.add(position.copy());
+	}
 }

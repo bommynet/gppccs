@@ -1,5 +1,8 @@
 package de.pixlpommes.jam.arena;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.pixlpommes.jam.units.Player;
 import de.pixlpommes.jam.units.base.Unit;
 
@@ -22,6 +25,24 @@ public class Arena {
 	
 	/** TODO: describe 'ROWS' */
 	public static int ROWS = 3;
+	
+	/**
+	 * position ids for party members
+	 * 
+	 * x  1  2 x x
+	 * x  6  7 x x
+	 * x 11 12 x x
+	 */
+	public static int[] IDS_PARTY = new int[]{ 1, 2, 6, 7, 11, 12};
+	
+	/**
+	 * position ids for enemies
+	 * 
+	 * x x x  3  4
+	 * x x x  8  9
+	 * x x x 13 14
+	 */
+	public static int[] IDS_ENEMY = new int[]{ 3, 4, 8, 9, 13, 14};
 	
 	/** TODO: describe '_position' */
 	private Unit[] _position;
@@ -58,6 +79,30 @@ public class Arena {
 	public Unit getUnit(int x, int y) {
 		// TODO: check x and y
 		return _position[y*COLUMNS + x];
+	}
+	
+	/**
+	 * @return
+	 */
+	public List<Unit> getPartyMembers() {
+		List<Unit> party = new ArrayList<>();
+		
+		for(int id : IDS_PARTY)
+			party.add(_position[id]);
+		
+		return party;
+	}
+	
+	/**
+	 * @return
+	 */
+	public List<Unit> getEnemies() {
+		List<Unit> enemies = new ArrayList<>();
+		
+		for(int id : IDS_ENEMY)
+			enemies.add(_position[id]);
+		
+		return enemies;
 	}
 	
 	/**

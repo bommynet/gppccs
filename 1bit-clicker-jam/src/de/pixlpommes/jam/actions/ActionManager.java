@@ -95,6 +95,8 @@ public class ActionManager {
 			
 			// timer is done -> execute ability
 			if(act.isDone()) {
+				System.out.println("Fire action: " + act.getAbility());
+				
 				/// reduce unit mp
 				act.getActor().updateMpCurrent(-act.getAbility().getMpCosts());
 				/// for each target

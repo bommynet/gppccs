@@ -82,6 +82,14 @@ public class Arena {
 	}
 	
 	/**
+	 * @param id
+	 * @return
+	 */
+	public Unit getUnit(int id) {
+		return _position[id];
+	}
+	
+	/**
 	 * @return
 	 */
 	public List<Unit> getPartyMembers() {

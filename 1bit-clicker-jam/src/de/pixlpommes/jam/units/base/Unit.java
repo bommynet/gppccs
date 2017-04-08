@@ -69,6 +69,14 @@ public abstract class Unit {
 	}
 	
 	/**
+	 * @param index
+	 * @return
+	 */
+	public Ability getAbility(int index) {
+		return _abilities.get(index);
+	}
+	
+	/**
 	 * Set units active action.
 	 * 
 	 * @param action
@@ -93,7 +101,7 @@ public abstract class Unit {
 	 * @return true, if unit has active action.
 	 */
 	public boolean hasActiveAction() {
-		return _activeAction == null;
+		return _activeAction != null;
 	}
 	
 	/**

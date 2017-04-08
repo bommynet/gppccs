@@ -83,6 +83,10 @@ public class Arena {
 				str += "#";
 			else if(_position[i] instanceof Player)
 				str += "P";
+			else if(i % COLUMNS > 2)
+				str += "E";
+			else
+				str += "G";
 		}
 		
 		str += "|\n-------";

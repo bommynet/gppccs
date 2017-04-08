@@ -112,7 +112,9 @@ public class ActionManager {
 						case RANGE:
 						case MELEE:
 						case MAGIC:
-							u.updateHpCurrent(-act.getAbility().getDamage());
+							float dmg = act.getAbility().getDamage();
+							u.updateHpCurrent(-dmg);
+							System.out.println("does damage ("+dmg+"): "+act.getActor()+"->"+u);
 					}
 				}
 				

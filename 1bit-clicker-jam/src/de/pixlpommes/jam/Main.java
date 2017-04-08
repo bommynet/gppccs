@@ -57,6 +57,7 @@ public class Main {
 			am.doTick(delta);
 			
 			
+			// remove killed units
 			for(int id=0; id<Arena.COLUMNS * Arena.ROWS; id++) {
 				Unit unit = a.getUnit(id);
 				

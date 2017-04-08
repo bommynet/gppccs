@@ -14,7 +14,7 @@ public class Slime extends Unit {
 	 */
 	public Slime() {
 		// create unit
-		super(50, 50);
+		super(5, 50);
 		
 		// TODO add abilities
 		_abilities.add(Ability.createAttack(2, 1));

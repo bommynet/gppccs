@@ -33,8 +33,6 @@ public class Main {
 		System.out.println(a);
 		
 		
-		long timer = System.currentTimeMillis();
-		
 		while(true) {
 			// delta timer
 			float delta = 0.016f;
@@ -56,7 +54,18 @@ public class Main {
 			}
 			
 			// update action manager
-			am.doTick(delta); 
+			am.doTick(delta);
+			
+			
+			for(int id=0; id<Arena.COLUMNS * Arena.ROWS; id++) {
+				Unit unit = a.getUnit(id);
+				
+				if(unit != null && !unit.isAlive()) {
+					// TODO: kill unit
+					System.out.println("kill " + unit);
+					a.setUnit(null, id);
+				}
+			}
 			
 			
 			// update delta

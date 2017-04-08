@@ -68,6 +68,10 @@ public abstract class Unit {
 		setHpCurrent(_hpCurrent + diffHp);
 	}
 	
+	public boolean isAlive() {
+		return _hpCurrent > 0;
+	}
+	
 	/**
 	 * @param index
 	 * @return

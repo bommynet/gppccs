@@ -72,6 +72,15 @@ public class Arena {
 	}
 	
 	/**
+	 * @param unit
+	 * @param id
+	 */
+	public void setUnit(Unit unit, int id) {
+		// TODO: check id
+		_position[id] = unit;
+	}
+	
+	/**
 	 * @param x
 	 * @param y
 	 * @return
@@ -87,6 +96,18 @@ public class Arena {
 	 */
 	public Unit getUnit(int id) {
 		return _position[id];
+	}
+	
+	/**
+	 * @return
+	 */
+	public List<Unit> getUnits() {
+		List<Unit> party = new ArrayList<>();
+		
+		for(Unit unit : _position)
+			party.add(unit);
+		
+		return party;
 	}
 	
 	/**

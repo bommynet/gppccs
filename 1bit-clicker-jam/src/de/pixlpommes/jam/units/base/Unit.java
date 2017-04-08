@@ -90,6 +90,13 @@ public abstract class Unit {
 	}
 	
 	/**
+	 * @return true, if unit has active action.
+	 */
+	public boolean hasActiveAction() {
+		return _activeAction == null;
+	}
+	
+	/**
 	 * @return true, if action was reseted - false, if there was no action to reset
 	 */
 	public boolean resetActiveAction() {

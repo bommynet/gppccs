@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 import de.pixlpommes.jam.actions.ActionManager;
 import de.pixlpommes.jam.arena.Arena;
@@ -38,8 +39,15 @@ public class BattleScreen implements Screen {
 	
 	
 	// TODO remove
-	private ProgressBar _pb = new ProgressBar(new String[]{"mana_bar_0.png", "mana_bar_1.png"}, 0, 100, 200, 150);
+	private ProgressBar _pb_PlayerMp = new ProgressBar(
+			new String[]{"mana_bar_0.png", "mana_bar_1.png"},
+			0, 100,
+			-300, -100);
 	private float val = 1;
+	private ProgressBar _pb_PartyHp = new ProgressBar(
+			new String[]{"health_bar_0.png", "health_bar_1.png"},
+			0, 40,
+			-150, -100);
 	
 	
 	/**
@@ -107,7 +115,7 @@ public class BattleScreen implements Screen {
 		/// Gdx.app.log("BattleScreen", "render called");
 		
 		// clear screen
-        Gdx.gl.glClearColor(0.2f, 0.2f, 0.8f, 1f);
+        Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		// update logic if fight is running
@@ -118,9 +126,12 @@ public class BattleScreen implements Screen {
 		// draw screen always
 		_batch.begin();
 		
-		_pb.updateValue(val);
-		if(_pb.getValue() <= 0f || _pb.getValue() >= 100f) val*=-1;
-		_pb.draw(_batch);
+		_pb_PlayerMp.updateValue(val);
+		if(_pb_PlayerMp.getValue() <= 0f || _pb_PlayerMp.getValue() >= 100f) val*=-1;
+		_pb_PlayerMp.draw(_batch);
+		
+		_pb_PartyHp.updateValue(val);
+		_pb_PartyHp.draw(_batch);
 		
 		_batch.end();
 	}

@@ -78,14 +78,6 @@ public class BattleScreen implements Screen {
 			}
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.badlogic.gdx.Screen#show()
-	 */
-	@Override
-	public void show() {
-		Gdx.app.log("BattleScreen", "show called");
-	}
 
 	/* (non-Javadoc)
 	 * @see com.badlogic.gdx.Screen#render(float)
@@ -104,6 +96,16 @@ public class BattleScreen implements Screen {
 		}
 		
 		// draw screen always
+	}
+	
+	
+	
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#show()
+	 */
+	@Override
+	public void show() {
+		Gdx.app.log("BattleScreen", "show called");
 	}
 
 	/* (non-Javadoc)

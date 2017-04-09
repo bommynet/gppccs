@@ -13,6 +13,12 @@ import de.pixlpommes.jam.units.base.Unit;
  * @version 0.1
  */
 public class Main {
+	
+	/** the games frames per second */
+	public final static float FPS = 60.0f;
+	
+	/** one second has 1000*1000*1000 nanoseconds */
+	public final static float NANOSECONDS = 1000f * 1000f * 1000f;
 
 	/**
 	 * @param args
@@ -38,8 +44,7 @@ public class Main {
 		while(true) {
 			// delta timer
 			long timeNow = System.nanoTime();
-			long timeDelta = timeNow - timeLast;
-			float delta = (float)timeDelta / 1000000000.0f;// / 100.0f;
+			float delta = (float)(timeNow - timeLast) / NANOSECONDS;
 			//System.out.println(delta);
 			
 			// check for inactive party members

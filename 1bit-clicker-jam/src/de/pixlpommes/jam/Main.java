@@ -33,12 +33,16 @@ public class Main {
 		System.out.println(a);
 		
 		
+		long timeLast = System.nanoTime();
+		
 		while(true) {
 			// delta timer
-			float delta = 0.016f;
-			///System.out.println(delta);
+			long timeNow = System.nanoTime();
+			long timeDelta = timeNow - timeLast;
+			float delta = (float)timeDelta / 1000000000.0f;// / 100.0f;
+			//System.out.println(delta);
 			
-			// check for inactive party memebrs
+			// check for inactive party members
 			for(Unit party : a.getPartyMembers()) {
 				if(party != null && !party.hasActiveAction()) {
 					// get first enemy and attack it
@@ -70,12 +74,7 @@ public class Main {
 			
 			
 			// update delta
-			try {
-				Thread.sleep(16);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			timeLast = timeNow;
 		}
 	}
 

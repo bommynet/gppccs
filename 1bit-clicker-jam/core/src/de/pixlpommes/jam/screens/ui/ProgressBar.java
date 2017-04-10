@@ -11,6 +11,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  * @version 0.1
  */
 public class ProgressBar {
+	
+	public final static String[] FILE_HEALTHBAR =
+			new String[]{"health_bar_0.png", "health_bar_1.png"};
 
 	/** image that shows the empty progress bar */
 	private Texture _emptyBar;
@@ -50,6 +53,8 @@ public class ProgressBar {
 	 * @param batch
 	 */
 	public void draw(Batch batch) {
+		batch.begin();
+		
 		// draw empty bar as base
 		batch.draw(_emptyBar, _x, _y);
 		
@@ -65,6 +70,8 @@ public class ProgressBar {
 				(int)(_filledBar.getWidth() * partial),
 				_filledBar.getHeight(),
 				false, false);
+		
+		batch.end();
 	}
 
 	/**

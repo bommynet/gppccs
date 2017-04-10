@@ -5,11 +5,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 
 import de.pixlpommes.jam.actions.ActionManager;
 import de.pixlpommes.jam.arena.Arena;
 import de.pixlpommes.jam.screens.ui.ProgressBar;
+import de.pixlpommes.jam.screens.ui.UnitPlate;
 import de.pixlpommes.jam.units.Player;
 import de.pixlpommes.jam.units.Slime;
 import de.pixlpommes.jam.units.base.Unit;
@@ -44,10 +44,8 @@ public class BattleScreen implements Screen {
 			0, 100,
 			-300, -100);
 	private float val = 1;
-	private ProgressBar _pb_PartyHp = new ProgressBar(
-			new String[]{"health_bar_0.png", "health_bar_1.png"},
-			0, 40,
-			-150, -100);
+	
+	private UnitPlate up = new UnitPlate();
 	
 	
 	/**
@@ -124,16 +122,15 @@ public class BattleScreen implements Screen {
 		
 		
 		// draw screen always
-		_batch.begin();
+		//_batch.begin();
 		
 		_pb_PlayerMp.updateValue(val);
 		if(_pb_PlayerMp.getValue() <= 0f || _pb_PlayerMp.getValue() >= 100f) val*=-1;
 		_pb_PlayerMp.draw(_batch);
 		
-		_pb_PartyHp.updateValue(val);
-		_pb_PartyHp.draw(_batch);
+		up.draw(_batch);
 		
-		_batch.end();
+		//_batch.end();
 	}
 	
 	

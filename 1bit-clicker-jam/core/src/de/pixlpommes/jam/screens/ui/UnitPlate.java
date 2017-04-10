@@ -1,8 +1,13 @@
 package de.pixlpommes.jam.screens.ui;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+
+import de.pixlpommes.jam.units.base.Unit;
 
 /**
  * Draw a unit and all it's information.<br/>
@@ -12,7 +17,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
  * @author Thomas Borck - http://www.pixlpommes.de
  * @version 0.1
  */
-public class UnitPlate {
+public class UnitPlate implements Observer {
 
 	private int _offsetX, _offsetY;
 	
@@ -49,5 +54,21 @@ public class UnitPlate {
 		sr.end();
 		
 		_health.draw(batch);
+	}
+
+	/**
+	 * @param obs
+	 * @param o
+	 */
+	@Override
+	public void update(Observable obs, Object o) {
+		// check for type
+		if(obs == null || !(obs instanceof Unit)) return;
+		
+		Unit unit = (Unit)obs;
+		_health.setValues(
+				0.0f,
+				unit.getHpMax(),
+				unit.getHpCurrent());
 	}
 }

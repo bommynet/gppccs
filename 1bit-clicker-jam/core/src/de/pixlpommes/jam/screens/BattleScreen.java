@@ -65,6 +65,8 @@ public class BattleScreen implements Screen {
 		_arena.setPlayer(new Player()); // player
 		_arena.setUnit(new Slime(), 2, 1); // party member
 		_arena.setUnit(new Slime(), 3, 1); // enemy
+		
+		_arena.getUnit(3, 1).addObserver(up);
 	}
 	
 	/**

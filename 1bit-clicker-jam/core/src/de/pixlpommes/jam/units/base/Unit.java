@@ -2,6 +2,8 @@ package de.pixlpommes.jam.units.base;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import de.pixlpommes.jam.actions.Action;
 
@@ -11,7 +13,7 @@ import de.pixlpommes.jam.actions.Action;
  * @author Thomas Borck - http://www.pixlpommes.de
  * @version 0.1
  */
-public abstract class Unit {
+public abstract class Unit extends Observable {
 
 	/** TODO: describe '_hpCurrent' */
 	protected float _hpCurrent, _hpMax;
@@ -62,11 +64,16 @@ public abstract class Unit {
 	
 	public void setHpCurrent(float hp) {
 		_hpCurrent = hp;
+		
+		setChanged();
+		notifyObservers();
 	}
 	
 	public void updateHpCurrent(float diffHp) {
 		setHpCurrent(_hpCurrent + diffHp);
 	}
+	
+	public float getHpMax() { return _hpMax; }
 	
 	public boolean isAlive() {
 		return _hpCurrent > 0;
@@ -117,5 +124,17 @@ public abstract class Unit {
 		
 		_activeAction = null;
 		return true;
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see java.util.Observable#addObserver(java.util.Observer)
+	 */
+	@Override
+	public void addObserver(Observer o) {
+		super.addObserver(o);
+		
+		setChanged();
+		notifyObservers();
 	}
 }

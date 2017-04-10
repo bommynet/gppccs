@@ -86,9 +86,30 @@ public class ProgressBar {
 	}
 	
 	/**
+	 * @param value
+	 */
+	public void setValue(float value) {
+		_current = value;
+		
+		_current = _current > _max ? _max : _current;
+		_current = _current < _min ? _min : _current;
+	}
+	
+	/**
 	 * @return
 	 */
 	public float getValue() {
 		return _current;
+	}
+	
+	/**
+	 * @param min
+	 * @param max
+	 * @param current
+	 */
+	public void setValues(float min, float max, float current) {
+		_min = min;
+		_max = max;
+		_current = current;
 	}
 }

@@ -1,8 +1,10 @@
 package de.pixlpommes.jam.screens.ui;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector2;
 
 import de.pixlpommes.jam.arena.Arena;
+import de.pixlpommes.jam.units.base.Unit;
 
 /**
  * @author Thomas Borck - http://www.pixlpommes.de
@@ -35,5 +37,23 @@ public class ArenaUI {
 			if(unit != null) unit.draw(batch);
 		}
 		
+	}
+	
+	/**
+	 * @param unit
+	 * @param x
+	 * @param y
+	 */
+	public void setObserver(Unit unit, int x, int y) {
+		int index = y*Arena.COLUMNS + x;
+		
+		// TODO positioning by col & row
+		float posX = x * 80;
+		float posY = y * 80;
+		UnitPanel pan = new UnitPanel(posX, posY);
+		_units[index] = pan;
+		
+		unit.deleteObservers();
+		unit.addObserver(pan);
 	}
 }

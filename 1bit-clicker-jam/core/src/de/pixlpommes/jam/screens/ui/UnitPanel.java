@@ -28,9 +28,9 @@ public class UnitPanel implements Observer {
 	/**
 	 * 
 	 */
-	public UnitPanel() {
-		_offsetX = 0;
-		_offsetY = 0;
+	public UnitPanel(float offsetX, float offsetY) {
+		_offsetX = (int)offsetX;
+		_offsetY = (int)offsetY;
 		_width   = 80;
 		_height  = 80;
 		

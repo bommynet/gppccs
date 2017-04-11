@@ -49,8 +49,6 @@ public class BattleScreen implements Screen {
 			-300, -100);
 	private float val = 1;
 	
-	private UnitPanel up = new UnitPanel();
-	
 	
 	/**
 	 * Create a battle screen.
@@ -68,10 +66,16 @@ public class BattleScreen implements Screen {
 		
 		// create basic units
 		_arena.setPlayer(new Player()); // player
-		_arena.setUnit(new Slime(), 2, 1); // party member
-		_arena.setUnit(new Slime(), 3, 1); // enemy
 		
-		_arena.getUnit(3, 1).addObserver(up);
+		// party member
+		Unit partyMember = new Slime();
+		_arena.setUnit(partyMember, 2, 1); // party member
+		_arenaUI.setObserver(partyMember, 2, 1);
+		
+		// enemy
+		Unit enemy = new Slime();
+		_arena.setUnit(enemy, 3, 1); // enemy
+		_arenaUI.setObserver(enemy, 3, 1);
 	}
 	
 	/**
@@ -135,7 +139,7 @@ public class BattleScreen implements Screen {
 		if(_pb_PlayerMp.getValue() <= 0f || _pb_PlayerMp.getValue() >= 100f) val*=-1;
 		_pb_PlayerMp.draw(_batch);
 		
-		up.draw(_batch);
+		_arenaUI.draw(_batch);
 		
 		//_batch.end();
 	}

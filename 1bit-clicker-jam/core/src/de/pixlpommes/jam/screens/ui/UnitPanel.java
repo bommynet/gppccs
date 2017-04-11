@@ -17,7 +17,7 @@ import de.pixlpommes.jam.units.base.Unit;
  * @author Thomas Borck - http://www.pixlpommes.de
  * @version 0.1
  */
-public class UnitPlate implements Observer {
+public class UnitPanel implements Observer {
 
 	private int _offsetX, _offsetY;
 	
@@ -28,7 +28,7 @@ public class UnitPlate implements Observer {
 	/**
 	 * 
 	 */
-	public UnitPlate() {
+	public UnitPanel() {
 		_offsetX = 0;
 		_offsetY = 0;
 		_width   = 80;

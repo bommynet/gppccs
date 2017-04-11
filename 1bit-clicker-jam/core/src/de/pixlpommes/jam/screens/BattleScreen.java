@@ -8,8 +8,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.pixlpommes.jam.actions.ActionManager;
 import de.pixlpommes.jam.arena.Arena;
+import de.pixlpommes.jam.screens.ui.ArenaUI;
 import de.pixlpommes.jam.screens.ui.ProgressBar;
-import de.pixlpommes.jam.screens.ui.UnitPlate;
+import de.pixlpommes.jam.screens.ui.UnitPanel;
 import de.pixlpommes.jam.units.Player;
 import de.pixlpommes.jam.units.Slime;
 import de.pixlpommes.jam.units.base.Unit;
@@ -31,6 +32,9 @@ public class BattleScreen implements Screen {
 	/** area to place all units */
 	private Arena _arena;
 	
+	/** graphical representation of the arena */
+	private ArenaUI _arenaUI;
+	
 	/** create, execute, remove all unit actions */
 	private ActionManager _actionManager;
 	
@@ -45,7 +49,7 @@ public class BattleScreen implements Screen {
 			-300, -100);
 	private float val = 1;
 	
-	private UnitPlate up = new UnitPlate();
+	private UnitPanel up = new UnitPanel();
 	
 	
 	/**
@@ -58,6 +62,7 @@ public class BattleScreen implements Screen {
 		
 		// init
 		_arena = new Arena();
+		_arenaUI = new ArenaUI();
 		_actionManager = new ActionManager(_arena);
 		_isFightRunning = true; /// TODO start by user input!
 		

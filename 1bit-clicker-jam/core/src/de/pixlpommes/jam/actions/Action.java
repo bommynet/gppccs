@@ -78,6 +78,10 @@ public class Action {
 	public float getTimer() {
 		return _timer;
 	}
+	
+	public float getTimerInvers() {
+		return _ability.getUseTime() - _timer;
+	}
 
 	public void setTimer(float timer) {
 		this._timer = timer;

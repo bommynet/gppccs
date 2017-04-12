@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
+import de.pixlpommes.jam.actions.Action;
 import de.pixlpommes.jam.units.base.Unit;
 
 /**
@@ -26,7 +27,11 @@ public class UnitPanel implements Observer {
 	/** TODO: describe '_health' */
 	private ProgressBar _health;
 	
+	/** TODO: describe '_timer' */
 	private ProgressBar _timer;
+	
+	/** TODO: describe '_action' */
+	private Action _action;
 	
 	/**
 	 * 
@@ -72,7 +77,8 @@ public class UnitPanel implements Observer {
 			_health.draw(batch);
 		}
 		
-		if(_timer.getValueMax() > 0) {
+		if(_action != null) {
+			_timer.setValue(_action.getTimerInvers());
 			_timer.draw(batch);
 		}
 	}
@@ -93,10 +99,13 @@ public class UnitPanel implements Observer {
 				unit.getHpCurrent());
 		
 		if(unit.getActiveAction() != null) {
+			_action = unit.getActiveAction();
 			_timer.setValues(0,
-				unit.getActiveAction().getTimer(),
-				unit.getActiveAction().getAbility().getUseTime());
+				_action.getAbility().getUseTime(),
+				_action.getAbility().getUseTime());
+			
 		} else {
+			_action = null;
 			_timer.setValues(0,  0,  0);
 		}
 	}

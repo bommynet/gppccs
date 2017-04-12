@@ -98,6 +98,9 @@ public abstract class Unit extends Observable {
 			return false;
 		
 		_activeAction = action;
+		setChanged();
+		notifyObservers();
+		
 		return true;
 	}
 	
@@ -123,6 +126,9 @@ public abstract class Unit extends Observable {
 			return false;
 		
 		_activeAction = null;
+		setChanged();
+		notifyObservers();
+		
 		return true;
 	}
 	

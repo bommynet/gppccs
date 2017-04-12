@@ -47,7 +47,8 @@ public class ArenaUI {
 		
 		// draw all unit panels
 		for(UnitPanel unit : _units) {
-			if(unit != null) unit.draw(batch);
+			if(unit != null)
+				unit.draw(batch);
 		}
 		
 	}

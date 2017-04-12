@@ -36,7 +36,7 @@ public class UnitPanel implements Observer {
 		
 		_health = new ProgressBar(
 				ProgressBar.FILE_HEALTHBAR,
-				0f, 10f,
+				0f, 0f,
 				_offsetX, _offsetY);
 	}
 	
@@ -53,7 +53,9 @@ public class UnitPanel implements Observer {
 		sr.rect(_offsetX, _offsetY, _width, _height);
 		sr.end();
 		
-		_health.draw(batch);
+		if(_health.getValueMax() > 0) {
+			_health.draw(batch);
+		}
 	}
 
 	/**

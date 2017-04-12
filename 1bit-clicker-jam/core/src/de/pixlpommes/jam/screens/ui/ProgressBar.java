@@ -112,4 +112,11 @@ public class ProgressBar {
 		_max = max;
 		_current = current;
 	}
+	
+	/**
+	 * @return
+	 */
+	public float getValueMax() {
+		return _max;
+	}
 }

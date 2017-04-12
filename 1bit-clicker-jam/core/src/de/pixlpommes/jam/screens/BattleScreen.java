@@ -103,7 +103,9 @@ public class BattleScreen implements Screen {
 			if(unit != null && !unit.isAlive()) {
 				// TODO: kill unit
 				System.out.println("kill " + unit);
+				unit.deleteObservers();
 				_arena.setUnit(null, id);
+				_arenaUI.removeUnit(id);
 			}
 		}
 	}

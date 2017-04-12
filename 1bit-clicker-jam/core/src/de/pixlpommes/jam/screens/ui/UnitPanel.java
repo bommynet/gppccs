@@ -37,7 +37,14 @@ public class UnitPanel implements Observer {
 		_health = new ProgressBar(
 				ProgressBar.FILE_HEALTHBAR,
 				0f, 0f,
-				_offsetX, _offsetY);
+				_offsetX, _offsetY - 9);
+	}
+	
+	/**
+	 * Reset data to 0.
+	 */
+	public void reset() {
+		_health.setValues(0f, 0f, 0f);
 	}
 	
 	/**

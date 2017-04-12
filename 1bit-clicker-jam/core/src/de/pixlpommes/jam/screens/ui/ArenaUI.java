@@ -64,4 +64,8 @@ public class ArenaUI {
 		unit.deleteObservers();
 		unit.addObserver(_units[index]);
 	}
+	
+	public void removeUnit(int id) {
+		_units[id].reset();
+	}
 }

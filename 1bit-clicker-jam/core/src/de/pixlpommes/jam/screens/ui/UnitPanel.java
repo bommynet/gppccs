@@ -23,7 +23,10 @@ public class UnitPanel implements Observer {
 	
 	private int _width, _height;
 	
+	/** TODO: describe '_health' */
 	private ProgressBar _health;
+	
+	private ProgressBar _timer;
 	
 	/**
 	 * 
@@ -38,6 +41,11 @@ public class UnitPanel implements Observer {
 				ProgressBar.FILE_HEALTHBAR,
 				0f, 0f,
 				_offsetX, _offsetY - 9);
+		
+		_timer = new ProgressBar(
+				ProgressBar.FILE_TIMERBAR,
+				0f, 0f,
+				_offsetX, _offsetY + _height);
 	}
 	
 	/**
@@ -63,6 +71,10 @@ public class UnitPanel implements Observer {
 		if(_health.getValueMax() > 0) {
 			_health.draw(batch);
 		}
+		
+		if(_timer.getValueMax() > 0) {
+			_timer.draw(batch);
+		}
 	}
 
 	/**
@@ -76,8 +88,16 @@ public class UnitPanel implements Observer {
 		
 		Unit unit = (Unit)obs;
 		_health.setValues(
-				0.0f,
+				0,
 				unit.getHpMax(),
 				unit.getHpCurrent());
+		
+		if(unit.getActiveAction() != null) {
+			_timer.setValues(0,
+				unit.getActiveAction().getTimer(),
+				unit.getActiveAction().getAbility().getUseTime());
+		} else {
+			_timer.setValues(0,  0,  0);
+		}
 	}
 }

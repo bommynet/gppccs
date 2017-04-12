@@ -14,6 +14,9 @@ public class ProgressBar {
 	
 	public final static String[] FILE_HEALTHBAR =
 			new String[]{"health_bar_0.png", "health_bar_1.png"};
+	
+	public final static String[] FILE_TIMERBAR =
+			new String[]{"timer_bar_0.png", "timer_bar_1.png"};
 
 	/** image that shows the empty progress bar */
 	private Texture _emptyBar;

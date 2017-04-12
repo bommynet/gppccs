@@ -81,6 +81,14 @@ public class Arena {
 	}
 	
 	/**
+	 * Remove a unit from arena.
+	 * @param id
+	 */
+	public void removeUnit(int id) {
+		setUnit(null, id);
+	}
+	
+	/**
 	 * @param x
 	 * @param y
 	 * @return

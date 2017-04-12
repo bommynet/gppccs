@@ -1,5 +1,7 @@
 package de.pixlpommes.jam.screens;
 
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -9,8 +11,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.pixlpommes.jam.actions.ActionManager;
 import de.pixlpommes.jam.arena.Arena;
 import de.pixlpommes.jam.screens.ui.ArenaUI;
-import de.pixlpommes.jam.screens.ui.ProgressBar;
-import de.pixlpommes.jam.screens.ui.UnitPanel;
 import de.pixlpommes.jam.units.Player;
 import de.pixlpommes.jam.units.Slime;
 import de.pixlpommes.jam.units.base.Unit;
@@ -59,15 +59,14 @@ public class BattleScreen implements Screen {
 		// create basic units
 		_arena.setPlayer(new Player()); // player
 		
-		// party member
-		Unit partyMember = new Slime();
-		_arena.setUnit(partyMember, 2, 1); // party member
-		_arenaUI.setUnit(partyMember, 2, 1);
-		
-		// enemy
-		Unit enemy = new Slime();
-		_arena.setUnit(enemy, 3, 1); // enemy
-		_arenaUI.setUnit(enemy, 3, 1);
+		// create units for all party/enemy slots
+		for(int x=1; x<Arena.COLUMNS; x++) {
+			for(int y=0; y<Arena.ROWS; y++) {
+				Unit unit = new Slime();
+				_arena.setUnit(unit, x, y);
+				_arenaUI.setUnit(unit, x, y);
+			}
+		}
 	}
 	
 	/**
@@ -79,8 +78,13 @@ public class BattleScreen implements Screen {
 		// check for inactive party members
 		for(Unit party : _arena.getPartyMembers()) {
 			if(party != null && !party.hasActiveAction()) {
+				
+				// select random unit
+				Random r = new Random();
+				int id = Arena.IDS_ENEMY[r.nextInt(Arena.IDS_ENEMY.length)];
+				
 				// get first enemy and attack it
-				for(int id : Arena.IDS_ENEMY) {
+///				for(int id : Arena.IDS_ENEMY) {
 					if(_arena.getUnit(id) != null) {
 						// attack this unit
 						int x = id % Arena.COLUMNS;
@@ -88,7 +92,7 @@ public class BattleScreen implements Screen {
 						System.out.println(
 								_actionManager.create(party, party.getAbility(0), x, y));
 					}
-				}
+///				}
 			}
 		}
 		
@@ -103,7 +107,7 @@ public class BattleScreen implements Screen {
 			if(unit != null && !unit.isAlive()) {
 				// TODO: kill unit
 				System.out.println("kill " + unit);
-				_arena.setUnit(null, id);
+				_arena.removeUnit(id);
 				_arenaUI.removeUnit(id);
 			}
 		}

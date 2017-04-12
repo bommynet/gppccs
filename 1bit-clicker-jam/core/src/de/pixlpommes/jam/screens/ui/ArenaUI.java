@@ -12,6 +12,9 @@ import de.pixlpommes.jam.units.base.Unit;
  */
 public class ArenaUI {
 
+	public final static int[] ROW = new int[]{ 100, 0, -100 };
+	public final static int[] COL = new int[]{ -300, -160, -60, 100, 200 };
+	
 	/** TODO: describe '_unit' */
 	private UnitPanel[] _units;
 	
@@ -22,8 +25,18 @@ public class ArenaUI {
 	 */
 	public ArenaUI() {
 		_units = new UnitPanel[Arena.COLUMNS * Arena.ROWS];
-		for(int i=0; i<_units.length; i++) {
-			_units[i] = null;
+		for(int x=0; x<Arena.COLUMNS; x++) {
+			for(int y=0; y<Arena.ROWS; y++) {
+				// skip panel above and below player
+				if(x == 0 && (y == 0 || y == 2)) continue;
+				
+				// create unit panels
+				int index = y*Arena.COLUMNS + x;
+				float posX = COL[x];
+				float posY = ROW[y];
+				UnitPanel pan = new UnitPanel(posX, posY);
+				_units[index] = pan;
+			}
 		}
 	}
 	
@@ -47,13 +60,7 @@ public class ArenaUI {
 	public void setObserver(Unit unit, int x, int y) {
 		int index = y*Arena.COLUMNS + x;
 		
-		// TODO positioning by col & row
-		float posX = x * 80;
-		float posY = y * 80;
-		UnitPanel pan = new UnitPanel(posX, posY);
-		_units[index] = pan;
-		
 		unit.deleteObservers();
-		unit.addObserver(pan);
+		unit.addObserver(_units[index]);
 	}
 }

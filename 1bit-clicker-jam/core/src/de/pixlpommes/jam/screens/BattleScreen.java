@@ -42,14 +42,6 @@ public class BattleScreen implements Screen {
 	private boolean _isFightRunning;
 	
 	
-	// TODO remove
-	private ProgressBar _pb_PlayerMp = new ProgressBar(
-			new String[]{"mana_bar_0.png", "mana_bar_1.png"},
-			0, 100,
-			-300, -100);
-	private float val = 1;
-	
-	
 	/**
 	 * Create a battle screen.
 	 */
@@ -134,10 +126,6 @@ public class BattleScreen implements Screen {
 		
 		// draw screen always
 		//_batch.begin();
-		
-		_pb_PlayerMp.updateValue(val);
-		if(_pb_PlayerMp.getValue() <= 0f || _pb_PlayerMp.getValue() >= 100f) val*=-1;
-		_pb_PlayerMp.draw(_batch);
 		
 		_arenaUI.draw(_batch);
 		

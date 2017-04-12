@@ -58,14 +58,15 @@ public class ArenaUI {
 	 * @param x
 	 * @param y
 	 */
-	public void setObserver(Unit unit, int x, int y) {
+	public void setUnit(Unit unit, int x, int y) {
 		int index = y*Arena.COLUMNS + x;
-		
-		unit.deleteObservers();
-		unit.addObserver(_units[index]);
+		_units[index].set(unit);
 	}
 	
-	public void removeUnit(int id) {
-		_units[id].reset();
+	/**
+	 * @param index
+	 */
+	public void removeUnit(int index) {
+		_units[index].reset();
 	}
 }

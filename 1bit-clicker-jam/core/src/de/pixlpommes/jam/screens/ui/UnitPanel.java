@@ -1,13 +1,9 @@
 package de.pixlpommes.jam.screens.ui;
 
-import java.util.Observable;
-import java.util.Observer;
-
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
-import de.pixlpommes.jam.actions.Action;
 import de.pixlpommes.jam.units.base.Unit;
 
 /**
@@ -18,7 +14,7 @@ import de.pixlpommes.jam.units.base.Unit;
  * @author Thomas Borck - http://www.pixlpommes.de
  * @version 0.1
  */
-public class UnitPanel implements Observer {
+public class UnitPanel {
 
 	private int _offsetX, _offsetY;
 	
@@ -30,8 +26,8 @@ public class UnitPanel implements Observer {
 	/** TODO: describe '_timer' */
 	private ProgressBar _timer;
 	
-	/** TODO: describe '_action' */
-	private Action _action;
+	/** unit to show up */
+	private Unit _unit;
 	
 	/**
 	 * 
@@ -51,6 +47,8 @@ public class UnitPanel implements Observer {
 				ProgressBar.FILE_TIMERBAR,
 				0f, 0f,
 				_offsetX, _offsetY + _height);
+		
+		_unit = null;
 	}
 	
 	/**
@@ -58,6 +56,13 @@ public class UnitPanel implements Observer {
 	 */
 	public void reset() {
 		_health.setValues(0f, 0f, 0f);
+		_timer.setValues(0f, 0f, 0f);
+		_unit = null;
+	}
+	
+	public void set(Unit unit) {
+		_unit = unit;
+		_health.setValues(0f, _unit.getHpMax(), _unit.getHpCurrent());
 	}
 	
 	/**
@@ -73,40 +78,19 @@ public class UnitPanel implements Observer {
 		sr.rect(_offsetX, _offsetY, _width, _height);
 		sr.end();
 		
-		if(_health.getValueMax() > 0) {
-			_health.draw(batch);
-		}
+		// don't show panel if no unit is referenced
+		if(_unit == null) return;
 		
-		if(_action != null) {
-			_timer.setValue(_action.getTimerInvers());
-			_timer.draw(batch);
-		}
-	}
-
-	/**
-	 * @param obs
-	 * @param o
-	 */
-	@Override
-	public void update(Observable obs, Object o) {
-		// check for type
-		if(obs == null || !(obs instanceof Unit)) return;
+		// show health bar if unit has health only
+		_health.setValue(_unit.getHpCurrent());
+		_health.draw(batch);
 		
-		Unit unit = (Unit)obs;
-		_health.setValues(
-				0,
-				unit.getHpMax(),
-				unit.getHpCurrent());
-		
-		if(unit.getActiveAction() != null) {
-			_action = unit.getActiveAction();
+		// show timer bar if unit 'casts' something
+		if(_unit.getActiveAction() != null) {
 			_timer.setValues(0,
-				_action.getAbility().getUseTime(),
-				_action.getAbility().getUseTime());
-			
-		} else {
-			_action = null;
-			_timer.setValues(0,  0,  0);
+					_unit.getActiveAction().getAbility().getUseTime(),
+					_unit.getActiveAction().getTimerInvers());
+			_timer.draw(batch);
 		}
 	}
 }

@@ -62,12 +62,12 @@ public class BattleScreen implements Screen {
 		// party member
 		Unit partyMember = new Slime();
 		_arena.setUnit(partyMember, 2, 1); // party member
-		_arenaUI.setObserver(partyMember, 2, 1);
+		_arenaUI.setUnit(partyMember, 2, 1);
 		
 		// enemy
 		Unit enemy = new Slime();
 		_arena.setUnit(enemy, 3, 1); // enemy
-		_arenaUI.setObserver(enemy, 3, 1);
+		_arenaUI.setUnit(enemy, 3, 1);
 	}
 	
 	/**
@@ -103,7 +103,6 @@ public class BattleScreen implements Screen {
 			if(unit != null && !unit.isAlive()) {
 				// TODO: kill unit
 				System.out.println("kill " + unit);
-				unit.deleteObservers();
 				_arena.setUnit(null, id);
 				_arenaUI.removeUnit(id);
 			}

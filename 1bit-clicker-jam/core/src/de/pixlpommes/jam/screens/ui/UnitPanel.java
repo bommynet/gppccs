@@ -94,12 +94,12 @@ public class UnitPanel {
 	public void draw(Batch batch) {
 		
 		/// TODO remove border
-		ShapeRenderer sr = new ShapeRenderer();
-		sr.setProjectionMatrix(batch.getProjectionMatrix());
-		sr.begin(ShapeType.Line);
-		sr.setColor(1f, 0f, 0f, 1f);
-		sr.rect(_offsetX, _offsetY, _width, _height);
-		sr.end();
+//		ShapeRenderer sr = new ShapeRenderer();
+//		sr.setProjectionMatrix(batch.getProjectionMatrix());
+//		sr.begin(ShapeType.Line);
+//		sr.setColor(1f, 0f, 0f, 1f);
+//		sr.rect(_offsetX, _offsetY, _width, _height);
+//		sr.end();
 		
 		// don't show panel if no unit is referenced
 		if(_unit == null) return;

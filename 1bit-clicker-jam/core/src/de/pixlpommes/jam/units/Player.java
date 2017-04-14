@@ -16,7 +16,7 @@ public class Player extends Unit {
 	 */
 	public Player() {
 		// create unit
-		super(50, 50);
+		super(0, 50);
 		
 		// TODO add abilities
 		_abilities.add(Ability.createHeal(2, 1));

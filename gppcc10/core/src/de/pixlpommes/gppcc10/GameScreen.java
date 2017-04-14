@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import de.pixlpommes.gppcc10.skyway.Skyway;
+
 /**
  * Basic game screen.
  * 
@@ -21,6 +23,10 @@ public class GameScreen implements Screen {
 	private OrthographicCamera _cam;
 	
 	
+	/** TODO: describe '_skyway' */
+	private Skyway _skyway;
+	
+	
 	/**
 	 * Create and init game screen.
 	 */
@@ -28,17 +34,12 @@ public class GameScreen implements Screen {
 		// setup graphics
 		_cam = new OrthographicCamera();
 		_batch = new SpriteBatch();
+		
+		// center skyway horizontally
+		float pos = (Gppcc10.WIDTH - Skyway.COLS*Skyway.TILESIZE) / 2;
+		_skyway = new Skyway(pos, 0);
 	}
 	
-	
-	/* (non-Javadoc)
-	 * @see com.badlogic.gdx.Screen#show()
-	 */
-	@Override
-	public void show() {
-		// TODO Auto-generated method stub
-
-	}
 
 	/* (non-Javadoc)
 	 * @see com.badlogic.gdx.Screen#render(float)
@@ -48,6 +49,10 @@ public class GameScreen implements Screen {
 		// clear screen
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		_batch.begin();
+		_skyway.draw(_batch);
+		_batch.end();
 	}
 
 	/* (non-Javadoc)
@@ -61,9 +66,18 @@ public class GameScreen implements Screen {
 		_cam.viewportWidth = width;
 		_cam.viewportHeight = height;
 		_cam.update();
+		_cam.translate(width/2, height/2); // origin at (0,0) = down left
 		
 		// update renderer
 		_batch.setProjectionMatrix(_cam.combined);
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.Screen#show()
+	 */
+	@Override
+	public void show() {
+		
 	}
 
 	/* (non-Javadoc)

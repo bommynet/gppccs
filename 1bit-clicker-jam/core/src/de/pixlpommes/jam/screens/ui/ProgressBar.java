@@ -15,6 +15,9 @@ public class ProgressBar {
 	public final static String[] FILE_HEALTHBAR =
 			new String[]{"health_bar_0.png", "health_bar_1.png"};
 	
+	public final static String[] FILE_MANABAR =
+			new String[]{"mana_bar_0.png", "mana_bar_1.png"};
+	
 	public final static String[] FILE_TIMERBAR =
 			new String[]{"timer_bar_0.png", "timer_bar_1.png"};
 

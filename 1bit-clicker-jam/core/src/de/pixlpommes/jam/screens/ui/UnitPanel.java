@@ -3,9 +3,8 @@ package de.pixlpommes.jam.screens.ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
+import de.pixlpommes.jam.units.Player;
 import de.pixlpommes.jam.units.base.Unit;
 
 /**
@@ -34,6 +33,9 @@ public class UnitPanel {
 	/** TODO: describe '_textures' */
 	private Texture[] _textures;
 	
+	/** TODO: describe '_isPlayer' */
+	private boolean _isPlayer;
+	
 	/**
 	 * 
 	 */
@@ -55,6 +57,7 @@ public class UnitPanel {
 		
 		_unit = null;
 		_textures = null;
+		_isPlayer = false;
 	}
 	
 	/**
@@ -68,7 +71,23 @@ public class UnitPanel {
 	
 	public void set(Unit unit) {
 		_unit = unit;
-		_health.setValues(0f, _unit.getHpMax(), _unit.getHpCurrent());
+		
+		// player has mana and no hp
+		if(unit instanceof Player) {
+			_isPlayer = true;
+			_health = new ProgressBar(
+					ProgressBar.FILE_MANABAR,
+					0f, 0f,
+					_offsetX, _offsetY - 14);
+			_health.setValues(0f, _unit.getMpMax(), _unit.getMpCurrent());
+		} else {
+			_isPlayer = false;
+			_health = new ProgressBar(
+					ProgressBar.FILE_HEALTHBAR,
+					0f, 0f,
+					_offsetX, _offsetY - 9);
+			_health.setValues(0f, _unit.getHpMax(), _unit.getHpCurrent());
+		}
 		
 		// check if there are texture files
 		String[] tex = _unit.getTextureFiles();
@@ -104,8 +123,12 @@ public class UnitPanel {
 		// don't show panel if no unit is referenced
 		if(_unit == null) return;
 		
-		// show health bar if unit has health only
-		_health.setValue(_unit.getHpCurrent());
+		// show health bar for units or mana bar for player
+		if(_isPlayer) {
+			_health.setValue(_unit.getMpCurrent());
+		} else {
+			_health.setValue(_unit.getHpCurrent());
+		}
 		_health.draw(batch);
 		
 		// draw 'idle' sprite

@@ -59,6 +59,8 @@ public abstract class Unit {
 		setMpCurrent(_mpCurrent + diffMp);
 	}
 	
+	public float getMpMax() { return _mpMax; }
+	
 	
 	public float getHpCurrent() { return _hpCurrent; }
 	

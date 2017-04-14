@@ -132,6 +132,9 @@ public class BattleScreen implements Screen {
 		for(int id=0; id<Arena.COLUMNS * Arena.ROWS; id++) {
 			Unit unit = _arena.getUnit(id);
 			
+			// ignore player
+			if(unit instanceof Player) continue;
+			
 			if(unit != null && !unit.isAlive()) {
 				// TODO: kill unit
 				System.out.println("kill " + unit);

@@ -1,5 +1,7 @@
 package de.pixlpommes.jam.screens.ui;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -29,6 +31,9 @@ public class UnitPanel {
 	/** unit to show up */
 	private Unit _unit;
 	
+	/** TODO: describe '_textures' */
+	private Texture[] _textures;
+	
 	/**
 	 * 
 	 */
@@ -49,6 +54,7 @@ public class UnitPanel {
 				_offsetX, _offsetY + _height);
 		
 		_unit = null;
+		_textures = null;
 	}
 	
 	/**
@@ -63,6 +69,23 @@ public class UnitPanel {
 	public void set(Unit unit) {
 		_unit = unit;
 		_health.setValues(0f, _unit.getHpMax(), _unit.getHpCurrent());
+		
+		// check if there are texture files
+		String[] tex = _unit.getTextureFiles();
+		if(tex == null) return;
+		
+		// delete existing textures
+		if(_textures != null) {
+			for(Texture t : _textures)
+				t.dispose();
+			_textures = null;
+		}
+		
+		// load new textures
+		_textures = new Texture[tex.length];
+		for(int i=0; i<tex.length; i++) {
+			_textures[i] = new Texture(Gdx.files.internal(tex[i]));
+		}
 	}
 	
 	/**
@@ -84,6 +107,14 @@ public class UnitPanel {
 		// show health bar if unit has health only
 		_health.setValue(_unit.getHpCurrent());
 		_health.draw(batch);
+		
+		// draw 'idle' sprite
+		/// TODO draw 'attack' sprite
+		if(_textures != null) {
+			batch.begin();
+			batch.draw(_textures[0], _offsetX, _offsetY);
+			batch.end();
+		}
 		
 		// show timer bar if unit 'casts' something
 		if(_unit.getActiveAction() != null) {

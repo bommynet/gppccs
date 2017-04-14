@@ -16,6 +16,11 @@ public class Slime extends Unit {
 		// create unit
 		super(5, 50);
 		
+		_textureFiles = new String[] {
+			"enemy_slime_0.png", "enemy_slime_1.png", "enemy_slime_2.png",
+			"enemy_slime_3.png", "enemy_slime_4.png"
+		};
+		
 		// TODO add abilities
 		_abilities.add(Ability.createAttack(2, 1));
 		

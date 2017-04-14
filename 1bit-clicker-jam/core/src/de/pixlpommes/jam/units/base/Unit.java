@@ -27,6 +27,9 @@ public abstract class Unit {
 	/** TODO: describe '_activeAction' */
 	protected Action _activeAction;
 	
+	/** TODO: describe '_textureFiles' */
+	protected String[] _textureFiles;
+	
 	/**
 	 * @param hp
 	 * @param mp
@@ -118,5 +121,13 @@ public abstract class Unit {
 		
 		_activeAction = null;
 		return true;
+	}
+	
+	/**
+	 * Get graphic files for ArenaUI.
+	 * @return Array with all animation files or null
+	 */
+	public String[] getTextureFiles() {
+		return _textureFiles;
 	}
 }

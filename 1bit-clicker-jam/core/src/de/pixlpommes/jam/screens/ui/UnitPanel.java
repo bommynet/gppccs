@@ -48,12 +48,12 @@ public class UnitPanel {
 		_health = new ProgressBar(
 				ProgressBar.FILE_HEALTHBAR,
 				0f, 0f,
-				_offsetX, _offsetY - 9);
+				_offsetX, _offsetY - 11);
 		
 		_timer = new ProgressBar(
 				ProgressBar.FILE_TIMERBAR,
 				0f, 0f,
-				_offsetX, _offsetY + _height);
+				_offsetX, _offsetY);
 		
 		_unit = null;
 		_textures = null;
@@ -85,7 +85,7 @@ public class UnitPanel {
 			_health = new ProgressBar(
 					ProgressBar.FILE_HEALTHBAR,
 					0f, 0f,
-					_offsetX, _offsetY - 9);
+					_offsetX, _offsetY - 11);
 			_health.setValues(0f, _unit.getHpMax(), _unit.getHpCurrent());
 		}
 		

@@ -23,8 +23,11 @@ public class GameScreen implements Screen {
 	private OrthographicCamera _cam;
 	
 	
-	/** TODO: describe '_skyway' */
+	/** the skyway */
 	private Skyway _skyway;
+	
+	/** moving speed in pixel per second */
+	private float _skywaySpeed;
 	
 	
 	/**
@@ -38,6 +41,8 @@ public class GameScreen implements Screen {
 		// center skyway horizontally
 		float pos = (Gppcc10.WIDTH - Skyway.COLS*Skyway.TILESIZE) / 2;
 		_skyway = new Skyway(pos, 0);
+		
+		_skywaySpeed = -100;
 	}
 	
 
@@ -50,6 +55,10 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		// update position
+		_skyway.updateScroll(_skywaySpeed * delta);
+		
+		// draw skyway
 		_batch.begin();
 		_skyway.draw(_batch);
 		_batch.end();

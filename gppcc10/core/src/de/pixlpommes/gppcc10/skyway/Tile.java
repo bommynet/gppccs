@@ -88,4 +88,13 @@ public class Tile {
 	public float getY() {
 		return _y;
 	}
+	
+	/**
+	 * Set new position.
+	 * 
+	 * @param y
+	 */
+	public void setY(float y) {
+		_y = y;
+	}
 }

@@ -16,7 +16,7 @@ public class Skyway {
 	public final static int COLS = 7;
 	
 	/** tiles count in height */
-	public final static int ROWS = 12;
+	public final static int ROWS = 14;
 	
 	/** tile size in pixel */
 	public final static int TILESIZE = 64;
@@ -61,6 +61,28 @@ public class Skyway {
 		for(int x=0; x<COLS; x++) {
 			for(int y=0; y<ROWS; y++) {
 				_way[x][y].draw(batch);
+			}
+		}
+	}
+	
+
+	
+	/**
+	 * Update skyway's tiles.
+	 * 
+	 * @param diffY
+	 */
+	public void updateScroll(float diffY) {
+		for(int x=0; x<COLS; x++) {
+			for(int y=0; y<ROWS; y++) {
+				_way[x][y].updateScroll(diffY);
+				
+				/// TODO remove space every #ROWS tiles
+				if(_way[x][y].getY() <= -TILESIZE) {
+					int topIndex = (y-1 < 0) ? ROWS-1 : y-1;
+					float top = _way[x][topIndex].getY();
+					_way[x][y].setY(top + TILESIZE);
+				}
 			}
 		}
 	}

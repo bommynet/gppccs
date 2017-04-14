@@ -87,6 +87,13 @@ public abstract class Unit {
 	}
 	
 	/**
+	 * @return
+	 */
+	public List<Ability> getAbilities() {
+		return _abilities;
+	}
+	
+	/**
 	 * Set units active action.
 	 * 
 	 * @param action

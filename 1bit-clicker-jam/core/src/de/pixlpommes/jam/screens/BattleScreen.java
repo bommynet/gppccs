@@ -59,7 +59,7 @@ public class BattleScreen implements Screen {
 		// create basic units
 		Unit player = new Player();
 		_arena.setPlayer(player); // player
-		_arenaUI.setUnit(player, 0, 1);
+		_arenaUI.setPlayer(player);
 		
 		// create units for 'selected' party/enemy slots
 		/// TODO load setups

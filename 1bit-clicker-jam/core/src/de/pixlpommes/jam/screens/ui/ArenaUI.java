@@ -1,7 +1,12 @@
 package de.pixlpommes.jam.screens.ui;
 
+import java.util.List;
+
 import com.badlogic.gdx.graphics.g2d.Batch;
+
 import de.pixlpommes.jam.arena.Arena;
+import de.pixlpommes.jam.units.Player;
+import de.pixlpommes.jam.units.base.Ability;
 import de.pixlpommes.jam.units.base.Unit;
 
 /**
@@ -88,6 +93,39 @@ public class ArenaUI {
 	public void setUnit(Unit unit, int x, int y) {
 		int index = y*Arena.COLUMNS + x;
 		_units[index].set(unit);
+	}
+	
+	/**
+	 * @param unit
+	 */
+	public void setPlayer(Unit unit) {
+		List<Ability> abilities = unit.getAbilities();
+		int count = abilities.size();
+		count = (count > BUTTONS) ? BUTTONS : count;
+		
+		for(int i=0; i<BUTTONS; i++) {
+			String[] files;
+			
+			if(i<count) {
+				files = new String[]{
+						"button_" + abilities.get(i).getName().toLowerCase() + "_0.png",
+						"button_" + abilities.get(i).getName().toLowerCase() + "_1.png"
+				};
+			} else {
+				files = new String[]{
+						"button_inactive_0.png",
+						"button_inactive_0.png"
+				};
+			}
+			
+			_buttons[i].set(
+					files[0],
+					files[1],
+					(i < count) ? abilities.get(i) : null);
+		}
+		
+		// add unit to panels
+		setUnit(unit, 0, 1);
 	}
 	
 	/**

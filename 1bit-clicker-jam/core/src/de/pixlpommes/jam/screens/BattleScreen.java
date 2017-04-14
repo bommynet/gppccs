@@ -57,15 +57,25 @@ public class BattleScreen implements Screen {
 		_isFightRunning = true; /// TODO start by user input!
 		
 		// create basic units
-		_arena.setPlayer(new Player()); // player
+		Unit player = new Player();
+		_arena.setPlayer(player); // player
+		_arenaUI.setUnit(player, 0, 1);
 		
-		// create units for all party/enemy slots
-		for(int x=1; x<Arena.COLUMNS; x++) {
-			for(int y=0; y<Arena.ROWS; y++) {
-				Unit unit = new Slime();
-				_arena.setUnit(unit, x, y);
-				_arenaUI.setUnit(unit, x, y);
-			}
+		// create units for 'selected' party/enemy slots
+		/// TODO load setups
+		int[] pos = new int[] {
+			1,0, 3,0,
+			2,1,
+			1,2, 3,2
+		};
+		
+		for(int i=0; i<pos.length; i+=2) {
+			int x = pos[i];
+			int y = pos[i+1];
+			Unit unit = new Slime();
+			
+			_arena.setUnit(unit, x, y);
+			_arenaUI.setUnit(unit, x, y);
 		}
 	}
 	
@@ -83,18 +93,36 @@ public class BattleScreen implements Screen {
 				Random r = new Random();
 				int id = Arena.IDS_ENEMY[r.nextInt(Arena.IDS_ENEMY.length)];
 				
-				// get first enemy and attack it
-///				for(int id : Arena.IDS_ENEMY) {
-					if(_arena.getUnit(id) != null) {
-						// attack this unit
-						int x = id % Arena.COLUMNS;
-						int y = (int) Math.floor(id / Arena.COLUMNS);
-						System.out.println(
-								_actionManager.create(party, party.getAbility(0), x, y));
-					}
-///				}
+				// attack random unit
+				if(_arena.getUnit(id) != null) {
+					// attack this unit
+					int x = id % Arena.COLUMNS;
+					int y = (int) Math.floor(id / Arena.COLUMNS);
+					System.out.println(
+							_actionManager.create(party, party.getAbility(0), x, y));
+				}
 			}
 		}
+		
+		// check for inactive enemies
+		for(Unit enemy : _arena.getEnemies()) {
+			if(enemy != null && !enemy.hasActiveAction()) {
+				
+				// select random unit
+				Random r = new Random();
+				int id = Arena.IDS_PARTY[r.nextInt(Arena.IDS_PARTY.length)];
+				
+				// attack random unit
+				if(_arena.getUnit(id) != null) {
+					// attack this unit
+					int x = id % Arena.COLUMNS;
+					int y = (int) Math.floor(id / Arena.COLUMNS);
+					System.out.println(
+							_actionManager.create(enemy, enemy.getAbility(0), x, y));
+				}
+			}
+		}
+		
 		
 		// update action manager
 		_actionManager.doTick(delta);

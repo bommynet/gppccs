@@ -1,8 +1,6 @@
 package de.pixlpommes.jam.screens.ui;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Vector2;
-
 import de.pixlpommes.jam.arena.Arena;
 import de.pixlpommes.jam.units.base.Unit;
 

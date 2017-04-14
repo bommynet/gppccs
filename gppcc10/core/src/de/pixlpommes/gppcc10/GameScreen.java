@@ -29,6 +29,9 @@ public class GameScreen implements Screen {
 	/** moving speed in pixel per second */
 	private float _skywaySpeed;
 	
+	/** the player */
+	private Player _player;
+	
 	
 	/**
 	 * Create and init game screen.
@@ -41,6 +44,8 @@ public class GameScreen implements Screen {
 		// center skyway horizontally
 		float pos = (Gppcc10.WIDTH - Skyway.COLS*Skyway.TILESIZE) / 2;
 		_skyway = new Skyway(pos, 0);
+		
+		_player = new Player(_skyway.getXOfCol((int)Math.floor(Skyway.COLS/2)), 0);
 		
 		_skywaySpeed = -100;
 	}
@@ -60,7 +65,11 @@ public class GameScreen implements Screen {
 		
 		// draw skyway
 		_batch.begin();
+		// 1. world  (layer 'down')
+		// 2. clouds (layer 'middle')
+		// 3. game   (layer 'top')
 		_skyway.draw(_batch);
+		_player.draw(_batch);
 		_batch.end();
 	}
 

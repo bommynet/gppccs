@@ -73,17 +73,26 @@ public class Skyway {
 	 * @param diffY
 	 */
 	public void updateScroll(float diffY) {
-		for(int x=0; x<COLS; x++) {
-			for(int y=0; y<ROWS; y++) {
+		for(int y=0; y<ROWS; y++) {
+			int topIndex = (y-1 < 0) ? ROWS-1 : y-1;
+			float top = _way[0][topIndex].getY();
+			
+			for(int x=0; x<COLS; x++) {
 				_way[x][y].updateScroll(diffY);
 				
 				/// TODO remove space every #ROWS tiles
 				if(_way[x][y].getY() <= -TILESIZE) {
-					int topIndex = (y-1 < 0) ? ROWS-1 : y-1;
-					float top = _way[x][topIndex].getY();
 					_way[x][y].setY(top + TILESIZE);
 				}
 			}
 		}
+	}
+
+	/**
+	 * @param index
+	 * @return
+	 */
+	public float getXOfCol(int index) {
+		return _way[index][0].getX();
 	}
 }

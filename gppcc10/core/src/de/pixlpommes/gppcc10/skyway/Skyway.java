@@ -31,7 +31,7 @@ public class Skyway {
 	public final static Texture TILE_NORMAL = new Texture(Gdx.files.internal("tile_normal.png"));
 	
 	/** TODO: describe '_tileInvers' */
-	public final static Texture TILE_INVERS = new Texture(Gdx.files.internal("tile_normal.png"));
+	public final static Texture TILE_INVERS = new Texture(Gdx.files.internal("tile_inverse.png"));
 	
 	/**
 	 * Create skyway.
@@ -78,7 +78,8 @@ public class Skyway {
 			_way[y].updateScroll(diffY);
 			/// TODO remove space every #ROWS tiles
 			if(_way[y].getY() <= -TILESIZE) {
-				_way[y].set((byte)15, top + TILESIZE);
+				byte config = (byte) (Math.random() * 256); /// TODO remove random config
+				_way[y].set(config, top + TILESIZE);
 			}
 		}
 	}

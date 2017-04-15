@@ -11,9 +11,6 @@ public class TileRow {
 
 	/** TODO: describe '_tiles' */
 	private Tile[] _tiles;
-	
-	/** TODO: describe '_config' */
-	private byte _config;
 
 	/**
 	 * @param x
@@ -24,8 +21,6 @@ public class TileRow {
 		for (int i = 0; i < _tiles.length; i++) {
 			_tiles[i] = new Tile(tex, true, x + i * Skyway.TILESIZE, y);
 		}
-		
-		_config = 127;
 	}
 	
 	/**
@@ -47,14 +42,19 @@ public class TileRow {
 	}
 	
 	/**
+	 * 
+	 * config<br/>
+	 * -----------<br/>
+	 * 2^7: 0=normal texture, 1=inverse texture<br/>
+	 * 2^0 to 2^6: set tile in row (0 to 6) 0=invisible, 1=visible<br/>
 	 * @param config
 	 * @param y
 	 */
 	public void set(byte config, float y) {
-		_config = config;
+		Texture tex = (((config >> 7) & 1) == 1) ? Skyway.TILE_INVERS : Skyway.TILE_NORMAL;
 		for (int i = 0; i < _tiles.length; i++) {
-			boolean visible = (((byte)Math.pow(2,i)) & config) == ((byte)Math.pow(2,i));
-			_tiles[i].set(Skyway.TILE_NORMAL, y, true, visible);
+			boolean visible = ((config >> i) & 1) == 1;
+			_tiles[i].set(tex, y, true, visible);
 		}
 	}
 	

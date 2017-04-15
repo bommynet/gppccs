@@ -25,10 +25,13 @@ public class Skyway {
 	private float _offsetX, _offsetY;
 	
 	/** TODO: describe '_way' */
-	private Tile[][] _way;
+	private TileRow[] _way;
 	
 	/** TODO: describe '_tileTile' */
-	private final Texture _tileNormal = new Texture(Gdx.files.internal("tile_normal.png"));
+	public final static Texture TILE_NORMAL = new Texture(Gdx.files.internal("tile_normal.png"));
+	
+	/** TODO: describe '_tileInvers' */
+	public final static Texture TILE_INVERS = new Texture(Gdx.files.internal("tile_normal.png"));
 	
 	/**
 	 * Create skyway.
@@ -37,18 +40,15 @@ public class Skyway {
 	 * @param positionY
 	 */
 	public Skyway(float positionX, float positionY) {
-		_way = new Tile[COLS][ROWS];
+		_way = new TileRow[ROWS];
 		
 		_offsetX = positionX;
 		_offsetY = positionY;
 		
-		for(int x=0; x<COLS; x++) {
-			for(int y=0; y<ROWS; y++) {
-				_way[x][y] = new Tile(_tileNormal,
-						true,
-						_offsetX + x*TILESIZE,
-						_offsetY + y*TILESIZE);
-			}
+		for(int y=0; y<ROWS; y++) {
+			_way[y] = new TileRow(TILE_NORMAL,
+					_offsetX,
+					_offsetY + y*TILESIZE);
 		}
 	}
 	
@@ -58,10 +58,8 @@ public class Skyway {
 	 * @param batch
 	 */
 	public void draw(Batch batch) {
-		for(int x=0; x<COLS; x++) {
-			for(int y=0; y<ROWS; y++) {
-				_way[x][y].draw(batch);
-			}
+		for(int y=0; y<ROWS; y++) {
+			_way[y].draw(batch);
 		}
 	}
 	
@@ -75,15 +73,12 @@ public class Skyway {
 	public void updateScroll(float diffY) {
 		for(int y=0; y<ROWS; y++) {
 			int topIndex = (y-1 < 0) ? ROWS-1 : y-1;
-			float top = _way[0][topIndex].getY();
+			float top = _way[topIndex].getY();
 			
-			for(int x=0; x<COLS; x++) {
-				_way[x][y].updateScroll(diffY);
-				
-				/// TODO remove space every #ROWS tiles
-				if(_way[x][y].getY() <= -TILESIZE) {
-					_way[x][y].setY(top + TILESIZE);
-				}
+			_way[y].updateScroll(diffY);
+			/// TODO remove space every #ROWS tiles
+			if(_way[y].getY() <= -TILESIZE) {
+				_way[y].set((byte)15, top + TILESIZE);
 			}
 		}
 	}
@@ -93,6 +88,6 @@ public class Skyway {
 	 * @return
 	 */
 	public float getXOfCol(int index) {
-		return _way[index][0].getX();
+		return _way[0].getX(index);
 	}
 }

@@ -16,6 +16,8 @@ public class Tile {
 
 	/** TODO: describe '_isPassable' */
 	private boolean _isPassable;
+	
+	private boolean _isVisible;
 
 	/** TODO: describe '_x' */
 	private float _x, _y;
@@ -39,8 +41,22 @@ public class Tile {
 	public void set(Texture texture, boolean passable, float x, float y) {
 		_tex = texture;
 		_isPassable = passable;
+		_isVisible = true;
 		_x = x;
 		_y = y;
+	}
+	
+	/**
+	 * @param tex
+	 * @param y
+	 * @param passable
+	 * @param visible
+	 */
+	public void set(Texture tex, float y, boolean passable, boolean visible) {
+		_tex = tex;
+		_y = y;
+		_isPassable = passable;
+		_isVisible = visible;
 	}
 
 	/**
@@ -58,7 +74,8 @@ public class Tile {
 	 * @param batch
 	 */
 	public void draw(Batch batch) {
-		batch.draw(_tex, _x, _y);
+		if(_isVisible)
+			batch.draw(_tex, _x, _y);
 	}
 
 	/**

@@ -4,3 +4,5 @@
 |        | LibGDX einrichten| 0.25h | |
 |        | Lauf der Eisbahn erstellt | 1.25h | |
 |        | Spieler und erste Steuerung | 1.00h | 3.50h |
+| 15.04. | Eisbahn-Zeilen konfigurierbar | 0.75h | |
+|        | Eisbahn schneller + Abstand erhöht | 0.05h | 0.80h |

@@ -19,7 +19,7 @@ public class Skyway {
 	public final static int ROWS = 14;
 	
 	/** tile size in pixel */
-	public final static int TILESIZE = 64;
+	public final static int TILESIZE = 66;
 	
 	/** lower left corner of the skyway */
 	private float _offsetX, _offsetY;

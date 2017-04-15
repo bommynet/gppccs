@@ -48,7 +48,7 @@ public class GameScreen implements Screen, InputProcessor {
 
 		_player = new Player(_skyway.getXOfCol((int) Math.floor(Skyway.COLS / 2)), 0);
 
-		_skywaySpeed = -100;
+		_skywaySpeed = -170;
 		Gdx.input.setInputProcessor(this);
 	}
 

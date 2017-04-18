@@ -40,10 +40,10 @@ public class Skyway {
 	private Player _player;
 	
 	/** column the player 'stands' on */
-	private float _playerColumn;
+	private int _playerCol;
 	
 	/** row the player 'stands' on */
-	private float _playerRow;
+	private int _playerRow;
 	
 	/**
 	 * Create skyway.
@@ -65,10 +65,11 @@ public class Skyway {
 		}
 		
 		_player = player;
-		_playerColumn = COLS / 2;
+		_playerCol = COLS / 2;
+		_player.setPosition(_offsetX + _playerCol * TILESIZE,
+				_offsetY + TILESIZE);
+		
 		_playerRow = 1;
-		_player.setPosition(_offsetX + _playerColumn * TILESIZE,
-				_offsetY + _playerRow * TILESIZE);
 	}
 	
 	/**
@@ -97,8 +98,13 @@ public class Skyway {
 			_way[y].updateScroll(diffY);
 			/// TODO remove space every #ROWS tiles
 			if(_way[y].getY() <= -TILESIZE) {
+				// remove row from bottom and move it to top
 				byte config = (byte) (Math.random() * 256); /// TODO remove random config
 				_way[y].set(config, top + TILESIZE);
+				
+				// update players row reference
+				_playerRow++;
+				if(_playerRow >= ROWS) _playerRow = 0;
 			}
 		}
 	}
@@ -106,21 +112,14 @@ public class Skyway {
 	/**
 	 * What kind of tile the player collides with.
 	 * 
-	 * @param _player
 	 * @return
 	 */
-	public Collide collide(Player _player) {
-		// get column of player
-		int col = (int)((_player.getX() - _offsetX) / (float)Skyway.TILESIZE);
-		
-		// get row of player
-		int row = 1; // TODO
-		
+	public Collide collide() {
 		// left and right of the skyway the player steps on holes
-		if(col < 0 || col >= _way[0].size())
+		if(_playerCol < 0 || _playerCol >= _way[0].size())
 			return Collide.HOLE;
 		// if player steps on invisible tiles, he steps on a hole
-		else if(!_way[row].get(col).isVisible())
+		else if(!_way[_playerRow].get(_playerCol).isVisible())
 			return Collide.HOLE;
 		// if player steps on visible tiles, he steps on... 
 		else {
@@ -138,8 +137,8 @@ public class Skyway {
 	 * @param byColumns
 	 */
 	public void movePlayer(int byColumns) {
-		_playerColumn += byColumns;
-		float x = _offsetX + _playerColumn * TILESIZE;
+		_playerCol += byColumns;
+		float x = _offsetX + _playerCol * TILESIZE;
 		_player.switchPos(x);
 	}
 }

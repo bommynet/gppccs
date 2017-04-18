@@ -7,6 +7,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import de.pixlpommes.gppcc10.Player.Collide;
 import de.pixlpommes.gppcc10.skyway.Skyway;
 
 /**
@@ -60,13 +62,18 @@ public class GameScreen implements Screen, InputProcessor {
 		// clear screen
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+		
+		// check collisions
+		Collide collide = _skyway.collide();
+		if(collide != Collide.TILE) {
+			// something special happened
+			if(!_player.isSwitching())
+				System.out.println("waaaah -> " + collide);
+		}
+		
 		// update positions
 		_skyway.updateScroll(_skywaySpeed * delta);
 		_player.update(delta);
-		
-		// check collisions
-		
 
 		// draw skyway
 		_batch.begin();
@@ -158,19 +165,11 @@ public class GameScreen implements Screen, InputProcessor {
 	 */
 	@Override
 	public boolean keyDown(int keycode) {
-		float newPos = 0;
-
 		if (keycode == Keys.A) {
 			_skyway.movePlayer(-1);
-			//newPos = _player.getX() - Skyway.TILESIZE;
 		} else if (keycode == Keys.D) {
 			_skyway.movePlayer(1);
-			//newPos = _player.getX() + Skyway.TILESIZE;
 		}
-
-		//if (newPos != 0) {
-		//	_player.switchPos(newPos);
-		//}
 
 		return false;
 	}

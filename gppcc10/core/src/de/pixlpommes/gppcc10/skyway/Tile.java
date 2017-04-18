@@ -91,6 +91,13 @@ public class Tile {
 	public boolean isPassable() {
 		return _isPassable;
 	}
+	
+	/**
+	 * @return
+	 */
+	public boolean isVisible() {
+		return _isVisible;
+	}
 
 	/**
 	 * @return

@@ -72,4 +72,19 @@ public class TileRow {
 	public float getX(int index) {
 		return _tiles[index].getX();
 	}
+	
+	/**
+	 * @param index
+	 * @return
+	 */
+	public Tile get(int index) {
+		return _tiles[index];
+	}
+	
+	/**
+	 * @return
+	 */
+	public int size() {
+		return _tiles.length;
+	}
 }

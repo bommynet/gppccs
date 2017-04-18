@@ -39,12 +39,12 @@ public class GameScreen implements Screen, InputProcessor {
 		// setup graphics
 		_cam = new OrthographicCamera();
 		_batch = new SpriteBatch();
+		
+		_player = new Player(0, 0);
 
 		// center skyway horizontally
 		float pos = (Gppcc10.WIDTH - Skyway.COLS * Skyway.TILESIZE) / 2;
-		_skyway = new Skyway(pos, 0);
-
-		_player = new Player(_skyway.getXOfCol((int) Math.floor(Skyway.COLS / 2)), Skyway.TILESIZE);
+		_skyway = new Skyway(pos, 0, _player);
 
 		_skywaySpeed = -170;
 		Gdx.input.setInputProcessor(this);
@@ -64,6 +64,9 @@ public class GameScreen implements Screen, InputProcessor {
 		// update positions
 		_skyway.updateScroll(_skywaySpeed * delta);
 		_player.update(delta);
+		
+		// check collisions
+		
 
 		// draw skyway
 		_batch.begin();
@@ -158,14 +161,16 @@ public class GameScreen implements Screen, InputProcessor {
 		float newPos = 0;
 
 		if (keycode == Keys.A) {
-			newPos = _player.getX() - Skyway.TILESIZE;
+			_skyway.movePlayer(-1);
+			//newPos = _player.getX() - Skyway.TILESIZE;
 		} else if (keycode == Keys.D) {
-			newPos = _player.getX() + Skyway.TILESIZE;
+			_skyway.movePlayer(1);
+			//newPos = _player.getX() + Skyway.TILESIZE;
 		}
 
-		if (newPos != 0) {
-			_player.switchPos(newPos);
-		}
+		//if (newPos != 0) {
+		//	_player.switchPos(newPos);
+		//}
 
 		return false;
 	}

@@ -35,11 +35,19 @@ public class Player {
 	 * @param y
 	 */
 	public Player(float x, float y) {
-		_x = x;
-		_y = y;
+		setPosition(x, y);
 		
 		_tex = new Texture(Gdx.files.internal("player.png"));
 		_isSwitching = false;
+	}
+	
+	/**
+	 * @param x
+	 * @param y
+	 */
+	public void setPosition(float x, float y) {
+		_x = x;
+		_y = y;
 	}
 	
 	/**
@@ -81,5 +89,34 @@ public class Player {
 	 */
 	public float getX() {
 		return _x;
+	}
+	
+	/**
+	 * @return true if player switches column currently
+	 */
+	public boolean isSwitching() {
+		return _isSwitching;
+	}
+	
+	
+	
+	/**
+	 * Define collision types for player.
+	 * 
+	 * @author Thomas Borck - http://www.pixlpommes.de
+	 * @version 1.0
+	 */
+	public static enum Collide {
+		/** player collides with skyway tile */
+		TILE,
+		
+		/** player collides with skyway hole */
+		HOLE,
+		
+		/** player collides with block */
+		BLOCK,
+		
+		/** player collides with powerup */
+		POWERUP;
 	}
 }

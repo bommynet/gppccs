@@ -44,7 +44,7 @@ public class GameScreen implements Screen, InputProcessor {
 		float pos = (Gppcc10.WIDTH - Skyway.COLS * Skyway.TILESIZE) / 2;
 		_skyway = new Skyway(pos, 0);
 
-		_player = new Player(_skyway.getXOfCol((int) Math.floor(Skyway.COLS / 2)), 0);
+		_player = new Player(_skyway.getXOfCol((int) Math.floor(Skyway.COLS / 2)), Skyway.TILESIZE);
 
 		_skywaySpeed = -170;
 		Gdx.input.setInputProcessor(this);

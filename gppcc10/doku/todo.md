@@ -11,6 +11,7 @@
 	* [ ] laufen
 	* [ ] springen (zwischen Spalten der Eisbahn)
 	* [ ] fallen (von der Eisbahn)
+* [ ] Spieler kann zwei Felder gleichzeitig springen.
 
 
 # Wolken

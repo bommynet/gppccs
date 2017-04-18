@@ -30,6 +30,9 @@ public class GameScreen implements Screen, InputProcessor {
 
 	/** moving speed in pixel per second */
 	private float _skywaySpeed;
+	
+	/** moves or stops skyway */
+	private boolean _skywayIsMoving;
 
 	/** the player */
 	private Player _player;
@@ -49,6 +52,8 @@ public class GameScreen implements Screen, InputProcessor {
 		_skyway = new Skyway(pos, 0, _player);
 
 		_skywaySpeed = -170;
+		_skywayIsMoving = true;
+		
 		Gdx.input.setInputProcessor(this);
 	}
 
@@ -65,14 +70,14 @@ public class GameScreen implements Screen, InputProcessor {
 		
 		// check collisions
 		Collide collide = _skyway.collide();
-		if(collide != Collide.TILE) {
+		if(collide != Collide.TILE && !_player.isSwitching()) {
 			// something special happened
-			if(!_player.isSwitching())
-				System.out.println("waaaah -> " + collide);
+			_skywayIsMoving = false;
 		}
 		
 		// update positions
-		_skyway.updateScroll(_skywaySpeed * delta);
+		if(_skywayIsMoving)
+			_skyway.updateScroll(_skywaySpeed * delta);
 		_player.update(delta);
 
 		// draw skyway
@@ -165,6 +170,9 @@ public class GameScreen implements Screen, InputProcessor {
 	 */
 	@Override
 	public boolean keyDown(int keycode) {
+		// no move -> no player
+		if(!_skywayIsMoving) return false;
+		
 		if (keycode == Keys.A) {
 			_skyway.movePlayer(-1);
 		} else if (keycode == Keys.D) {

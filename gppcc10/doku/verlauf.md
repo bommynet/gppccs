@@ -8,4 +8,5 @@
 |        | Eisbahn schneller + Abstand erhöht | 0.05h | |
 |        | Zweite Kachelfarbe eingebaut | 0.20h | 1.00h |
 | 18.04. | Todo Liste aufgestellt | 0.10h | |
-|        | Kollision Spieler <-> Eisbahn | 1.00h | 1.10h |
+|        | Kollision Spieler <-> Eisbahn | 1.00h | |
+|        | Alle Ebenen zeichnen | 0.50h | 1.60h |

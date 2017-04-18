@@ -16,11 +16,11 @@
 
 # Wolken
 
-* [ ] Wolkenfeld erstellen
-* [ ] Wolkenfeld einbauen
+* [x] Wolkenfeld erstellen
+* [x] Wolkenfeld einbauen
 
 
 # Welt
 
-* [ ] Welt erstellen
-* [ ] Welt einbauen
+* [x] Welt erstellen
+* [x] Welt einbauen

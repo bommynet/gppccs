@@ -95,7 +95,7 @@ public class GameScreen implements Screen, InputProcessor {
 		Collide collide = _skyway.collide();
 		if(collide != Collide.TILE && !_player.isSwitching()) {
 			// something special happened
-			//_skywayIsMoving = false;
+			_skywayIsMoving = false;
 		}
 		
 		// update positions

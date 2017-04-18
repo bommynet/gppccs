@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.pixlpommes.gppcc10.Player.Collide;
@@ -25,6 +26,7 @@ public class GameScreen implements Screen, InputProcessor {
 	/** standard 2D camera */
 	private OrthographicCamera _cam;
 
+	// LAYER 0
 	/** the skyway */
 	private Skyway _skyway;
 
@@ -36,6 +38,20 @@ public class GameScreen implements Screen, InputProcessor {
 
 	/** the player */
 	private Player _player;
+	
+	// LAYER 1
+	/** clouds as texture */
+	private Texture _clouds;
+	
+	/** TODO: describe '_cloudsY' */
+	private float _cloudsY;
+	
+	// LAYER 2
+	/** world as texture */
+	private Texture _world;
+	
+	/** TODO: describe '_worldY' */
+	private float _worldY;
 
 	/**
 	 * Create and init game screen.
@@ -53,6 +69,13 @@ public class GameScreen implements Screen, InputProcessor {
 
 		_skywaySpeed = -170;
 		_skywayIsMoving = true;
+		
+		
+		_clouds = new Texture(Gdx.files.internal("clouds_Wolken.png"));
+		_cloudsY = 0;
+
+		_world = new Texture(Gdx.files.internal("clouds_Welt.png"));
+		_worldY = 0;
 		
 		Gdx.input.setInputProcessor(this);
 	}
@@ -72,18 +95,31 @@ public class GameScreen implements Screen, InputProcessor {
 		Collide collide = _skyway.collide();
 		if(collide != Collide.TILE && !_player.isSwitching()) {
 			// something special happened
-			_skywayIsMoving = false;
+			//_skywayIsMoving = false;
 		}
 		
 		// update positions
-		if(_skywayIsMoving)
-			_skyway.updateScroll(_skywaySpeed * delta);
+		if(_skywayIsMoving) {
+			float deltaSpeed = _skywaySpeed * delta;
+			
+			_skyway.updateScroll(deltaSpeed);
+			
+			_cloudsY += deltaSpeed * 0.5f;
+			if(_cloudsY < -_clouds.getHeight()) _cloudsY = 0;
+			
+			_worldY += deltaSpeed * 0.2f;
+			if(_worldY < -_world.getHeight()) _worldY = 0;
+		}
 		_player.update(delta);
 
 		// draw skyway
 		_batch.begin();
 		// 1. world (layer 'down')
+		_batch.draw(_world, 0, _worldY);
+		_batch.draw(_world, 0, _worldY + Gppcc10.HEIGHT);
 		// 2. clouds (layer 'middle')
+		_batch.draw(_clouds, 0, _cloudsY);
+		_batch.draw(_clouds, 0, _cloudsY + Gppcc10.HEIGHT);
 		// 3. game (layer 'top')
 		_skyway.draw(_batch);
 		_player.draw(_batch);

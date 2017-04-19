@@ -106,6 +106,13 @@ public class Player {
 		return _state == State.JUMP;
 	}
 	
+	/**
+	 * @param state
+	 */
+	public void changeState(State state) {
+		_state = state;
+	}
+	
 	
 	
 	/**

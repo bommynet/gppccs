@@ -65,11 +65,12 @@ public class Skyway {
 		}
 		
 		_player = player;
-		_playerCol = COLS / 2;
-		_player.setPosition(_offsetX + _playerCol * TILESIZE,
-				_offsetY + TILESIZE);
-		
-		_playerRow = 1;
+//		_playerCol = COLS / 2;
+//		_player.setPosition(_offsetX + _playerCol * TILESIZE,
+//				_offsetY + TILESIZE);
+//		
+//		_playerRow = 1;
+		resetPlayer();
 	}
 	
 	/**
@@ -141,5 +142,16 @@ public class Skyway {
 		_playerCol += byColumns;
 		float x = _offsetX + _playerCol * TILESIZE;
 		_player.switchPos(x);
+	}
+	
+	/**
+	 * Reset player to center column.
+	 */
+	public void resetPlayer() {
+		_playerCol = COLS / 2;
+		_player.setPosition(_offsetX + _playerCol * TILESIZE,
+				_offsetY + TILESIZE);
+		
+		_playerRow = 1;
 	}
 }

@@ -25,6 +25,9 @@ public class GameScreen implements Screen, InputProcessor {
 
 	/** standard 2D camera */
 	private OrthographicCamera _cam;
+	
+	/** manages a screen shake */
+	private ScreenShake _shake;
 
 	// LAYER 0
 	/** the skyway */
@@ -67,6 +70,8 @@ public class GameScreen implements Screen, InputProcessor {
 		_cam = new OrthographicCamera();
 		_batch = new SpriteBatch();
 		
+		//_shake = new ScreenShake(_cam);
+		
 		_player = new Player(0, 0);
 
 		// center skyway horizontally
@@ -107,6 +112,7 @@ public class GameScreen implements Screen, InputProcessor {
 			_skywayIsMoving = false;
 			_skyway.resetPlayer();
 			_player.changeState(Player.State.FALL);
+			_shake.shake(); /// TODO remove!
 			_skywayIsMoving = true;
 		}
 		
@@ -124,6 +130,11 @@ public class GameScreen implements Screen, InputProcessor {
 		}
 		_player.update(delta);
 
+		
+		// do a screen shake
+		_shake.shakeUpdate(_batch, delta);
+		
+		
 		// draw skyway
 		_batch.begin();
 		// 1. world (layer 'down')
@@ -152,6 +163,9 @@ public class GameScreen implements Screen, InputProcessor {
 		_cam.viewportHeight = height;
 		_cam.update();
 		_cam.translate(width / 2, height / 2); // origin at (0,0) = down left
+		
+		// update shaker
+		//_shake = new ScreenShake(_cam);
 
 		// update renderer
 		_batch.setProjectionMatrix(_cam.combined);

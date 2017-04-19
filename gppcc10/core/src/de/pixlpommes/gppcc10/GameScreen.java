@@ -104,9 +104,10 @@ public class GameScreen implements Screen, InputProcessor {
 			
 			// player falls -> reset to center
 			/// TODO animate falling before reset
+			_skywayIsMoving = false;
 			_skyway.resetPlayer();
 			_player.changeState(Player.State.FALL);
-			_skywayIsMoving = false;
+			_skywayIsMoving = true;
 		}
 		
 		// update positions

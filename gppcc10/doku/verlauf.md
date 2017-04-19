@@ -10,4 +10,5 @@
 | 18.04. | Todo Liste aufgestellt | 0.10h | |
 |        | Kollision Spieler <-> Eisbahn | 1.00h | |
 |        | Alle Ebenen zeichnen | 0.50h | 1.60h |
-| 19.04. | Tempo-Varibalen und std. Konfig | 0.20h | 0.20h |
+| 19.04. | Tempo-Varibalen und std. Konfig | 0.20h | |
+|        | Spieler um State Machine erweitert | 0.50h | 0.70h |

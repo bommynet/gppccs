@@ -4,7 +4,12 @@
 * [ ] wenn die erste Eisbahnreihe nach oben gesetzt wird, ist die Lücke zu groß.
 
 
-# Eisbahn und Spieler
+# Eisbahn
+
+* [ ] Lade Konfiguration für Eisbahn aus Datei
+
+
+# Spieler
 
 * [ ] Sprite für Spieler
 * [ ] Animationen für Spieler

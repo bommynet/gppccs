@@ -99,7 +99,8 @@ public class Skyway {
 			/// TODO remove space every #ROWS tiles
 			if(_way[y].getY() <= -TILESIZE) {
 				// remove row from bottom and move it to top
-				byte config = (byte) (Math.random() * 256); /// TODO remove random config
+				/// TODO load config from file
+				byte config = (byte)0x1C;
 				_way[y].set(config, top + TILESIZE);
 				
 				// update players row reference

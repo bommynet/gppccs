@@ -33,6 +33,12 @@ public class GameScreen implements Screen, InputProcessor {
 	/** moving speed in pixel per second */
 	private float _skywaySpeed;
 	
+	/** TODO: describe '_speedFactorLayer_Clouds' */
+	private final float _speedFactorLayer_Clouds = 0.4f;
+	
+	/** TODO: describe '_speedFactorLayer_World' */
+	private final float _speedFactorLayer_World = 0.2f;
+	
 	/** moves or stops skyway */
 	private boolean _skywayIsMoving;
 
@@ -104,10 +110,10 @@ public class GameScreen implements Screen, InputProcessor {
 			
 			_skyway.updateScroll(deltaSpeed);
 			
-			_cloudsY += deltaSpeed * 0.5f;
+			_cloudsY += deltaSpeed * _speedFactorLayer_Clouds;
 			if(_cloudsY < -_clouds.getHeight()) _cloudsY = 0;
 			
-			_worldY += deltaSpeed * 0.2f;
+			_worldY += deltaSpeed * _speedFactorLayer_World;
 			if(_worldY < -_world.getHeight()) _worldY = 0;
 		}
 		_player.update(delta);

@@ -18,8 +18,8 @@ public class Player {
 	/** TODO: describe '_x' */
 	private float _x, _y;
 	
-	/** set true if player switches between columns */
-	private boolean _isSwitching;
+	/** TODO: describe '_state' */
+	private State _state;
 	
 	/** TODO: describe 'switchingTime' */
 	private float _switchingTime = 0.3f;
@@ -38,7 +38,7 @@ public class Player {
 		setPosition(x, y);
 		
 		_tex = new Texture(Gdx.files.internal("player.png"));
-		_isSwitching = false;
+		_state = State.RUN;
 	}
 	
 	/**
@@ -61,14 +61,22 @@ public class Player {
 	 * @param delta
 	 */
 	public void update(float delta) {
-		if(_isSwitching) {
-			_x += _switchingStep * delta;
-			_switchingTimeCurrent -= delta;
-			
-			if(_switchingTimeCurrent <= 0) {
-				_x = _switchingTarget;
-				_isSwitching = false;
-			}
+		switch(_state) {
+			case JUMP: // jumping between columns
+				_x += _switchingStep * delta;
+				_switchingTimeCurrent -= delta;
+				
+				if(_switchingTimeCurrent <= 0) {
+					_x = _switchingTarget;
+					_state = State.RUN;
+				}
+				break;
+			case FALL: // falling from skyway
+				System.out.println("fall");
+				_state = State.RUN;
+				break;
+			case RUN: // running on skyway
+				break;
 		}
 	}
 	
@@ -76,9 +84,9 @@ public class Player {
 	 * @param newPos
 	 */
 	public void switchPos(float newPos) {
-		if(_isSwitching) return;
+		if(isSwitching()) return;
 		
-		_isSwitching = true;
+		_state = State.JUMP;
 		_switchingTarget = newPos;
 		_switchingStep = (newPos - _x) / _switchingTime;
 		_switchingTimeCurrent = _switchingTime;
@@ -95,7 +103,7 @@ public class Player {
 	 * @return true if player switches column currently
 	 */
 	public boolean isSwitching() {
-		return _isSwitching;
+		return _state == State.JUMP;
 	}
 	
 	
@@ -118,5 +126,22 @@ public class Player {
 		
 		/** player collides with powerup */
 		POWERUP;
+	}
+	
+	/**
+	 * Define player states.
+	 * 
+	 * @author Thomas Borck - http://www.pixlpommes.de
+	 * @version 1.0
+	 */
+	public static enum State {
+		/** player running */
+		RUN,
+		
+		/** player falling from skyway */
+		FALL,
+		
+		/** player jumping/switching between columns */
+		JUMP;
 	}
 }

@@ -1,7 +1,8 @@
 # Allgemein
 
-* [ ] bewegte Sprites flackern
-* [ ] wenn die erste Eisbahnreihe nach oben gesetzt wird, ist die Lücke zu groß.
+* [ ] **Fehler**: ScreenShake Positionierung ist falsch...
+* [ ] **Fehler**: bewegte Sprites flackern
+* [ ] **Fehler**: wenn die erste Eisbahnreihe nach oben gesetzt wird, ist die Lücke zu groß.
 
 
 # Eisbahn
@@ -16,7 +17,7 @@
 	* [ ] laufen
 	* [ ] springen (zwischen Spalten der Eisbahn)
 	* [ ] fallen (von der Eisbahn)
-* [ ] Spieler kann zwei Felder gleichzeitig springen.
+* [ ] **Fehler**: Spieler kann zwei Felder gleichzeitig springen.
 
 
 # Wolken

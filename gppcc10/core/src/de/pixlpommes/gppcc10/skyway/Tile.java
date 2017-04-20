@@ -17,6 +17,7 @@ public class Tile {
 	/** TODO: describe '_isPassable' */
 	private boolean _isPassable;
 	
+	/** TODO: describe '_isVisible' */
 	private boolean _isVisible;
 
 	/** TODO: describe '_x' */
@@ -76,6 +77,9 @@ public class Tile {
 	public void draw(Batch batch) {
 		if(_isVisible)
 			batch.draw(_tex, _x, _y);
+		
+		if(_isVisible && !_isPassable)
+			batch.draw(Skyway.TILE_BLOCKED, _x, _y);
 	}
 
 	/**
@@ -120,5 +124,12 @@ public class Tile {
 	 */
 	public void setY(float y) {
 		_y = y;
+	}
+
+	/**
+	 * @param passable
+	 */
+	public void setPassable(boolean passable) {
+		_isPassable = false;
 	}
 }

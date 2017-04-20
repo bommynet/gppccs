@@ -27,6 +27,9 @@ public class Skyway {
 	/** TODO: describe '_tileTile' */
 	public final static Texture TILE_NORMAL = new Texture(Gdx.files.internal("tile_normal.png"));
 	
+	/** TODO: describe 'TILE_BLOCKED' */
+	public final static Texture TILE_BLOCKED = new Texture(Gdx.files.internal("tile_blocked.png"));
+	
 	/** TODO: describe '_tileInvers' */
 	public final static Texture TILE_INVERS = new Texture(Gdx.files.internal("tile_inverse.png"));
 	
@@ -104,6 +107,9 @@ public class Skyway {
 				byte config = (byte)0x1C;
 				_way[y].set(config, top + TILESIZE);
 				
+				/// TODO remove -> set by config file
+				_way[y].get(4).setPassable(false);
+				
 				// update players row reference
 				_playerRow++;
 				if(_playerRow >= ROWS) _playerRow = 0;
@@ -125,11 +131,16 @@ public class Skyway {
 			return Collide.HOLE;
 		// if player steps on visible tiles, he steps on... 
 		else {
+			// ...a blocked tile
+			if(!_way[_playerRow].get(_playerCol).isPassable()) {
+				return Collide.BLOCK;
+			}
+			
 			// ...a normal tile
 			return Collide.TILE;
 			
 			// TODO ...a powerup
-			// TODO ...a blocked tile
+			
 		}
 	}
 

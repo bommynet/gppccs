@@ -1,6 +1,5 @@
 package de.pixlpommes.gppcc10.skyway;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 /**
@@ -10,9 +9,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  * @version 0.1
  */
 public class Tile {
-
-	/** TODO: describe '_tex' */
-	private Texture _tex;
 
 	/** TODO: describe '_isPassable' */
 	private boolean _isPassable;
@@ -24,23 +20,20 @@ public class Tile {
 	private float _x, _y;
 
 	/**
-	 * @param texture
 	 * @param passable
 	 * @param x
 	 * @param y
 	 */
-	public Tile(Texture texture, boolean passable, float x, float y) {
-		set(texture, passable, x, y);
+	public Tile(boolean passable, float x, float y) {
+		set(passable, x, y);
 	}
 
 	/**
-	 * @param texture
 	 * @param passable
 	 * @param x
 	 * @param y
 	 */
-	public void set(Texture texture, boolean passable, float x, float y) {
-		_tex = texture;
+	public void set(boolean passable, float x, float y) {
 		_isPassable = passable;
 		_isVisible = true;
 		_x = x;
@@ -48,13 +41,11 @@ public class Tile {
 	}
 	
 	/**
-	 * @param tex
 	 * @param y
 	 * @param passable
 	 * @param visible
 	 */
-	public void set(Texture tex, float y, boolean passable, boolean visible) {
-		_tex = tex;
+	public void set(float y, boolean passable, boolean visible) {
 		_y = y;
 		_isPassable = passable;
 		_isVisible = visible;
@@ -76,17 +67,10 @@ public class Tile {
 	 */
 	public void draw(Batch batch) {
 		if(_isVisible)
-			batch.draw(_tex, _x, _y);
+			batch.draw(Skyway.TILE_NORMAL, _x, _y);
 		
 		if(_isVisible && !_isPassable)
 			batch.draw(Skyway.TILE_BLOCKED, _x, _y);
-	}
-
-	/**
-	 * @return
-	 */
-	public Texture getTex() {
-		return _tex;
 	}
 
 	/**

@@ -13,3 +13,5 @@
 | 19.04. | Tempo-Varibalen und std. Konfig | 0.20h | |
 |        | Spieler um State Machine erweitert | 0.50h | |
 |        | Screen shake vorbereitet | 0.50h | 1.20h |
+| 20.04. | ScreenShake vorerst deaktiviert | 0.10h | |
+|        | Eisblöcke blockieren Spieler | 0.50h | 0.60h |

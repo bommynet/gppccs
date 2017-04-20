@@ -62,8 +62,7 @@ public class Skyway {
 		_offsetY = positionY;
 		
 		for(int y=0; y<ROWS; y++) {
-			_way[y] = new TileRow(TILE_NORMAL,
-					_offsetX,
+			_way[y] = new TileRow(_offsetX,
 					_offsetY + y*TILESIZE);
 		}
 		

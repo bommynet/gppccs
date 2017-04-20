@@ -1,6 +1,5 @@
 package de.pixlpommes.gppcc10.skyway;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 /**
@@ -16,10 +15,10 @@ public class TileRow {
 	 * @param x
 	 * @param y
 	 */
-	public TileRow(Texture tex, float x, float y) {
+	public TileRow(float x, float y) {
 		_tiles = new Tile[Skyway.COLS];
 		for (int i = 0; i < _tiles.length; i++) {
-			_tiles[i] = new Tile(tex, true, x + i * Skyway.TILESIZE, y);
+			_tiles[i] = new Tile(true, x + i * Skyway.TILESIZE, y);
 		}
 	}
 	
@@ -51,10 +50,11 @@ public class TileRow {
 	 * @param y
 	 */
 	public void set(byte config, float y) {
-		Texture tex = (((config >> 7) & 1) == 1) ? Skyway.TILE_INVERS : Skyway.TILE_NORMAL;
+		/// TODO set first bit as tile color
+		///Texture tex = (((config >> 7) & 1) == 1) ? Skyway.TILE_INVERS : Skyway.TILE_NORMAL;
 		for (int i = 0; i < _tiles.length; i++) {
 			boolean visible = ((config >> i) & 1) == 1;
-			_tiles[i].set(tex, y, true, visible);
+			_tiles[i].set(y, true, visible);
 		}
 	}
 	

@@ -8,6 +8,7 @@
 # Eisbahn
 
 * [ ] Lade Konfiguration für Eisbahn aus Datei
+* [ ] Kacheln können noch keine zweite Farbe anzeigen.
 
 
 # Spieler

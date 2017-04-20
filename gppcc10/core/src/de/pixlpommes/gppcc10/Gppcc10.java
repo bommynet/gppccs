@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 
 /**
  * @author Thomas Borck - http://www.pixlpommes.de
- * @version 0.1
+ * @version 1.0
  */
 public class Gppcc10 extends Game {
 	

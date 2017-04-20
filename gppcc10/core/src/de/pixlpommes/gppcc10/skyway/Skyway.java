@@ -11,7 +11,7 @@ import de.pixlpommes.gppcc10.Player.Collide;
  * The skyway.
  * 
  * @author Thomas Borck - http://www.pixlpommes.de
- * @version 0.1
+ * @version 0.3
  */
 public class Skyway {
 
@@ -24,19 +24,19 @@ public class Skyway {
 	/** tile size in pixel */
 	public final static int TILESIZE = 66;
 	
-	/** TODO: describe '_tileTile' */
+	/** tile texture (first color) */
 	public final static Texture TILE_NORMAL = new Texture(Gdx.files.internal("tile_normal.png"));
 	
-	/** TODO: describe 'TILE_BLOCKED' */
-	public final static Texture TILE_BLOCKED = new Texture(Gdx.files.internal("tile_blocked.png"));
-	
-	/** TODO: describe '_tileInvers' */
+	/** tile texture (second color) */
 	public final static Texture TILE_INVERS = new Texture(Gdx.files.internal("tile_inverse.png"));
+	
+	/** block to add on a tile */
+	public final static Texture TILE_BLOCKED = new Texture(Gdx.files.internal("tile_blocked.png"));
 	
 	/** lower left corner of the skyway */
 	private float _offsetX, _offsetY;
 	
-	/** TODO: describe '_way' */
+	/** skyway rows */
 	private TileRow[] _way;
 	
 	/** reference to player */

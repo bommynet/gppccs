@@ -16,7 +16,7 @@ import de.pixlpommes.gppcc10.skyway.Skyway;
  * Basic game screen.
  * 
  * @author Thomas Borck - http://www.pixlpommes.de
- * @version 0.1
+ * @version 0.3
  */
 public class GameScreen implements Screen, InputProcessor {
 
@@ -25,41 +25,41 @@ public class GameScreen implements Screen, InputProcessor {
 
 	/** standard 2D camera */
 	private OrthographicCamera _cam;
-	
-	/** manages a screen shake */
-	///private ScreenShake _shake;
+
+	//// ** manages a screen shake */
+	/// private ScreenShake _shake;
+
+	/** moving speed in pixel per second */
+	private float _skywaySpeed;
+
+	/** moving speed factor for cloud-layer */
+	private final float _speedFactorLayer_Clouds = 0.4f;
+
+	/** moving speed factor for world-layer */
+	private final float _speedFactorLayer_World = 0.2f;
 
 	// LAYER 0
 	/** the skyway */
 	private Skyway _skyway;
 
-	/** moving speed in pixel per second */
-	private float _skywaySpeed;
-	
-	/** TODO: describe '_speedFactorLayer_Clouds' */
-	private final float _speedFactorLayer_Clouds = 0.4f;
-	
-	/** TODO: describe '_speedFactorLayer_World' */
-	private final float _speedFactorLayer_World = 0.2f;
-	
 	/** moves or stops skyway */
 	private boolean _skywayIsMoving;
 
 	/** the player */
 	private Player _player;
-	
+
 	// LAYER 1
 	/** clouds as texture */
 	private Texture _clouds;
-	
-	/** TODO: describe '_cloudsY' */
+
+	/** position of first cloud texture */
 	private float _cloudsY;
-	
+
 	// LAYER 2
 	/** world as texture */
 	private Texture _world;
-	
-	/** TODO: describe '_worldY' */
+
+	/** position of first world texture */
 	private float _worldY;
 
 	/**
@@ -69,25 +69,28 @@ public class GameScreen implements Screen, InputProcessor {
 		// setup graphics
 		_cam = new OrthographicCamera();
 		_batch = new SpriteBatch();
-		
-		//_shake = new ScreenShake(_cam);
-		
-		_player = new Player(0, 0);
 
-		// center skyway horizontally
+		// _shake = new ScreenShake(_cam);
+
+		// setup player
+		_player = new Player();
+
+		// setup skyway (horizontally centered)
 		float pos = (Gppcc10.WIDTH - Skyway.COLS * Skyway.TILESIZE) / 2;
 		_skyway = new Skyway(pos, 0, _player);
 
 		_skywaySpeed = -170;
 		_skywayIsMoving = true;
-		
-		
+
+		// setup cloud layer
 		_clouds = new Texture(Gdx.files.internal("clouds_Wolken.png"));
 		_cloudsY = 0;
 
+		// setup world layer
 		_world = new Texture(Gdx.files.internal("clouds_Welt.png"));
 		_worldY = 0;
-		
+
+		// add input handling
 		Gdx.input.setInputProcessor(this);
 	}
 
@@ -96,61 +99,60 @@ public class GameScreen implements Screen, InputProcessor {
 	 * 
 	 * @see com.badlogic.gdx.Screen#render(float)
 	 */
+	@SuppressWarnings("incomplete-switch") // not all states can be reached
 	@Override
 	public void render(float delta) {
 		// clear screen
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		// check collisions
 		Collide collide = _skyway.collide();
-		if(collide != Collide.TILE && !_player.isSwitching()) {
-			// something special happened
-			
-			switch(collide) {
-				case HOLE:
-					// player falls -> reset to center
-					/// TODO animate falling before reset
-					_skywayIsMoving = false;
-					_skyway.resetPlayer();
-					_player.changeState(Player.State.FALL);
-					///_shake.shake(); /// TODO remove!
-					_skywayIsMoving = true;
-					break;
-					
-				case BLOCK:
-					// player is blocked -> reset to center
-					/// TODO animate blocking before reset
-					_skywayIsMoving = false;
-					_skyway.resetPlayer();
-					_player.changeState(Player.State.BLOCK);
-					///_shake.shake(); /// TODO remove!
-					_skywayIsMoving = true;
-					break;
+		if (collide != Collide.TILE && !_player.isSwitching()) {
+			switch (collide) {
+			case HOLE:
+				// player falls -> reset to center
+				/// TODO animate falling before reset
+				_skywayIsMoving = false;
+				_skyway.resetPlayer();
+				_player.changeState(Player.State.FALL);
+				/// _shake.shake(); /// TODO remove!
+				_skywayIsMoving = true;
+				break;
+
+			case BLOCK:
+				// player is blocked -> reset to center
+				/// TODO animate blocking before reset
+				_skywayIsMoving = false;
+				_skyway.resetPlayer();
+				_player.changeState(Player.State.BLOCK);
+				/// _shake.shake(); /// TODO remove!
+				_skywayIsMoving = true;
+				break;
 			}
-			
+
 		}
-		
+
 		// update positions
-		if(_skywayIsMoving) {
+		if (_skywayIsMoving) {
 			float deltaSpeed = _skywaySpeed * delta;
-			
+
 			_skyway.updateScroll(deltaSpeed);
-			
+
 			_cloudsY += deltaSpeed * _speedFactorLayer_Clouds;
-			if(_cloudsY < -_clouds.getHeight()) _cloudsY = 0;
-			
+			if (_cloudsY < -_clouds.getHeight())
+				_cloudsY = 0;
+
 			_worldY += deltaSpeed * _speedFactorLayer_World;
-			if(_worldY < -_world.getHeight()) _worldY = 0;
+			if (_worldY < -_world.getHeight())
+				_worldY = 0;
 		}
 		_player.update(delta);
 
-		
 		// do a screen shake
-		///_shake.shakeUpdate(_batch, delta);
-		
-		
-		// draw skyway
+		/// _shake.shakeUpdate(_batch, delta);
+
+		// draw game
 		_batch.begin();
 		// 1. world (layer 'down')
 		_batch.draw(_world, 0, _worldY);
@@ -178,9 +180,9 @@ public class GameScreen implements Screen, InputProcessor {
 		_cam.viewportHeight = height;
 		_cam.update();
 		_cam.translate(width / 2, height / 2); // origin at (0,0) = down left
-		
+
 		// update shaker
-		///_shake = new ScreenShake(_cam);
+		/// _shake = new ScreenShake(_cam);
 
 		// update renderer
 		_batch.setProjectionMatrix(_cam.combined);
@@ -193,7 +195,6 @@ public class GameScreen implements Screen, InputProcessor {
 	 */
 	@Override
 	public void show() {
-
 	}
 
 	/*
@@ -203,8 +204,6 @@ public class GameScreen implements Screen, InputProcessor {
 	 */
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-
 	}
 
 	/*
@@ -214,8 +213,6 @@ public class GameScreen implements Screen, InputProcessor {
 	 */
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
-
 	}
 
 	/*
@@ -225,8 +222,6 @@ public class GameScreen implements Screen, InputProcessor {
 	 */
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-
 	}
 
 	/*
@@ -236,8 +231,6 @@ public class GameScreen implements Screen, InputProcessor {
 	 */
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-
 	}
 
 	/*
@@ -248,8 +241,9 @@ public class GameScreen implements Screen, InputProcessor {
 	@Override
 	public boolean keyDown(int keycode) {
 		// no move -> no player
-		if(!_skywayIsMoving) return false;
-		
+		if (!_skywayIsMoving)
+			return false;
+
 		if (keycode == Keys.A) {
 			_skyway.movePlayer(-1);
 		} else if (keycode == Keys.D) {
@@ -259,44 +253,59 @@ public class GameScreen implements Screen, InputProcessor {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.InputProcessor#keyUp(int)
+	 */
 	@Override
 	public boolean keyUp(int keycode) {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.InputProcessor#keyTyped(char)
+	 */
 	@Override
 	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.InputProcessor#touchDown(int, int, int, int)
+	 */
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.InputProcessor#touchUp(int, int, int, int)
+	 */
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.InputProcessor#touchDragged(int, int, int)
+	 */
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.InputProcessor#mouseMoved(int, int)
+	 */
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.InputProcessor#scrolled(int)
+	 */
 	@Override
 	public boolean scrolled(int amount) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

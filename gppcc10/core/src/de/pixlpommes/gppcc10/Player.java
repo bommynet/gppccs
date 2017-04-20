@@ -8,40 +8,45 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  * The player.
  * 
  * @author Thomas Borck - http://www.pixlpommes.de
- * @version 0.1
+ * @version 0.5
  */
 public class Player {
 
-	/** TODO: describe '_tex' */
+	/** basic player texture */
 	private Texture _tex;
 	
-	/** TODO: describe '_x' */
+	/** lower left corner of players position */
 	private float _x, _y;
 	
-	/** TODO: describe '_state' */
+	/** current player state */
 	private State _state;
 	
-	/** TODO: describe 'switchingTime' */
+	/** time needed for player to switch between two columns */
 	private float _switchingTime = 0.3f;
 	
+	/** time currently elapsed */
 	private float _switchingTimeCurrent;
 
+	/** target x position for current switch */
 	private float _switchingTarget;
 
+	/** pixels to move per frame while switching */
 	private float _switchingStep;
 	
 	/**
+	 * Create new player.
+	 * 
 	 * @param x
 	 * @param y
 	 */
-	public Player(float x, float y) {
-		setPosition(x, y);
-		
+	public Player() {
 		_tex = new Texture(Gdx.files.internal("player.png"));
 		_state = State.RUN;
 	}
 	
 	/**
+	 * Set player to new position.
+	 * 
 	 * @param x
 	 * @param y
 	 */
@@ -51,6 +56,8 @@ public class Player {
 	}
 	
 	/**
+	 * Draw player.
+	 * 
 	 * @param batch
 	 */
 	public void draw(Batch batch) {
@@ -58,7 +65,9 @@ public class Player {
 	}
 	
 	/**
-	 * @param delta
+	 * Update player logic.
+	 * 
+	 * @param delta time elapsed since last update()
 	 */
 	public void update(float delta) {
 		switch(_state) {
@@ -85,6 +94,8 @@ public class Player {
 	}
 	
 	/**
+	 * Start switching to new position.
+	 * 
 	 * @param newPos
 	 */
 	public void switchPos(float newPos) {
@@ -97,20 +108,22 @@ public class Player {
 	}
 	
 	/**
-	 * @return
+	 * @return current x of players position
 	 */
 	public float getX() {
 		return _x;
 	}
 	
 	/**
-	 * @return true if player switches column currently
+	 * @return true if player is switching
 	 */
 	public boolean isSwitching() {
 		return _state == State.JUMP;
 	}
 	
 	/**
+	 * Set new player state.
+	 * 
 	 * @param state
 	 */
 	public void changeState(State state) {

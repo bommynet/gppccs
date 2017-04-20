@@ -6,20 +6,22 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  * A tile of the skyway.
  * 
  * @author Thomas Borck - http://www.pixlpommes.de
- * @version 0.1
+ * @version 0.3
  */
 public class Tile {
 
-	/** TODO: describe '_isPassable' */
+	/** is this tile not blocked */
 	private boolean _isPassable;
 	
-	/** TODO: describe '_isVisible' */
+	/** is this tile visible */
 	private boolean _isVisible;
 
-	/** TODO: describe '_x' */
+	/** position of the tile */
 	private float _x, _y;
 
 	/**
+	 * Create new tile.
+	 * 
 	 * @param passable
 	 * @param x
 	 * @param y
@@ -29,6 +31,8 @@ public class Tile {
 	}
 
 	/**
+	 * Set new values.
+	 * 
 	 * @param passable
 	 * @param x
 	 * @param y
@@ -41,6 +45,8 @@ public class Tile {
 	}
 	
 	/**
+	 * Set new values.
+	 * 
 	 * @param y
 	 * @param passable
 	 * @param visible
@@ -74,28 +80,28 @@ public class Tile {
 	}
 
 	/**
-	 * @return
+	 * @return true if tile is not blocked
 	 */
 	public boolean isPassable() {
 		return _isPassable;
 	}
 	
 	/**
-	 * @return
+	 * @return true if tile is visible
 	 */
 	public boolean isVisible() {
 		return _isVisible;
 	}
 
 	/**
-	 * @return
+	 * @return position x
 	 */
 	public float getX() {
 		return _x;
 	}
 
 	/**
-	 * @return
+	 * @return position y
 	 */
 	public float getY() {
 		return _y;
@@ -111,6 +117,8 @@ public class Tile {
 	}
 
 	/**
+	 * Set this tile as passable or not passable.
+	 * 
 	 * @param passable
 	 */
 	public void setPassable(boolean passable) {

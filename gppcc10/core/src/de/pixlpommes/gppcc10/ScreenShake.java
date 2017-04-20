@@ -15,22 +15,29 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  */
 public class ScreenShake {
 
+	/** time elapsed for current shake */
 	protected float _shakeElapsed;
 
+	/** shaking time */
 	protected float _shakeDuration;
 
+	/** x position of camera before shakeing */
 	protected float _shakeBaseX;
 
+	/** y position of camera before shakeing */
 	protected float _shakeBaseY;
 
+	/** shake intensity */
 	protected float _shakeIntensity;
 
+	/** random number generator for shaking */
 	protected Random _shakeRandom;
 	
+	/** reference to shakable camera */
 	protected OrthographicCamera _cam;
 
 	/**
-	 * 
+	 * Add a screen shake object.
 	 */
 	public ScreenShake(OrthographicCamera cam) {
 		_cam = cam;
@@ -45,6 +52,8 @@ public class ScreenShake {
 	}
 
 	/**
+	 * Update camera position for shaking.
+	 * 
 	 * @param batch
 	 * @param delta
 	 */
@@ -70,7 +79,7 @@ public class ScreenShake {
 	}
 	
 	/**
-	 * 
+	 * Start new screen shake.
 	 */
 	protected void shake() {
 		_shakeElapsed = 0;

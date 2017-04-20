@@ -4,14 +4,16 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 /**
  * @author Thomas Borck - http://www.pixlpommes.de
- * @version 0.1
+ * @version 0.5
  */
 public class TileRow {
 
-	/** TODO: describe '_tiles' */
+	/** tiles of this row */
 	private Tile[] _tiles;
 
 	/**
+	 * Create new row.
+	 * 
 	 * @param x
 	 * @param y
 	 */
@@ -23,6 +25,8 @@ public class TileRow {
 	}
 	
 	/**
+	 * Update position.
+	 * 
 	 * @param diffY
 	 */
 	public void updateScroll(float diffY) {
@@ -32,6 +36,8 @@ public class TileRow {
 	}
 	
 	/**
+	 * Draw tile.
+	 * 
 	 * @param batch
 	 */
 	public void draw(Batch batch) {
@@ -59,7 +65,7 @@ public class TileRow {
 	}
 	
 	/**
-	 * @return
+	 * @return y position of this row
 	 */
 	public float getY() {
 		return _tiles[0].getY();
@@ -67,13 +73,15 @@ public class TileRow {
 	
 	/**
 	 * @param index
-	 * @return
+	 * @return x position of selected tile in this row
 	 */
 	public float getX(int index) {
 		return _tiles[index].getX();
 	}
 	
 	/**
+	 * Get reference of selected tile.
+	 * 
 	 * @param index
 	 * @return
 	 */
@@ -82,7 +90,7 @@ public class TileRow {
 	}
 	
 	/**
-	 * @return
+	 * @return count tiles of this row (both, visible and invisible)
 	 */
 	public int size() {
 		return _tiles.length;

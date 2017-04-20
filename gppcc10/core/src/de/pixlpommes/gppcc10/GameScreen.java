@@ -107,13 +107,28 @@ public class GameScreen implements Screen, InputProcessor {
 		if(collide != Collide.TILE && !_player.isSwitching()) {
 			// something special happened
 			
-			// player falls -> reset to center
-			/// TODO animate falling before reset
-			_skywayIsMoving = false;
-			_skyway.resetPlayer();
-			_player.changeState(Player.State.FALL);
-			///_shake.shake(); /// TODO remove!
-			_skywayIsMoving = true;
+			switch(collide) {
+				case HOLE:
+					// player falls -> reset to center
+					/// TODO animate falling before reset
+					_skywayIsMoving = false;
+					_skyway.resetPlayer();
+					_player.changeState(Player.State.FALL);
+					///_shake.shake(); /// TODO remove!
+					_skywayIsMoving = true;
+					break;
+					
+				case BLOCK:
+					// player is blocked -> reset to center
+					/// TODO animate blocking before reset
+					_skywayIsMoving = false;
+					_skyway.resetPlayer();
+					_player.changeState(Player.State.BLOCK);
+					///_shake.shake(); /// TODO remove!
+					_skywayIsMoving = true;
+					break;
+			}
+			
 		}
 		
 		// update positions

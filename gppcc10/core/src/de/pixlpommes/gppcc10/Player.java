@@ -75,6 +75,10 @@ public class Player {
 				System.out.println("fall");
 				_state = State.RUN;
 				break;
+			case BLOCK: // blocked by ice cube
+				System.out.println("block");
+				_state = State.RUN;
+				break;
 			case RUN: // running on skyway
 				break;
 		}
@@ -147,6 +151,9 @@ public class Player {
 		
 		/** player falling from skyway */
 		FALL,
+		
+		/** player was blocked */
+		BLOCK,
 		
 		/** player jumping/switching between columns */
 		JUMP;

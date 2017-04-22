@@ -17,3 +17,4 @@
 |        | Eisblöcke blockieren Spieler | 0.50h | |
 |        | Kacheln holen Textur aus Skyway | 0.20h | |
 |        | Kommentare für alle Klassen | 0.50h | 1.30h |
+| 22.04. | Verlangsamung bei Kollision | 0.50h | 0.50h |

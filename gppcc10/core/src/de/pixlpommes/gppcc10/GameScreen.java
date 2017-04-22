@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.pixlpommes.gppcc10.Player.Collide;
 import de.pixlpommes.gppcc10.skyway.Skyway;
+import de.pixlpommes.gppcc10.skyway.Tile;
 
 /**
  * Basic game screen.
@@ -29,8 +30,14 @@ public class GameScreen implements Screen, InputProcessor {
 	//// ** manages a screen shake */
 	/// private ScreenShake _shake;
 
+	/** maximum moving speed in pixel per second */
+	private float _skywaySpeedMax;
+	
 	/** moving speed in pixel per second */
 	private float _skywaySpeed;
+	
+	/** speed acceleration in pixel per second */
+	private float _skywaySpeedAcc;
 
 	/** moving speed factor for cloud-layer */
 	private final float _speedFactorLayer_Clouds = 0.4f;
@@ -79,7 +86,8 @@ public class GameScreen implements Screen, InputProcessor {
 		float pos = (Gppcc10.WIDTH - Skyway.COLS * Skyway.TILESIZE) / 2;
 		_skyway = new Skyway(pos, 0, _player);
 
-		_skywaySpeed = -170;
+		_skywaySpeed = _skywaySpeedMax = -170;
+		_skywaySpeedAcc = -100;
 		_skywayIsMoving = true;
 
 		// setup cloud layer
@@ -121,17 +129,26 @@ public class GameScreen implements Screen, InputProcessor {
 				break;
 
 			case BLOCK:
-				// player is blocked -> reset to center
-				/// TODO animate blocking before reset
-				_skywayIsMoving = false;
-				_skyway.resetPlayer();
-				_player.changeState(Player.State.BLOCK);
+				// player is blocked -> slow down
+				/// TODO animate blocking
+				///_skyway.resetPlayer();
+				_skywaySpeed += 100f; /// TODO define var
+				Tile cur = _skyway.getCurrentTile();
+				cur.set(cur.getY(), true, true);
+				//_player.changeState(Player.State.BLOCK);
 				/// _shake.shake(); /// TODO remove!
-				_skywayIsMoving = true;
 				break;
 			}
-
 		}
+		
+		// update moving speed
+		// speed is a negative value (-infinity, 0]
+		if(_skywaySpeed > 0)
+			// don't move reverse
+			_skywaySpeed = 0;
+		else if(_skywaySpeed > _skywaySpeedMax)
+			// speed up over time again
+			_skywaySpeed += _skywaySpeedAcc * delta;
 
 		// update positions
 		if (_skywayIsMoving) {

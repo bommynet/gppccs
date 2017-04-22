@@ -142,6 +142,13 @@ public class Skyway {
 			
 		}
 	}
+	
+	/**
+	 * @return tile the player currently stands on
+	 */
+	public Tile getCurrentTile() {
+		return _way[_playerRow].get(_playerCol);
+	}
 
 	/**
 	 * Move player based on tiles.

@@ -14,11 +14,17 @@ public class Gppcc10 extends Game {
 	/** game screen height */
 	public final static int HEIGHT = 768;
 	
+	/** half game screen width */
+	public final static int HALF_WIDHT = WIDTH/2;
+	
+	/** half game screen width */
+	public final static int HALF_HEIGHT = HEIGHT/2;
+	
 	/* (non-Javadoc)
 	 * @see com.badlogic.gdx.ApplicationListener#create()
 	 */
 	@Override
 	public void create () {
-		setScreen(new GameScreen());
+		setScreen(new IcewayScreen());
 	}
 }

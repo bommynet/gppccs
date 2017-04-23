@@ -75,6 +75,15 @@ public class IcewayRow {
 		return _y;
 	}
 	
+	/**
+	 * TODO: describe function
+	 * @param index
+	 * @return
+	 */
+	public float getX(int index) {
+		return _x + index * Iceway.TILESIZE;
+	}
+	
 	
 	/**
 	 * Possible types of tiles.

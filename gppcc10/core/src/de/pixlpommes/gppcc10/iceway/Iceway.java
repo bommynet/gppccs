@@ -117,4 +117,22 @@ public class Iceway {
 	public float getSpeed() {
 		return _speed;
 	}
+	
+	/**
+	 * TODO: describe function
+	 * @param indexColumn
+	 * @return
+	 */
+	public float getX(int indexColumn) {
+		return _iceway.get(0).getX(indexColumn);
+	}
+	
+	/**
+	 * TODO: describe function
+	 * @param indexColumn
+	 * @return
+	 */
+	public float getY(int indexRow) {
+		return _iceway.get(indexRow).getY();
+	}
 }

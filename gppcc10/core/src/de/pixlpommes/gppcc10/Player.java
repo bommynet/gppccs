@@ -1,8 +1,8 @@
 package de.pixlpommes.gppcc10;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+
+import de.pixlpommes.gppcc10.iceway.Iceway;
 
 /**
  * The player.
@@ -11,9 +11,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  * @version 0.5
  */
 public class Player {
-
-	/** basic player texture */
-	private Texture _tex;
 	
 	/** lower left corner of players position */
 	private float _x, _y;
@@ -40,7 +37,6 @@ public class Player {
 	 * @param y
 	 */
 	public Player() {
-		_tex = new Texture(Gdx.files.internal("player.png"));
 		_state = State.RUN;
 	}
 	
@@ -61,7 +57,11 @@ public class Player {
 	 * @param batch
 	 */
 	public void draw(Batch batch) {
-		batch.draw(_tex, _x, _y);
+		// player is on 2. col, 2. row, 64w, 128h
+		batch.draw(Iceway.TILESET,
+				_x, _y, // position on screen
+				64, 64, // position on tile set
+				64, 128); // size on tile set
 	}
 	
 	/**
@@ -130,27 +130,6 @@ public class Player {
 		_state = state;
 	}
 	
-	
-	
-	/**
-	 * Define collision types for player.
-	 * 
-	 * @author Thomas Borck - http://www.pixlpommes.de
-	 * @version 1.0
-	 */
-	public static enum Collide {
-		/** player collides with skyway tile */
-		TILE,
-		
-		/** player collides with skyway hole */
-		HOLE,
-		
-		/** player collides with block */
-		BLOCK,
-		
-		/** player collides with powerup */
-		POWERUP;
-	}
 	
 	/**
 	 * Define player states.

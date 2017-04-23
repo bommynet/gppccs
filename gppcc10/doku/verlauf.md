@@ -23,4 +23,5 @@
 |        | Zeichen-Bug "Schneemann" behoben | 0.25h | |
 |        | Code-Rewrite als Iceway | 2.50h | |
 |        | Wald-Hintergrund erstellt | 1.25h | |
-|        | Spieler Sprite (Skizze) erstellt | 1.00h | 6.75h |
+|        | Spieler Sprite (Skizze) erstellt | 1.00h | |
+|        | Spieler re-implementiert | 0.25h | 7.00h |

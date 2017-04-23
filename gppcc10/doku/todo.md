@@ -13,12 +13,12 @@
 
 # Spieler
 
-* [ ] Sprite für Spieler
+* [x] Sprite für Spieler
 * [ ] Animationen für Spieler
 	* [ ] laufen
 	* [ ] springen (zwischen Spalten der Eisbahn)
 	* [ ] fallen (von der Eisbahn)
-* [ ] **Fehler**: Spieler kann zwei Felder gleichzeitig springen.
+* [x] *Behoben.* ~~**Fehler**: Spieler kann zwei Felder gleichzeitig springen.~~
 
 
 # Wolken

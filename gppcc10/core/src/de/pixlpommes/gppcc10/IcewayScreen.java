@@ -1,6 +1,8 @@
 package de.pixlpommes.gppcc10;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -13,7 +15,7 @@ import de.pixlpommes.gppcc10.iceway.Iceway;
  * @author Thomas Borck - http://www.pixlpommes.de
  * @version 0.1
  */
-public class IcewayScreen implements Screen {
+public class IcewayScreen implements Screen, InputProcessor {
 	
 	// general
 	/** batch to render everything */
@@ -29,8 +31,8 @@ public class IcewayScreen implements Screen {
 	/** moves or stops iceway */
 	private boolean _icewayIsMoving;
 
-	/// ** the player */
-	// private Player _player;
+	/** the player */
+	private Player _player;
 
 	// LAYER 1
 	/** clouds as texture */
@@ -62,13 +64,17 @@ public class IcewayScreen implements Screen {
 
 		// _shake = new ScreenShake(_cam);
 
-		// setup player
-
 		// setup iceway (horizontally centered, aligned to bottom)
 		int posX = -(Iceway.COLS * Iceway.TILESIZE) / 2;
 		int posY = -(Gppcc10.HEIGHT / 2);
 		_iceway = new Iceway(posX, posY);
 		_icewayIsMoving = true;
+		
+		// setup player
+		_player = new Player();
+		_player.setPosition(
+				_iceway.getX((int)(Iceway.COLS / 2)),
+				_iceway.getY(2));
 
 		// setup cloud layer
 		_clouds = new Texture(Gdx.files.internal("clouds.png"));
@@ -78,8 +84,8 @@ public class IcewayScreen implements Screen {
 		_world = new Texture(Gdx.files.internal("woods.png"));
 		_worldY = -Gppcc10.HALF_HEIGHT;
 
-		// TODO: add input handling
-		// Gdx.input.setInputProcessor(this);
+		// add input handling
+		Gdx.input.setInputProcessor(this);
 	}
 
 	/*
@@ -96,6 +102,7 @@ public class IcewayScreen implements Screen {
 		// update positions
 		if (_icewayIsMoving) {
 			_iceway.update(delta);
+			_player.update(delta);
 
 			// update background layers (already negative!)
 			float deltaSpeed = _iceway.getSpeed() * delta;
@@ -125,7 +132,7 @@ public class IcewayScreen implements Screen {
 		_batch.draw(_clouds, -Gppcc10.HALF_WIDHT, _cloudsY + Gppcc10.HEIGHT);
 		// 3. game (layer 'top')
 		_iceway.draw(_batch);
-		// _player.draw(_batch);
+		_player.draw(_batch);
 		_batch.end();
 	}
 
@@ -173,6 +180,69 @@ public class IcewayScreen implements Screen {
 	public void dispose() {
 		// TODO Auto-generated method stub
 
+	}
+
+	
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.InputProcessor#keyDown(int)
+	 */
+	@Override
+	public boolean keyDown(int keycode) {
+		// moving -> no more player move
+		if (!_icewayIsMoving)
+			return false;
+
+		if (keycode == Keys.A) {
+			float moveTo = _player.getX() - Iceway.TILESIZE;
+			_player.switchPos(moveTo);
+		} else if (keycode == Keys.D) {
+			float moveTo = _player.getX() + Iceway.TILESIZE;
+			_player.switchPos(moveTo);
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

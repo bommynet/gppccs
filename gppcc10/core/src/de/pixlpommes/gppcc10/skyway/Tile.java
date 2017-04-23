@@ -76,8 +76,12 @@ public class Tile {
 			batch.draw(Skyway.TILESET, _x, _y, 0, 0, 64, 64);
 			//batch.draw(Skyway.TILE_NORMAL, _x, _y);
 		
-		if(_isVisible && !_isPassable)
-			batch.draw(Skyway.TILE_BLOCKED, _x, _y);
+		if(_isVisible && !_isPassable) {
+			// snowman has two tiles -> [1,2] * 64
+			batch.draw(Skyway.TILESET, _x, _y+64,  64, 0, 64, 64);
+			batch.draw(Skyway.TILESET, _x, _y   , 128, 0, 64, 64);
+			//batch.draw(Skyway.TILE_BLOCKED, _x, _y);
+		}
 	}
 
 	/**

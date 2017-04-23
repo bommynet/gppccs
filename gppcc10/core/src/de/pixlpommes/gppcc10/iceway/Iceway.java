@@ -25,7 +25,7 @@ public class Iceway {
 	public final static int TILESIZE = 66;
 
 	/** texture including all tiles for ice way */
-	public final static Texture TILESET = new Texture(Gdx.files.internal("skyway.png"));
+	public final static Texture TILESET = new Texture(Gdx.files.internal("iceway.png"));
 
 	// general
 	/** TODO: describe '_offsetX' */

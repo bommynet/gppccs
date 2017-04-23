@@ -21,4 +21,5 @@
 | 23.04. | detailierte Eiskachel erstellt | 0.75h | |
 |        | Schneemann als Blockkachel | 1.00h | |
 |        | Zeichen-Bug "Schneemann" behoben | 0.25h | |
-|        | Code-Rewrite als Iceway | 2.50h | 4.50h |
+|        | Code-Rewrite als Iceway | 2.50h | |
+|        | Wald-Hintergrund erstellt | 1.25h | 5.75h |

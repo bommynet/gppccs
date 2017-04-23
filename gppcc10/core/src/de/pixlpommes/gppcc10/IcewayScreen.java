@@ -78,7 +78,7 @@ public class IcewayScreen implements Screen {
 		_cloudsY = -Gppcc10.HALF_HEIGHT;
 
 		// setup world layer
-		_world = new Texture(Gdx.files.internal("clouds_Welt.png"));
+		_world = new Texture(Gdx.files.internal("woods.png"));
 		_worldY = -Gppcc10.HALF_HEIGHT;
 
 		// TODO: add input handling
@@ -108,7 +108,7 @@ public class IcewayScreen implements Screen {
 				_cloudsY = -Gppcc10.HALF_HEIGHT;
 
 			_worldY -= deltaSpeed * _speedFactorLayer_World;
-			if (_worldY < -Gppcc10.HALF_HEIGHT - Gppcc10.HEIGHT)
+			if (_worldY < -Gppcc10.HALF_HEIGHT - _world.getHeight())
 				_worldY = -Gppcc10.HALF_HEIGHT;
 		}
 
@@ -117,9 +117,12 @@ public class IcewayScreen implements Screen {
 
 		// draw game
 		_batch.begin();
-		// 1. world (layer 'down')
+		// 1. world (layer 'down') -- height 200, so need 5 copies
 		_batch.draw(_world, -Gppcc10.HALF_WIDHT, _worldY);
-		_batch.draw(_world, -Gppcc10.HALF_WIDHT, _worldY + Gppcc10.HEIGHT);
+		_batch.draw(_world, -Gppcc10.HALF_WIDHT, _worldY + 1 * _world.getHeight());
+		_batch.draw(_world, -Gppcc10.HALF_WIDHT, _worldY + 2 * _world.getHeight());
+		_batch.draw(_world, -Gppcc10.HALF_WIDHT, _worldY + 3 * _world.getHeight());
+		_batch.draw(_world, -Gppcc10.HALF_WIDHT, _worldY + 4 * _world.getHeight());
 		// 2. clouds (layer 'middle')
 		_batch.draw(_clouds, -Gppcc10.HALF_WIDHT, _cloudsY);
 		_batch.draw(_clouds, -Gppcc10.HALF_WIDHT, _cloudsY + Gppcc10.HEIGHT);

@@ -1,8 +1,8 @@
 # Allgemein
 
 * [ ] **Fehler**: ScreenShake Positionierung ist falsch...
-* [ ] **Fehler**: bewegte Sprites flackern
-* [ ] **Fehler**: wenn die erste Eisbahnreihe nach oben gesetzt wird, ist die Lücke zu groß.
+* [x] Behoben durch neu schreiben in *Iceway*. ~~**Fehler**: bewegte Sprites flackern~~
+* [x] Behoben durch neu schreiben in *Iceway*. ~~**Fehler**: wenn die erste Eisbahnreihe nach oben gesetzt wird, ist die Lücke zu groß.~~
 
 
 # Eisbahn

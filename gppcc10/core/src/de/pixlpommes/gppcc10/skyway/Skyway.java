@@ -19,7 +19,7 @@ public class Skyway {
 	public final static int COLS = 7;
 	
 	/** tiles count in height */
-	public final static int ROWS = 14;
+	public final static int ROWS = 15;
 	
 	/** tile size in pixel */
 	public final static int TILESIZE = 66;
@@ -38,6 +38,9 @@ public class Skyway {
 	
 	/** lower left corner of the skyway */
 	private float _offsetX, _offsetY;
+	
+	/** TODO: remove! */
+	private boolean _toggleBlockedFlag = true;
 	
 	/** skyway rows */
 	private TileRow[] _way;
@@ -84,7 +87,8 @@ public class Skyway {
 	 * @param batch
 	 */
 	public void draw(Batch batch) {
-		for(int y=0; y<ROWS; y++) {
+		// draw from top to bottom to avoid overlapping
+		for(int y=ROWS-1; y>=0; y--) {
 			_way[y].draw(batch);
 		}
 	}
@@ -103,14 +107,16 @@ public class Skyway {
 			
 			_way[y].updateScroll(diffY);
 			/// TODO remove space every #ROWS tiles
-			if(_way[y].getY() <= -TILESIZE) {
+			if(_way[y].getY() <= -TILESIZE*2) {
 				// remove row from bottom and move it to top
 				/// TODO load config from file
 				byte config = (byte)0x1C;
 				_way[y].set(config, top + TILESIZE);
 				
 				/// TODO remove -> set by config file
-				_way[y].get(4).setPassable(false);
+				/// block every second tile
+				_way[y].get(4).setPassable(_toggleBlockedFlag);
+				_toggleBlockedFlag = !_toggleBlockedFlag;
 				
 				// update players row reference
 				_playerRow++;

@@ -7,6 +7,8 @@
 
 # Eisbahn
 
+* [ ] **Fehler**: Schneemänner werden manchmal übermalt
+* [ ] **Fehler**: Schneemänner scheinen falsche Position für Kollision zu bekommen.
 * [ ] Lade Konfiguration für Eisbahn aus Datei
 * [ ] Kacheln können noch keine zweite Farbe anzeigen.
 

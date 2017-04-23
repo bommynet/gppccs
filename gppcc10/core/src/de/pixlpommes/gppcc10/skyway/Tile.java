@@ -127,6 +127,6 @@ public class Tile {
 	 * @param passable
 	 */
 	public void setPassable(boolean passable) {
-		_isPassable = false;
+		_isPassable = passable;
 	}
 }

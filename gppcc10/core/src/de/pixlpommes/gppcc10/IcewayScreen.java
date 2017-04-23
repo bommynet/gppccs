@@ -7,10 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import de.pixlpommes.gppcc10.Player.Collide;
 import de.pixlpommes.gppcc10.iceway.Iceway;
-import de.pixlpommes.gppcc10.skyway.Skyway;
-import de.pixlpommes.gppcc10.skyway.Tile;
 
 /**
  * @author Thomas Borck - http://www.pixlpommes.de
@@ -74,7 +71,7 @@ public class IcewayScreen implements Screen {
 		_icewayIsMoving = true;
 
 		// setup cloud layer
-		_clouds = new Texture(Gdx.files.internal("clouds_Wolken.png"));
+		_clouds = new Texture(Gdx.files.internal("clouds.png"));
 		_cloudsY = -Gppcc10.HALF_HEIGHT;
 
 		// setup world layer

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 import de.pixlpommes.gppcc10.Gppcc10;
+import de.pixlpommes.gppcc10.iceway.IcewayRow.Tile;
 
 /**
  * @author Thomas Borck - http://www.pixlpommes.de
@@ -15,6 +16,13 @@ import de.pixlpommes.gppcc10.Gppcc10;
  */
 public class Iceway {
 
+	/** TODO: describe 'CONFIG_3' */
+	public final static Tile[] CONFIG_3 = new Tile[] {
+			Tile.NONE, Tile.NONE,
+			Tile.NORMAL, Tile.NORMAL, Tile.NORMAL,
+			Tile.NONE, Tile.NONE
+	};
+	
 	/** tiles count in width */
 	public final static int COLS = 7;
 
@@ -88,7 +96,7 @@ public class Iceway {
 				
 				// add row on top
 				float topY = _iceway.get(_iceway.size()-1).getY() + TILESIZE;
-				IcewayRow newRow = new IcewayRow(_offsetX, topY);
+				IcewayRow newRow = new IcewayRow(_offsetX, topY, CONFIG_3);
 				_iceway.add(newRow);
 			}
 		}

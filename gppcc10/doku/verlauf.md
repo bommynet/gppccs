@@ -22,4 +22,5 @@
 |        | Schneemann als Blockkachel | 1.00h | |
 |        | Zeichen-Bug "Schneemann" behoben | 0.25h | |
 |        | Code-Rewrite als Iceway | 2.50h | |
-|        | Wald-Hintergrund erstellt | 1.25h | 5.75h |
+|        | Wald-Hintergrund erstellt | 1.25h | |
+|        | Spieler Sprite (Skizze) erstellt | 1.00h | 6.75h |

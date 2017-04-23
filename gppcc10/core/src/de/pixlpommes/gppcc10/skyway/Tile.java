@@ -73,7 +73,8 @@ public class Tile {
 	 */
 	public void draw(Batch batch) {
 		if(_isVisible)
-			batch.draw(Skyway.TILE_NORMAL, _x, _y);
+			batch.draw(Skyway.TILESET, _x, _y, 0, 0, 64, 64);
+			//batch.draw(Skyway.TILE_NORMAL, _x, _y);
 		
 		if(_isVisible && !_isPassable)
 			batch.draw(Skyway.TILE_BLOCKED, _x, _y);

@@ -24,13 +24,16 @@ public class Skyway {
 	/** tile size in pixel */
 	public final static int TILESIZE = 66;
 	
-	/** tile texture (first color) */
+	/** texture including all tiles for skyway */
+	public final static Texture TILESET = new Texture(Gdx.files.internal("skyway.png"));
+	
+	/** tile texture (first color) <br/>TODO remove! */
 	public final static Texture TILE_NORMAL = new Texture(Gdx.files.internal("tile_normal.png"));
 	
-	/** tile texture (second color) */
+	/** tile texture (second color) <br/>TODO remove! */
 	public final static Texture TILE_INVERS = new Texture(Gdx.files.internal("tile_inverse.png"));
 	
-	/** block to add on a tile */
+	/** block to add on a tile <br/>TODO remove! */
 	public final static Texture TILE_BLOCKED = new Texture(Gdx.files.internal("tile_blocked.png"));
 	
 	/** lower left corner of the skyway */

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import de.pixlpommes.gppcc10.iceway.BlowFlyer;
 import de.pixlpommes.gppcc10.iceway.Iceway;
 
 /**
@@ -33,6 +34,9 @@ public class IcewayScreen implements Screen, InputProcessor {
 
 	/** the player */
 	private Player _player;
+	
+	/** the bad, ice-melting blow-flyers */
+	private BlowFlyer _flyer;
 
 	// LAYER 1
 	/** clouds as texture */
@@ -75,6 +79,9 @@ public class IcewayScreen implements Screen, InputProcessor {
 		_player.setPosition(
 				_iceway.getX((int)(Iceway.COLS / 2)),
 				_iceway.getY(2));
+		
+		// setup blow-flyer
+		_flyer = new BlowFlyer(posX, 0);
 
 		// setup cloud layer
 		_clouds = new Texture(Gdx.files.internal("clouds.png"));
@@ -103,6 +110,7 @@ public class IcewayScreen implements Screen, InputProcessor {
 		if (_icewayIsMoving) {
 			_iceway.update(delta);
 			_player.update(delta);
+			_flyer.update(delta, _iceway.getSpeed());
 
 			// update background layers (already negative!)
 			float deltaSpeed = _iceway.getSpeed() * delta;
@@ -132,6 +140,7 @@ public class IcewayScreen implements Screen, InputProcessor {
 		_batch.draw(_clouds, -Gppcc10.HALF_WIDHT, _cloudsY + Gppcc10.HEIGHT);
 		// 3. game (layer 'top')
 		_iceway.draw(_batch);
+		_flyer.draw(_batch);
 		_player.draw(_batch);
 		_batch.end();
 	}

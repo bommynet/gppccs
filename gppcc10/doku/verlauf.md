@@ -25,4 +25,5 @@
 |        | Wald-Hintergrund erstellt | 1.25h | |
 |        | Spieler Sprite (Skizze) erstellt | 1.00h | |
 |        | Spieler re-implementiert | 0.25h | 7.00h |
-| 24.04. | Fön-Fliege skizziert | 0.60h | 0.60h |
+| 24.04. | Fön-Fliege skizziert | 0.60h | |
+|        | Fön-Fliege eingebaut | 0.50h | 1.10h |

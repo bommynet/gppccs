@@ -27,4 +27,5 @@
 |        | Spieler re-implementiert | 0.25h | 7.00h |
 | 24.04. | Fön-Fliege skizziert | 0.60h | |
 |        | Fön-Fliege eingebaut | 0.50h | |
-|        | Fön-Fliege schmelzt Eisreihen | 0.50h | 1.60h |
+|        | Fön-Fliege schmelzt Eisreihen | 0.50h | |
+|        | Objekt-Manager erstellt | 0.75h | 2.35h |

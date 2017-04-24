@@ -48,7 +48,12 @@ public class Iceway {
 	
 	/** acceleration per second */
 	private float _accSpeed;
+	
+	// items and more
+	/** powerups and -downs */
+	private Items _items;
 
+	
 	/**
 	 * @param posX
 	 * @param posY
@@ -68,6 +73,9 @@ public class Iceway {
 		for (int i = 0; i < ROWS; i++) {
 			_iceway.add(new IcewayRow(_offsetX, _offsetY + i * TILESIZE));
 		}
+		
+		// setup item and object manager
+		_items = new Items();
 	}
 	
 	/**
@@ -98,8 +106,15 @@ public class Iceway {
 				float topY = _iceway.get(_iceway.size()-1).getY() + TILESIZE;
 				IcewayRow newRow = new IcewayRow(_offsetX, topY, CONFIG_3);
 				_iceway.add(newRow);
+				
+				// TODO: select a random visible tile or something like config
+				if(Math.random() < 0.2) {
+					_items.add(_iceway.get(0).getX(3), topY, Item.Type.SNOWMAN);
+				}
 			}
 		}
+		
+		_items.update(deltaSpeed);
 	}
 	
 	/**
@@ -109,6 +124,8 @@ public class Iceway {
 	public void draw(Batch batch) {
 		for(IcewayRow row : _iceway)
 			row.draw(batch);
+		
+		_items.draw(batch);
 	}
 	
 	/**

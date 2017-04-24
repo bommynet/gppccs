@@ -70,4 +70,12 @@ public class BlowFlyer {
 		_sr.end();
 		batch.begin();
 	}
+	
+	/**
+	 * TODO: describe function
+	 * @return
+	 */
+	public float getY() {
+		return _y;
+	}
 }

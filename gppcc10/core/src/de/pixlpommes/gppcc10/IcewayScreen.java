@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.pixlpommes.gppcc10.iceway.BlowFlyer;
 import de.pixlpommes.gppcc10.iceway.Iceway;
+import de.pixlpommes.gppcc10.iceway.IcewayRow;
 
 /**
  * @author Thomas Borck - http://www.pixlpommes.de
@@ -81,7 +82,7 @@ public class IcewayScreen implements Screen, InputProcessor {
 				_iceway.getY(2));
 		
 		// setup blow-flyer
-		_flyer = new BlowFlyer(posX, 0);
+		_flyer = new BlowFlyer(posX, -Gppcc10.HEIGHT);
 
 		// setup cloud layer
 		_clouds = new Texture(Gdx.files.internal("clouds.png"));
@@ -124,6 +125,14 @@ public class IcewayScreen implements Screen, InputProcessor {
 				_worldY = -Gppcc10.HALF_HEIGHT;
 		}
 
+		// do collisions
+		// melt each row reached by the blow-flyers
+		for(IcewayRow row : _iceway.getIceway()) {
+			if(!row.isMolten() && row.getY() <= _flyer.getY()) {
+				row.setMolten();
+			}
+		}
+		
 		// TODO: do a screen shake if needed
 		/// _shake.shakeUpdate(_batch, delta);
 

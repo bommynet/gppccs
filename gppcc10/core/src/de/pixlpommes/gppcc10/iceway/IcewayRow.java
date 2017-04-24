@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  * Update and show a row of the ice way.
  * 
  * @author Thomas Borck - http://www.pixlpommes.de
- * @version 0.1
+ * @version 0.2
  */
 public class IcewayRow {
 	
@@ -16,6 +16,9 @@ public class IcewayRow {
 	/** TODO: describe '_y' */
 	private float _x, _y;
 	
+	/** TODO: describe '_isMolten' */
+	private boolean _isMolten;
+	
 	
 	/**
 	 * @param x
@@ -24,6 +27,8 @@ public class IcewayRow {
 	public IcewayRow(float x, float y) {
 		_x = x;
 		_y = y;
+		
+		_isMolten = false;
 		
 		_tiles = new Tile[Iceway.COLS];
 		for(int i=0; i<_tiles.length; i++)
@@ -38,7 +43,9 @@ public class IcewayRow {
 		_x = x;
 		_y = y;
 		
-		_tiles = config;
+		_tiles = new Tile[config.length];
+		for(int i=0; i<_tiles.length; i++)
+			_tiles[i] = config[i];
 	}
 	
 	
@@ -82,6 +89,27 @@ public class IcewayRow {
 	 */
 	public float getX(int index) {
 		return _x + index * Iceway.TILESIZE;
+	}
+	
+	/**
+	 * TODO: describe function
+	 * @return
+	 */
+	public boolean isMolten() {
+		return _isMolten;
+	}
+	
+	/**
+	 * TODO: describe function
+	 */
+	public void setMolten() {
+		// melt tiles
+		/// TODO: melt as own state; animate
+		for(int i=0; i<_tiles.length; i++) {
+			_tiles[i] = Tile.NONE;
+		}
+		
+		_isMolten = true;
 	}
 	
 	

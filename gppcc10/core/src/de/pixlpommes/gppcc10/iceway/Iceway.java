@@ -135,4 +135,12 @@ public class Iceway {
 	public float getY(int indexRow) {
 		return _iceway.get(indexRow).getY();
 	}
+	
+	/**
+	 * TODO: describe function
+	 * @return
+	 */
+	public List<IcewayRow> getIceway() {
+		return _iceway;
+	}
 }

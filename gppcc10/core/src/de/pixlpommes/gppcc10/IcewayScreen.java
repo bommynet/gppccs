@@ -8,11 +8,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 import de.pixlpommes.gppcc10.iceway.BlowFlyer;
 import de.pixlpommes.gppcc10.iceway.Iceway;
 import de.pixlpommes.gppcc10.iceway.IcewayRow;
-import de.pixlpommes.gppcc10.iceway.Items;
+import de.pixlpommes.gppcc10.iceway.Item;
 
 /**
  * @author Thomas Borck - http://www.pixlpommes.de
@@ -134,6 +135,17 @@ public class IcewayScreen implements Screen, InputProcessor {
 			}
 		}
 		
+		// check collisions between items <-> player
+		if(!_player.isSwitching()) {
+			for(Item item : _iceway.getItems()) {
+				if(checkCollision(item.getBounds(), _player.getBounds())) {
+					/// TODO: check for item type
+					item.kill();
+				}
+			}
+		}
+				
+		
 		// TODO: do a screen shake if needed
 		/// _shake.shakeUpdate(_batch, delta);
 
@@ -154,12 +166,19 @@ public class IcewayScreen implements Screen, InputProcessor {
 		_player.draw(_batch);
 		_batch.end();
 	}
-
-	@Override
-	public void show() {
-		// TODO Auto-generated method stub
-
+	
+	
+	/**
+	 * Check for collisions between two rectangles.
+	 * 
+	 * @param rect1
+	 * @param rect2
+	 * @return
+	 */
+	public boolean checkCollision(Rectangle rect1, Rectangle rect2) {
+		return rect1.overlaps(rect2);
 	}
+	
 
 	@Override
 	public void resize(int width, int height) {
@@ -175,6 +194,12 @@ public class IcewayScreen implements Screen, InputProcessor {
 
 		// update renderer
 		_batch.setProjectionMatrix(_cam.combined);
+	}
+	
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override

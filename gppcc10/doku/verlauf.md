@@ -29,3 +29,4 @@
 |        | Fön-Fliege eingebaut | 0.50h | |
 |        | Fön-Fliege schmelzt Eisreihen | 0.50h | |
 |        | Objekt-Manager erstellt | 0.75h | 2.35h |
+| 25.04. | Spieler <-> Objekt Kollision | 1.00h | 1.00h |

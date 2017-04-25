@@ -1,6 +1,7 @@
 package de.pixlpommes.gppcc10;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Rectangle;
 
 import de.pixlpommes.gppcc10.iceway.Iceway;
 
@@ -128,6 +129,14 @@ public class Player {
 	 */
 	public void changeState(State state) {
 		_state = state;
+	}
+	
+	/**
+	 * TODO: describe function
+	 * @return
+	 */
+	public Rectangle getBounds() {
+		return new Rectangle(_x, _y, 64, 64);
 	}
 	
 	

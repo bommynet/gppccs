@@ -160,4 +160,12 @@ public class Iceway {
 	public List<IcewayRow> getIceway() {
 		return _iceway;
 	}
+	
+	/**
+	 * TODO: describe function
+	 * @return
+	 */
+	public List<Item> getItems() {
+		return _items.getList();
+	}
 }

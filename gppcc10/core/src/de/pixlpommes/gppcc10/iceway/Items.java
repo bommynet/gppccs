@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 
-import de.pixlpommes.gppcc10.Gppcc10;
 import de.pixlpommes.gppcc10.iceway.Item.Type;
 
 /**
@@ -36,9 +35,8 @@ public class Items {
 			// update positions
 			item.update(deltaSpeed);
 			
-			// TODO: removed killed items
 			// remove killed/used items
-			if(item.getY() < -Gppcc10.HALF_HEIGHT - 2*Iceway.TILESIZE) {
+			if(item.isRemovable()) {
 				_items.remove(item);
 			}
 		}
@@ -65,5 +63,13 @@ public class Items {
 	 */
 	public void add(float x, float y, Type type) {
 		_items.add(new Item(x, y, type));
+	}
+	
+	/**
+	 * TODO: describe function
+	 * @return
+	 */
+	public List<Item> getList() {
+		return _items;
 	}
 }

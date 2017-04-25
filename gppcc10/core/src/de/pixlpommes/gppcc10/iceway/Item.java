@@ -1,6 +1,9 @@
 package de.pixlpommes.gppcc10.iceway;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Rectangle;
+
+import de.pixlpommes.gppcc10.Gppcc10;
 
 /**
  * @author Thomas Borck - http://www.pixlpommes.de
@@ -11,7 +14,11 @@ public class Item {
 	/** TODO: describe '_y' */
 	private float _x, _y;
 	
+	/** TODO: describe '_type' */
 	private Type _type;
+	
+	/** TODO: describe '_isAlive' */
+	private boolean _isAlive;
 	
 	
 	/**
@@ -22,6 +29,7 @@ public class Item {
 		_x = x;
 		_y = y;
 		_type = type;
+		_isAlive = true;
 	}
 	
 	/**
@@ -30,6 +38,11 @@ public class Item {
 	 */
 	public void update(float deltaSpeed) {
 		_y += deltaSpeed;
+		
+		// remove items out of screen
+		if(_y < -Gppcc10.HALF_HEIGHT - 2*Iceway.TILESIZE) {
+			kill();
+		}
 	}
 	
 	/**
@@ -54,6 +67,30 @@ public class Item {
 	 */
 	public float getY() {
 		return _y;
+	}
+	
+	/**
+	 * TODO: describe function
+	 * @return
+	 */
+	public Rectangle getBounds() {
+		return new Rectangle(_x, _y, 64, 64);
+	}
+	
+	/**
+	 * Kill this item.
+	 */
+	public void kill() {
+		/// TODO: init death animation
+		_isAlive = false;
+	}
+	
+	/**
+	 * @return Is item killed and animation done?
+	 */
+	public boolean isRemovable() {
+		/// TODO: wait 'til animation is done
+		return !_isAlive;
 	}
 	
 	

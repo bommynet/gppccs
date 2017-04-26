@@ -24,15 +24,15 @@ public class Gppcc10 extends Game {
 
 	/** texture including all tiles for ice way */
 	public final static Texture TILESET = new Texture(
-			Gdx.files.internal("iceway.png"));
+			Gdx.files.internal("textures/iceway.png"));
 	
 	/** background texture: clouds */
 	public final static Texture TEXTURE_CLOUDS = new Texture(
-			Gdx.files.internal("clouds.png"));
+			Gdx.files.internal("textures/clouds.png"));
 	
 	/** background texture: woods */
 	public final static Texture FILE_IMAGE_WOODS = new Texture(
-			Gdx.files.internal("woods.png"));
+			Gdx.files.internal("textures/woods.png"));
 	
 	/* (non-Javadoc)
 	 * @see com.badlogic.gdx.ApplicationListener#create()

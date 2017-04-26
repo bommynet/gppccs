@@ -59,6 +59,9 @@ public class Iceway {
 	// items and more
 	/** powerups and -downs */
 	private Items _items;
+	
+	/** progress bar */
+	private ProgressBar _progress;
 
 	
 	/**
@@ -83,6 +86,12 @@ public class Iceway {
 		
 		// setup item and object manager
 		_items = new Items();
+		
+		// setup progress bar
+		_progress = new ProgressBar(
+				_offsetX + (COLS+1)*TILESIZE,
+				-Gppcc10.HALF_HEIGHT + TILESIZE);
+		/// TODO: setup max
 	}
 	
 	/**
@@ -133,6 +142,8 @@ public class Iceway {
 			row.draw(batch);
 		
 		_items.draw(batch);
+		
+		_progress.draw(batch);
 	}
 	
 	/**

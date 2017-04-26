@@ -8,12 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
-
-import de.pixlpommes.gppcc10.iceway.BlowFlyer;
 import de.pixlpommes.gppcc10.iceway.Iceway;
-import de.pixlpommes.gppcc10.iceway.IcewayRow;
-import de.pixlpommes.gppcc10.iceway.Item;
 
 /**
  * @author Thomas Borck - http://www.pixlpommes.de

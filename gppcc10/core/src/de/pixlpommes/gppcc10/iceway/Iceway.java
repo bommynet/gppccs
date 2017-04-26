@@ -25,6 +25,13 @@ public class Iceway {
 			Tile.NONE, Tile.NONE
 	};
 
+	/** TODO: describe 'CONFIG_5' */
+	public final static Tile[] CONFIG_5 = new Tile[] {
+			Tile.NONE, Tile.NORMAL,
+			Tile.NORMAL, Tile.NORMAL, Tile.NORMAL,
+			Tile.NORMAL, Tile.NONE
+	};
+
 	/** TODO: describe 'CONFIG_313' */
 	public final static Tile[] CONFIG_313 = new Tile[] {
 			Tile.NORMAL, Tile.NORMAL, Tile.NORMAL,
@@ -47,6 +54,12 @@ public class Iceway {
 	// general
 	/** TODO: describe '_offsetX' */
 	private int _offsetX, _offsetY;
+	
+	/** TODO: describe '_config' */
+	private Tile[][] _config;
+	
+	/** TODO: describe '_configNextRow' */
+	private int _configNextRow;
 
 	/** the player */
 	private Player _player;
@@ -109,6 +122,11 @@ public class Iceway {
 				_offsetX + (COLS+1)*TILESIZE,
 				-Gppcc10.HALF_HEIGHT + TILESIZE);
 		/// TODO: setup max
+		
+		
+		// load a level, TODO: select level before
+		_config = getConfig("level/000.lvl");
+		_configNextRow = 0;
 	}
 	
 	/**
@@ -137,8 +155,13 @@ public class Iceway {
 				
 				// add row on top
 				float topY = _iceway.get(_iceway.size()-1).getY() + TILESIZE;
-				IcewayRow newRow = new IcewayRow(_offsetX, topY, CONFIG_3);
+				Tile[] config = _config[_configNextRow];
+				IcewayRow newRow = new IcewayRow(_offsetX, topY, config);
 				_iceway.add(newRow);
+				
+				// select next config row
+				_configNextRow++;
+				if(_configNextRow >= _config.length) _configNextRow = _config.length-1;
 				
 				// TODO: select a random visible tile or something like config
 				if(Math.random() < 0.2) {
@@ -151,6 +174,7 @@ public class Iceway {
 		_flyer.update(delta, _speed);
 		_items.update(deltaSpeed);
 		_progress.update(delta);
+		
 		
 		// do collisions
 		// melt each row reached by the blow-flyers
@@ -244,5 +268,37 @@ public class Iceway {
 	 */
 	public List<Item> getItems() {
 		return _items.getList();
+	}
+	
+	/**
+	 * TODO: describe function
+	 * @param levelFile
+	 * @return
+	 */
+	public Tile[][] getConfig(String levelFile) {
+		// load file
+		String raw = Gdx.files.internal(levelFile).readString("UTF-8");
+		String[] rows = raw.split("\n");
+		
+		// create config array
+		Tile[][] config = new Tile[rows.length][COLS];
+		
+		// transfer string to config array
+		for(int row=0; row<rows.length; row++) {
+			String s = rows[row].trim();
+			
+			for(int col=0; col<COLS; col++) {
+				switch(s.charAt(col)) {
+					case 'X':
+						config[row][col] = Tile.NORMAL;
+						break;
+						
+					default:
+						config[row][col] = Tile.NONE;
+				}
+			}
+		}
+		
+		return config;
 	}
 }

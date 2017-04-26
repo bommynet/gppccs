@@ -31,3 +31,4 @@
 |        | Objekt-Manager erstellt | 0.75h | 2.35h |
 | 25.04. | Spieler <-> Objekt Kollision | 1.00h | |
 |        | Fortschrittbalken und Marker | 1.50h | 2.50h |
+| 26.04. | Marker-Sprites + Bar-Endstücke | 1.00h | 1.00h |

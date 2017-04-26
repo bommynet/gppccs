@@ -35,12 +35,6 @@ public class IcewayScreen implements Screen, InputProcessor {
 	/** moves or stops iceway */
 	private boolean _icewayIsMoving;
 
-	/** the player */
-	private Player _player;
-	
-	/** the bad, ice-melting blow-flyers */
-	private BlowFlyer _flyer;
-
 	// LAYER 1
 	/** clouds as texture */
 	private Texture _clouds;
@@ -76,15 +70,6 @@ public class IcewayScreen implements Screen, InputProcessor {
 		int posY = -(Gppcc10.HEIGHT / 2);
 		_iceway = new Iceway(posX, posY);
 		_icewayIsMoving = true;
-		
-		// setup player
-		_player = new Player();
-		_player.setPosition(
-				_iceway.getX((int)(Iceway.COLS / 2)),
-				_iceway.getY(2));
-		
-		// setup blow-flyer
-		_flyer = new BlowFlyer(posX, -Gppcc10.HEIGHT);
 
 		// setup cloud layer
 		_clouds = new Texture(Gdx.files.internal("clouds.png"));
@@ -112,8 +97,6 @@ public class IcewayScreen implements Screen, InputProcessor {
 		// update positions
 		if (_icewayIsMoving) {
 			_iceway.update(delta);
-			_player.update(delta);
-			_flyer.update(delta, _iceway.getSpeed());
 
 			// update background layers (already negative!)
 			float deltaSpeed = _iceway.getSpeed() * delta;
@@ -127,25 +110,6 @@ public class IcewayScreen implements Screen, InputProcessor {
 				_worldY = -Gppcc10.HALF_HEIGHT;
 		}
 
-		// do collisions
-		// melt each row reached by the blow-flyers
-		for(IcewayRow row : _iceway.getIceway()) {
-			if(!row.isMolten() && row.getY() <= _flyer.getY()) {
-				row.setMolten();
-			}
-		}
-		
-		// check collisions between items <-> player
-		if(!_player.isSwitching()) {
-			for(Item item : _iceway.getItems()) {
-				if(checkCollision(item.getBounds(), _player.getBounds())) {
-					/// TODO: check for item type
-					item.kill();
-				}
-			}
-		}
-				
-		
 		// TODO: do a screen shake if needed
 		/// _shake.shakeUpdate(_batch, delta);
 
@@ -162,21 +126,7 @@ public class IcewayScreen implements Screen, InputProcessor {
 		_batch.draw(_clouds, -Gppcc10.HALF_WIDHT, _cloudsY + Gppcc10.HEIGHT);
 		// 3. game (layer 'top')
 		_iceway.draw(_batch);
-		_flyer.draw(_batch);
-		_player.draw(_batch);
 		_batch.end();
-	}
-	
-	
-	/**
-	 * Check for collisions between two rectangles.
-	 * 
-	 * @param rect1
-	 * @param rect2
-	 * @return
-	 */
-	public boolean checkCollision(Rectangle rect1, Rectangle rect2) {
-		return rect1.overlaps(rect2);
 	}
 	
 
@@ -237,11 +187,9 @@ public class IcewayScreen implements Screen, InputProcessor {
 			return false;
 
 		if (keycode == Keys.A) {
-			float moveTo = _player.getX() - Iceway.TILESIZE;
-			_player.switchPos(moveTo);
+			_iceway.movePlayerBy(-Iceway.TILESIZE);
 		} else if (keycode == Keys.D) {
-			float moveTo = _player.getX() + Iceway.TILESIZE;
-			_player.switchPos(moveTo);
+			_iceway.movePlayerBy(Iceway.TILESIZE);
 		}
 
 		return false;

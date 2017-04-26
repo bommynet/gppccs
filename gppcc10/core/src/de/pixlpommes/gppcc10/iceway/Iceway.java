@@ -6,8 +6,10 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Rectangle;
 
 import de.pixlpommes.gppcc10.Gppcc10;
+import de.pixlpommes.gppcc10.Player;
 import de.pixlpommes.gppcc10.iceway.IcewayRow.Tile;
 
 /**
@@ -46,6 +48,12 @@ public class Iceway {
 	/** TODO: describe '_offsetX' */
 	private int _offsetX, _offsetY;
 
+	/** the player */
+	private Player _player;
+	
+	/** the bad, ice-melting blow-flyers */
+	private BlowFlyer _flyer;
+
 	// iceway
 	/** TODO: describe '_iceway' */
 	private List<IcewayRow> _iceway;
@@ -83,6 +91,15 @@ public class Iceway {
 		for (int i = 0; i < ROWS; i++) {
 			_iceway.add(new IcewayRow(_offsetX, _offsetY + i * TILESIZE));
 		}
+		
+		// setup player
+		_player = new Player();
+		_player.setPosition(
+				getX((int)(Iceway.COLS / 2)),
+				getY(2));
+		
+		// setup blow-flyer
+		_flyer = new BlowFlyer(posX, -Gppcc10.HEIGHT);
 		
 		// setup item and object manager
 		_items = new Items();
@@ -130,9 +147,28 @@ public class Iceway {
 			}
 		}
 		
+		_player.update(delta);
+		_flyer.update(delta, _speed);
 		_items.update(deltaSpeed);
-		
 		_progress.update(delta);
+		
+		// do collisions
+		// melt each row reached by the blow-flyers
+		for(IcewayRow row : _iceway) {
+			if(!row.isMolten() && row.getY() <= _flyer.getY()) {
+				row.setMolten();
+			}
+		}
+		
+		// check collisions between items <-> player
+		if(!_player.isSwitching()) {
+			for(Item item : _items.getList()) {
+				if(checkCollision(item.getBounds(), _player.getBounds())) {
+					/// TODO: check for item type
+					item.kill();
+				}
+			}
+		}
 	}
 	
 	/**
@@ -144,8 +180,20 @@ public class Iceway {
 			row.draw(batch);
 		
 		_items.draw(batch);
-		
 		_progress.draw(batch);
+		_flyer.draw(batch);
+		_player.draw(batch);
+	}
+	
+	/**
+	 * Check for collisions between two rectangles.
+	 * 
+	 * @param rect1
+	 * @param rect2
+	 * @return
+	 */
+	public boolean checkCollision(Rectangle rect1, Rectangle rect2) {
+		return rect1.overlaps(rect2);
 	}
 	
 	/**
@@ -171,6 +219,15 @@ public class Iceway {
 	 */
 	public float getY(int indexRow) {
 		return _iceway.get(indexRow).getY();
+	}
+	
+	/**
+	 * TODO: describe function
+	 * @param pixels
+	 */
+	public void movePlayerBy(float pixels) {
+		float moveTo = _player.getX() + pixels;
+		_player.switchPos(moveTo);
 	}
 	
 	/**

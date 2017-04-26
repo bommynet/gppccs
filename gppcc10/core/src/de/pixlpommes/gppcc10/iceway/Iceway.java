@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -46,6 +47,18 @@ public class Iceway {
 
 	/** tile size in pixel */
 	public final static int TILESIZE = 66;
+
+	/** texture including all tiles for ice way */
+	public final static Texture TILESET = new Texture(
+			Gdx.files.internal("graphics/iceway.png"));
+	
+	/** background texture: clouds */
+	public final static Texture TEXTURE_CLOUDS = new Texture(
+			Gdx.files.internal("graphics/clouds.png"));
+	
+	/** background texture: woods */
+	public final static Texture TEXTURE_WOODS = new Texture(
+			Gdx.files.internal("graphics/woods.png"));
 
 	// general
 	/** TODO: describe '_offsetX' */

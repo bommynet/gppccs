@@ -3,6 +3,8 @@ package de.pixlpommes.gppcc10;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 
+import de.pixlpommes.gppcc10.iceway.Iceway;
+
 /**
  * The player.
  * 
@@ -57,7 +59,7 @@ public class Player {
 	 */
 	public void draw(Batch batch) {
 		// player is on 2. col, 2. row, 64w, 128h
-		batch.draw(Gppcc10.TILESET,
+		batch.draw(Iceway.TILESET,
 				_x, _y, // position on screen
 				64, 64, // position on tile set
 				64, 128); // size on tile set

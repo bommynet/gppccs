@@ -2,8 +2,6 @@ package de.pixlpommes.gppcc10.iceway;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 
-import de.pixlpommes.gppcc10.Gppcc10;
-
 /**
  * A level progress bar.
  * 
@@ -67,7 +65,7 @@ public class ProgressBar {
 		int tileX = (_flash) ? 80 : 64;
 		
 		// lower end tile
-		batch.draw(Gppcc10.TILESET,
+		batch.draw(Iceway.TILESET,
 			_x, curY,
 			282, 192, // tile position in tile set
 			END_TILE_WIDTH, END_TILE_HEIGHT); // tile size
@@ -76,7 +74,7 @@ public class ProgressBar {
 		
 		// all bar tiles
 		for(int i=0; i<6; i++) {
-			batch.draw(Gppcc10.TILESET,
+			batch.draw(Iceway.TILESET,
 				_x+1, // add 1 to position bar in center
 				curY,
 				tileX, 256, // tile position in tile set
@@ -85,7 +83,7 @@ public class ProgressBar {
 		}
 		
 		// top end tile
-		batch.draw(Gppcc10.TILESET,
+		batch.draw(Iceway.TILESET,
 				_x, curY,
 				282, 247, // tile position in tile set
 				END_TILE_WIDTH, END_TILE_HEIGHT); // tile size

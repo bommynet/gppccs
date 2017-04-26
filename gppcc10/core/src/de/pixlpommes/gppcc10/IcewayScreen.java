@@ -67,11 +67,11 @@ public class IcewayScreen implements Screen, InputProcessor {
 		_icewayIsMoving = true;
 
 		// setup cloud layer
-		_clouds = new Texture(Gdx.files.internal("clouds.png"));
+		_clouds = Iceway.TEXTURE_CLOUDS;
 		_cloudsY = -Gppcc10.HALF_HEIGHT;
 
 		// setup world layer
-		_world = new Texture(Gdx.files.internal("woods.png"));
+		_world = Iceway.TEXTURE_WOODS;
 		_worldY = -Gppcc10.HALF_HEIGHT;
 
 		// add input handling

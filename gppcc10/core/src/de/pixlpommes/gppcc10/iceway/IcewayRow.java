@@ -2,8 +2,6 @@ package de.pixlpommes.gppcc10.iceway;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 
-import de.pixlpommes.gppcc10.Gppcc10;
-
 /**
  * Update and show a row of the ice way.
  * 
@@ -69,7 +67,7 @@ public class IcewayRow {
 			if(_tiles[i] == Tile.NONE) continue;
 			
 			// draw tile
-			batch.draw(Gppcc10.TILESET,
+			batch.draw(Iceway.TILESET,
 					_x + i * Iceway.TILESIZE,
 					_y,
 					0, 0, // tile position in tile set

@@ -52,7 +52,7 @@ public class Item {
 	public void draw(Batch batch) {
 		switch(_type) {
 			case SNOWMAN:
-				batch.draw(Iceway.TILESET,
+				batch.draw(Gppcc10.TILESET,
 						_x,
 						_y,
 						0, 64, // tile position in tile set

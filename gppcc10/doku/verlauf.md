@@ -36,4 +36,5 @@
 |        | Fortschrittbalken eingebaut | 1.50h | |
 |        | Iceway refaktoriert | 0.75h | |
 |        | Lade Level als Konfiguration | 2.00h | |
-|        | Berechne Levelfortschritt in % | 0.40h | 6.00h |
+|        | Berechne Levelfortschritt in % | 0.40h | |
+|        | Texturen zentralisiert in Gppcc10 | 0.50h | 6.50h |

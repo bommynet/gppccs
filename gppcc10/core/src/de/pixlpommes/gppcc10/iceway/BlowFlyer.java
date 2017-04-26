@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
+import de.pixlpommes.gppcc10.Gppcc10;
+
 /**
  * A swarm blow-flyers that will melt the iceway.
  * 
@@ -53,7 +55,7 @@ public class BlowFlyer {
 	public void draw(Batch batch) {
 		// draw flyers
 		for(int i=0; i<Iceway.COLS; i++) {
-			batch.draw(Iceway.TILESET,
+			batch.draw(Gppcc10.TILESET,
 				_x + i * Iceway.TILESIZE,
 				_y - Iceway.TILESIZE - 3,
 				0, 192, // tile position in tile set

@@ -14,7 +14,7 @@ import de.pixlpommes.gppcc10.iceway.Iceway;
  * @author Thomas Borck - http://www.pixlpommes.de
  * @version 0.1
  */
-public class IcewayScreen implements Screen, InputProcessor {
+public class IcewayScreen implements Screen {
 	
 	// general
 	/** batch to render everything */
@@ -75,7 +75,7 @@ public class IcewayScreen implements Screen, InputProcessor {
 		_worldY = -Gppcc10.HALF_HEIGHT;
 
 		// add input handling
-		Gdx.input.setInputProcessor(this);
+		///Gdx.input.setInputProcessor(this);
 	}
 
 	/*
@@ -88,6 +88,9 @@ public class IcewayScreen implements Screen, InputProcessor {
 		// clear screen
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		// keyboard input
+		checkInput();
 
 		// update positions
 		if (_icewayIsMoving) {
@@ -172,64 +175,15 @@ public class IcewayScreen implements Screen, InputProcessor {
 	}
 
 	
-	/* (non-Javadoc)
-	 * @see com.badlogic.gdx.InputProcessor#keyDown(int)
-	 */
-	@Override
-	public boolean keyDown(int keycode) {
+	public void checkInput() {
 		// moving -> no more player move
 		if (!_icewayIsMoving)
-			return false;
+			return;
 
-		if (keycode == Keys.A) {
+		if (Gdx.input.isKeyPressed(Keys.A)) {
 			_iceway.movePlayerBy(-Iceway.TILESIZE);
-		} else if (keycode == Keys.D) {
+		} else if (Gdx.input.isKeyPressed(Keys.D)) {
 			_iceway.movePlayerBy(Iceway.TILESIZE);
 		}
-
-		return false;
 	}
-
-	@Override
-	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int amount) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }

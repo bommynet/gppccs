@@ -22,6 +22,13 @@ public class Iceway {
 			Tile.NORMAL, Tile.NORMAL, Tile.NORMAL,
 			Tile.NONE, Tile.NONE
 	};
+
+	/** TODO: describe 'CONFIG_313' */
+	public final static Tile[] CONFIG_313 = new Tile[] {
+			Tile.NORMAL, Tile.NORMAL, Tile.NORMAL,
+			Tile.NONE,
+			Tile.NORMAL, Tile.NORMAL, Tile.NORMAL
+	};
 	
 	/** tiles count in width */
 	public final static int COLS = 7;

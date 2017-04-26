@@ -131,6 +131,8 @@ public class Iceway {
 		}
 		
 		_items.update(deltaSpeed);
+		
+		_progress.update(delta);
 	}
 	
 	/**

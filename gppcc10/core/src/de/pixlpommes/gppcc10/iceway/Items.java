@@ -40,8 +40,6 @@ public class Items {
 				_items.remove(item);
 			}
 		}
-		
-		System.out.println("Items: " + _items.size());
 	}
 	
 	/**

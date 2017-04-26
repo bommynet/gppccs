@@ -60,6 +60,9 @@ public class Iceway {
 	
 	/** TODO: describe '_configNextRow' */
 	private int _configNextRow;
+	
+	/** TODO: describe '_levelCurrentPosition' */
+	private int _levelLength, _levelCurrentPosition;
 
 	/** the player */
 	private Player _player;
@@ -121,12 +124,14 @@ public class Iceway {
 		_progress = new ProgressBar(
 				_offsetX + (COLS+1)*TILESIZE,
 				-Gppcc10.HALF_HEIGHT + TILESIZE);
-		/// TODO: setup max
-		
-		
+				
 		// load a level, TODO: select level before
 		_config = getConfig("level/000.lvl");
 		_configNextRow = 0;
+		
+		// setup maximum level length
+		_levelLength = _config.length + ROWS - 2;
+		_levelCurrentPosition = 0;
 	}
 	
 	/**
@@ -161,7 +166,17 @@ public class Iceway {
 				
 				// select next config row
 				_configNextRow++;
-				if(_configNextRow >= _config.length) _configNextRow = _config.length-1;
+				if(_configNextRow >= _config.length)
+					_configNextRow = _config.length-1;
+				
+				// increase level position
+				_levelCurrentPosition++;
+				if(_levelCurrentPosition >= _levelLength)
+					_levelCurrentPosition = _levelLength;
+				// TODO: remove sysout
+				System.out.println("Level progress: " +
+				(float)((float)_levelCurrentPosition / (float)_levelLength));
+				
 				
 				// TODO: select a random visible tile or something like config
 				if(Math.random() < 0.2) {

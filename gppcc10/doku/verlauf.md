@@ -34,5 +34,6 @@
 | 26.04. | Marker-Sprites + Bar-Endstücke | 1.00h | |
 |        | Marker-Sprite für Zielflagge | 0.35h | |
 |        | Fortschrittbalken eingebaut | 1.50h | |
-|        | Iceway refaktoriert | 0.75h | 3.60h |
-|        | Lade Level als Konfiguration | 2.00h | 5.60h |
+|        | Iceway refaktoriert | 0.75h | |
+|        | Lade Level als Konfiguration | 2.00h | |
+|        | Berechne Levelfortschritt in % | 0.40h | 6.00h |

@@ -32,4 +32,5 @@
 | 25.04. | Spieler <-> Objekt Kollision | 1.00h | |
 |        | Fortschrittbalken und Marker | 1.50h | 2.50h |
 | 26.04. | Marker-Sprites + Bar-Endstücke | 1.00h | |
-|        | Marker-Sprite für Zielflagge | 0.35h | 1.35h |
+|        | Marker-Sprite für Zielflagge | 0.35h | |
+|        | Fortschrittbalken eingebaut | 1.50h | 2.85h |

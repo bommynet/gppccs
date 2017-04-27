@@ -114,6 +114,13 @@ public class Player {
 	}
 	
 	/**
+	 * @return current y of players position
+	 */
+	public float getY() {
+		return _y;
+	}
+	
+	/**
 	 * @return true if player is switching
 	 */
 	public boolean isSwitching() {

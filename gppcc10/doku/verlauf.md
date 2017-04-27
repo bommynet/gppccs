@@ -39,4 +39,5 @@
 |        | Berechne Levelfortschritt in % | 0.40h | |
 |        | Texturen zentralisiert in Gppcc10 | 0.50h | |
 |        | Tastatureingabe verbessert | 0.50h | 7.00h |
-| 27.04. | Pakete reorganisiert, UI aus Spiel getrennt | 1.00h | 1.00h |
+| 27.04. | Pakete reorganisiert, UI aus Spiel getrennt | 1.00h | |
+|        | Spieler kann von Eisbahn fallen | 0.50h | 1.50h |

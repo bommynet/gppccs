@@ -95,6 +95,14 @@ public class IcewayRow {
 	 * TODO: describe function
 	 * @return
 	 */
+	public Tile getTile(int index) {
+		return _tiles[index];
+	}
+	
+	/**
+	 * TODO: describe function
+	 * @return
+	 */
 	public boolean isMolten() {
 		return _isMolten;
 	}

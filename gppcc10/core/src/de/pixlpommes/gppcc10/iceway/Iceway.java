@@ -81,6 +81,9 @@ public class Iceway {
 	// iceway
 	/** TODO: describe '_iceway' */
 	private List<IcewayRow> _iceway;
+
+	/** moves or stops iceway */
+	private boolean _icewayIsMoving;
 	
 	/** TODO: describe '_maxSpeed' */
 	private float _speed, _maxSpeed;
@@ -132,6 +135,9 @@ public class Iceway {
 		// setup maximum level length
 		_levelLength = _config.length + ROWS - 2;
 		_levelCurrentPosition = 0;
+		
+		/// TODO: start game by user input
+		_icewayIsMoving = true;
 	}
 	
 	/**
@@ -191,10 +197,23 @@ public class Iceway {
 		
 		
 		// do collisions
-		// melt each row reached by the blow-flyers
 		for(IcewayRow row : _iceway) {
+			// melt each row reached by the blow-flyers
 			if(!row.isMolten() && row.getY() <= _flyer.getY()) {
 				row.setMolten();
+			}
+			
+			// check if player walks on hole
+			if(row.getY() < _player.getY() + TILESIZE) {
+				// TODO: check step on hole, not overlapping with hole
+				for(int i=0; i<COLS; i++) {
+					Rectangle tile = new Rectangle(row.getX(i), row.getY(), 64, 64);
+					if(!_player.isSwitching()
+							&& checkCollision(tile, _player.getBounds())
+							&& row.getTile(i) == Tile.NONE) {
+						playerFallsOff();
+					}
+				}
 			}
 		}
 		
@@ -203,6 +222,7 @@ public class Iceway {
 			for(Item item : _items.getList()) {
 				if(checkCollision(item.getBounds(), _player.getBounds())) {
 					/// TODO: check for item type
+					_speed -= 100; // TODO: calculate speed reduce
 					item.kill();
 				}
 			}
@@ -222,6 +242,7 @@ public class Iceway {
 		_player.draw(batch);
 	}
 	
+	
 	/**
 	 * Check for collisions between two rectangles.
 	 * 
@@ -232,6 +253,17 @@ public class Iceway {
 	public boolean checkCollision(Rectangle rect1, Rectangle rect2) {
 		return rect1.overlaps(rect2);
 	}
+	
+	/**
+	 * TODO: describe function
+	 */
+	public void playerFallsOff() {
+		// TODO: slow down iceway (not simply stop)
+		_icewayIsMoving = false;
+		// TODO: animate fall down
+		// TODO: special effect for 'death'
+	}
+	
 	
 	/**
 	 * @return current iceway speed
@@ -257,6 +289,16 @@ public class Iceway {
 	public float getY(int indexRow) {
 		return _iceway.get(indexRow).getY();
 	}
+	
+	
+	/**
+	 * TODO: describe function
+	 * @return
+	 */
+	public boolean isMoving() {
+		return _icewayIsMoving;
+	}
+	
 	
 	/**
 	 * TODO: describe function

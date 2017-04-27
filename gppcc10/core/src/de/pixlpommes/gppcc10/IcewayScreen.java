@@ -26,9 +26,6 @@ public class IcewayScreen implements Screen {
 	/** the iceway */
 	private Iceway _iceway;
 
-	/** moves or stops iceway */
-	private boolean _icewayIsMoving;
-
 	// LAYER 1
 	/** clouds as texture */
 	private Texture _clouds;
@@ -63,7 +60,6 @@ public class IcewayScreen implements Screen {
 		int posX = -(Iceway.COLS * Iceway.TILESIZE) / 2;
 		int posY = -(Gppcc10.HEIGHT / 2);
 		_iceway = new Iceway(posX, posY);
-		_icewayIsMoving = true;
 
 		// setup cloud layer
 		_clouds = Iceway.TEXTURE_CLOUDS;
@@ -92,7 +88,7 @@ public class IcewayScreen implements Screen {
 		checkInput();
 
 		// update positions
-		if (_icewayIsMoving) {
+		if (_iceway.isMoving()) {
 			_iceway.update(delta);
 
 			// update background layers (already negative!)
@@ -176,7 +172,7 @@ public class IcewayScreen implements Screen {
 	
 	public void checkInput() {
 		// moving -> no more player move
-		if (!_icewayIsMoving)
+		if (!_iceway.isMoving())
 			return;
 
 		if (Gdx.input.isKeyPressed(Keys.A)) {

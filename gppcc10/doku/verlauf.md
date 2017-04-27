@@ -40,4 +40,6 @@
 |        | Texturen zentralisiert in Gppcc10 | 0.50h | |
 |        | Tastatureingabe verbessert | 0.50h | 7.00h |
 | 27.04. | Pakete reorganisiert, UI aus Spiel getrennt | 1.00h | |
-|        | Spieler kann von Eisbahn fallen | 0.50h | 1.50h |
+|        | Spieler kann von Eisbahn fallen | 0.50h | |
+|        | Spieler kann links/rechts von Eisbahn fallen | 0.10h | |
+|        | Standard CONFIGs werden nicht mehr gebraucht | 0.10h | 1.70h |

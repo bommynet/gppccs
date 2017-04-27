@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 import de.pixlpommes.gppcc10.Gppcc10;
 import de.pixlpommes.gppcc10.iceway.IcewayRow.Tile;
+import de.pixlpommes.gppcc10.iceway.Player.State;
 
 /**
  * @author Thomas Borck - http://www.pixlpommes.de
@@ -197,6 +198,10 @@ public class Iceway {
 		
 		
 		// do collisions
+		if(_player.getX() < _offsetX
+				|| _player.getX() > _offsetX + COLS*TILESIZE) {
+			playerFallsOff();
+		}
 		for(IcewayRow row : _iceway) {
 			// melt each row reached by the blow-flyers
 			if(!row.isMolten() && row.getY() <= _flyer.getY()) {
@@ -261,6 +266,7 @@ public class Iceway {
 		// TODO: slow down iceway (not simply stop)
 		_icewayIsMoving = false;
 		// TODO: animate fall down
+		_player.changeState(State.FALL);
 		// TODO: special effect for 'death'
 	}
 	

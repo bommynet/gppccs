@@ -17,27 +17,6 @@ import de.pixlpommes.gppcc10.iceway.Player.State;
  * @version 0.1
  */
 public class Iceway {
-
-	/** TODO: describe 'CONFIG_3' */
-	public final static Tile[] CONFIG_3 = new Tile[] {
-			Tile.NONE, Tile.NONE,
-			Tile.NORMAL, Tile.NORMAL, Tile.NORMAL,
-			Tile.NONE, Tile.NONE
-	};
-
-	/** TODO: describe 'CONFIG_5' */
-	public final static Tile[] CONFIG_5 = new Tile[] {
-			Tile.NONE, Tile.NORMAL,
-			Tile.NORMAL, Tile.NORMAL, Tile.NORMAL,
-			Tile.NORMAL, Tile.NONE
-	};
-
-	/** TODO: describe 'CONFIG_313' */
-	public final static Tile[] CONFIG_313 = new Tile[] {
-			Tile.NORMAL, Tile.NORMAL, Tile.NORMAL,
-			Tile.NONE,
-			Tile.NORMAL, Tile.NORMAL, Tile.NORMAL
-	};
 	
 	/** tiles count in width */
 	public final static int COLS = 7;

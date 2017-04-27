@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.Rectangle;
 
 import de.pixlpommes.gppcc10.Gppcc10;
 import de.pixlpommes.gppcc10.iceway.IcewayRow.Tile;
-import de.pixlpommes.gppcc10.ui.ProgressBar;
 
 /**
  * @author Thomas Borck - http://www.pixlpommes.de
@@ -92,9 +91,6 @@ public class Iceway {
 	// items and more
 	/** powerups and -downs */
 	private Items _items;
-	
-	/** progress bar */
-	private ProgressBar _progress;
 
 	
 	/**
@@ -128,11 +124,6 @@ public class Iceway {
 		
 		// setup item and object manager
 		_items = new Items();
-		
-		// setup progress bar
-		_progress = new ProgressBar(
-				_offsetX + (COLS+1)*TILESIZE,
-				-Gppcc10.HALF_HEIGHT + TILESIZE);
 				
 		// load a level, TODO: select level before
 		_config = getConfig("level/000.lvl");
@@ -197,7 +188,6 @@ public class Iceway {
 		_player.update(delta);
 		_flyer.update(delta, _speed);
 		_items.update(deltaSpeed);
-		_progress.update(delta);
 		
 		
 		// do collisions
@@ -228,7 +218,6 @@ public class Iceway {
 			row.draw(batch);
 		
 		_items.draw(batch);
-		_progress.draw(batch);
 		_flyer.draw(batch);
 		_player.draw(batch);
 	}

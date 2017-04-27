@@ -13,8 +13,10 @@ import de.pixlpommes.gppcc10.iceway.IcewayRow.Tile;
 import de.pixlpommes.gppcc10.iceway.Player.State;
 
 /**
+ * The iceway and all it's components.
+ * 
  * @author Thomas Borck - http://www.pixlpommes.de
- * @version 0.1
+ * @version 1.0
  */
 public class Iceway {
 	
@@ -40,16 +42,16 @@ public class Iceway {
 			Gdx.files.internal("graphics/woods.png"));
 
 	// general
-	/** TODO: describe '_offsetX' */
+	/** iceway's bottom left corner on screen */
 	private int _offsetX, _offsetY;
 	
-	/** TODO: describe '_config' */
+	/** current iceway configuration */
 	private Tile[][] _config;
 	
-	/** TODO: describe '_configNextRow' */
+	/** next added tile row will get the configuration at this index */
 	private int _configNextRow;
 	
-	/** TODO: describe '_levelCurrentPosition' */
+	/** the player's position in the level */
 	private int _levelLength, _levelCurrentPosition;
 
 	/** the player */
@@ -59,13 +61,13 @@ public class Iceway {
 	private BlowFlyer _flyer;
 
 	// iceway
-	/** TODO: describe '_iceway' */
+	/** the iceway */
 	private List<IcewayRow> _iceway;
 
 	/** moves or stops iceway */
 	private boolean _icewayIsMoving;
 	
-	/** TODO: describe '_maxSpeed' */
+	/** moving speed of the player on the iceway */
 	private float _speed, _maxSpeed;
 	
 	/** acceleration per second */
@@ -77,8 +79,10 @@ public class Iceway {
 
 	
 	/**
-	 * @param posX
-	 * @param posY
+	 * Create new iceway.
+	 * 
+	 * @param posX position x for the iceway
+	 * @param posY position y for the iceway
 	 */
 	public Iceway(int posX, int posY) {
 		// setup position
@@ -121,7 +125,8 @@ public class Iceway {
 	}
 	
 	/**
-	 * TODO: describe function
+	 * Update iceway's logic.
+	 * 
 	 * @param delta
 	 */
 	public void update(float delta) {
@@ -159,9 +164,6 @@ public class Iceway {
 				_levelCurrentPosition++;
 				if(_levelCurrentPosition >= _levelLength)
 					_levelCurrentPosition = _levelLength;
-				// TODO: remove sysout
-				System.out.println("Level progress: " +
-				(float)((float)_levelCurrentPosition / (float)_levelLength));
 				
 				
 				// TODO: select a random visible tile or something like config
@@ -214,7 +216,8 @@ public class Iceway {
 	}
 	
 	/**
-	 * TODO: describe function
+	 * Draw the iceway.
+	 * 
 	 * @param batch
 	 */
 	public void draw(Batch batch) {
@@ -239,7 +242,7 @@ public class Iceway {
 	}
 	
 	/**
-	 * TODO: describe function
+	 * Let the player fall of the iceway.
 	 */
 	public void playerFallsOff() {
 		// TODO: slow down iceway (not simply stop)
@@ -258,7 +261,8 @@ public class Iceway {
 	}
 	
 	/**
-	 * TODO: describe function
+	 * Get screen x position of specified column.
+	 * 
 	 * @param indexColumn
 	 * @return
 	 */
@@ -267,7 +271,8 @@ public class Iceway {
 	}
 	
 	/**
-	 * TODO: describe function
+	 * Get screen y position of specified row.
+	 * 
 	 * @param indexColumn
 	 * @return
 	 */
@@ -277,8 +282,7 @@ public class Iceway {
 	
 	
 	/**
-	 * TODO: describe function
-	 * @return
+	 * @return true if player currently moving
 	 */
 	public boolean isMoving() {
 		return _icewayIsMoving;
@@ -286,7 +290,8 @@ public class Iceway {
 	
 	
 	/**
-	 * TODO: describe function
+	 * Let the player switch/jump to a new position.
+	 * 
 	 * @param pixels
 	 */
 	public void movePlayerBy(float pixels) {
@@ -295,23 +300,8 @@ public class Iceway {
 	}
 	
 	/**
-	 * TODO: describe function
-	 * @return
-	 */
-	public List<IcewayRow> getIceway() {
-		return _iceway;
-	}
-	
-	/**
-	 * TODO: describe function
-	 * @return
-	 */
-	public List<Item> getItems() {
-		return _items.getList();
-	}
-	
-	/**
-	 * TODO: describe function
+	 * Loads a configuration file.
+	 * 
 	 * @param levelFile
 	 * @return
 	 */

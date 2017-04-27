@@ -1,9 +1,7 @@
-package de.pixlpommes.gppcc10;
+package de.pixlpommes.gppcc10.iceway;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
-
-import de.pixlpommes.gppcc10.iceway.Iceway;
 
 /**
  * The player.

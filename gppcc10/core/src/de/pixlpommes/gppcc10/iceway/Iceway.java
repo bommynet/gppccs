@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 
 import de.pixlpommes.gppcc10.Gppcc10;
-import de.pixlpommes.gppcc10.Player;
 import de.pixlpommes.gppcc10.iceway.IcewayRow.Tile;
+import de.pixlpommes.gppcc10.ui.ProgressBar;
 
 /**
  * @author Thomas Borck - http://www.pixlpommes.de

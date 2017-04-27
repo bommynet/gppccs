@@ -1,6 +1,8 @@
-package de.pixlpommes.gppcc10.iceway;
+package de.pixlpommes.gppcc10.ui;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+
+import de.pixlpommes.gppcc10.iceway.Iceway;
 
 /**
  * A level progress bar.

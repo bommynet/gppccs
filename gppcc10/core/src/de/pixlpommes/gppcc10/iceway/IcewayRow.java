@@ -125,11 +125,17 @@ public class IcewayRow {
 	 * Possible types of tiles.
 	 * 
 	 * @author Thomas Borck - http://www.pixlpommes.de
-	 * @version 1.0
+	 * @version 1.1
 	 */
 	public enum Tile {
 		/** normal ice block */
 		NORMAL,
+		
+		/** ice block melts now */
+		MELTING,
+		
+		/** ice block is molten */
+		MOLTEN,
 		
 		/** show no tile */
 		NONE;

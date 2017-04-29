@@ -143,7 +143,7 @@ public class Iceway {
 		// update positions
 		for(int i=_iceway.size()-1; i>=0; i--) {
 			IcewayRow row = _iceway.get(i);
-			row.update(deltaSpeed);
+			row.update(delta, deltaSpeed);
 			
 			// remove out-of-screen rows and add new ones
 			if(row.getY() < -Gppcc10.HALF_HEIGHT - 2*TILESIZE) {
@@ -217,6 +217,9 @@ public class Iceway {
 								
 								// check if the tile represents a hole
 								if(row.getTile(i) == Tile.NONE) {
+										if(row.getTile(i) == Tile.MOLTEN) {
+											System.out.println("molten");
+										}
 									
 									// all checks are true -> the player is over a hole
 									playerFallsOff();

@@ -7,8 +7,9 @@
 
 # Eisbahn
 
-* [x] Lade Konfiguration für Eisbahn aus Datei
 * [ ] Positioniere Schneemänner aus Konfiguration
+* [ ] **Fehler**: Eisbahnkachel == MOLTEN wird nicht korrekt erkannt... Spieler fällt nicht
+* [x] Lade Konfiguration für Eisbahn aus Datei
 * [ ] *Idee gekippt* ~~Kacheln können noch keine zweite Farbe anzeigen.~~
 
 

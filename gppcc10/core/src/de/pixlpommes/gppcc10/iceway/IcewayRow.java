@@ -19,6 +19,15 @@ public class IcewayRow {
 	/** TODO: describe '_isMolten' */
 	private boolean _isMolten;
 	
+	/** TODO: describe '_meltTimer' */
+	private float[] _meltTimer;
+	
+	/** TODO: describe 'MELT_TIME' */
+	public final static float MELT_TIME = 2f;
+	
+	/** scale factor at which the player should fall */
+	public final static float MELT_FACTOR_FALLING = 0.75f;
+	
 	
 	/**
 	 * @param x
@@ -29,6 +38,9 @@ public class IcewayRow {
 		_y = y;
 		
 		_isMolten = false;
+		_meltTimer = new float[Iceway.COLS];
+		for(int i=0; i<_meltTimer.length; i++)
+			_meltTimer[i] = IcewayRow.MELT_TIME;
 		
 		_tiles = new Tile[Iceway.COLS];
 		for(int i=0; i<_tiles.length; i++)
@@ -43,6 +55,11 @@ public class IcewayRow {
 		_x = x;
 		_y = y;
 		
+		_isMolten = false;
+		_meltTimer = new float[Iceway.COLS];
+		for(int i=0; i<_meltTimer.length; i++)
+			_meltTimer[i] = IcewayRow.MELT_TIME;
+		
 		_tiles = new Tile[config.length];
 		for(int i=0; i<_tiles.length; i++)
 			_tiles[i] = config[i];
@@ -51,10 +68,32 @@ public class IcewayRow {
 	
 	/**
 	 * TODO: describe function
+	 * @param delta
 	 * @param force direction on y axis (already delta-scaled before)
 	 */
-	public void update(float force) {
+	public void update(float delta, float force) {
 		_y += force;
+		
+		boolean somethingStillMelting = false;
+		
+		for(int i=0; i<_tiles.length; i++) {
+			if(_tiles[i] == Tile.MELTING || _tiles[i] == Tile.MOLTEN) {
+				_meltTimer[i] -= delta;
+				
+				// tile is gone
+				if(_meltTimer[i] <= 0) {
+					_meltTimer[i] = 0f;
+					_tiles[i] = Tile.NONE;
+				} else {
+					somethingStillMelting = true;
+				}
+			} else {
+				somethingStillMelting = true;
+			}
+		}
+		
+		if(!somethingStillMelting)
+			_isMolten = true;
 	}
 	
 	/**
@@ -66,12 +105,34 @@ public class IcewayRow {
 			// holes can't be drawn
 			if(_tiles[i] == Tile.NONE) continue;
 			
-			// draw tile
-			batch.draw(Iceway.TILESET,
-					_x + i * Iceway.TILESIZE,
-					_y,
-					0, 0, // tile position in tile set
-					64, 64); // tile size
+			// no scaling needed for non-melting tiles
+			if(_tiles[i] == Tile.NORMAL) {
+				// draw tile
+				batch.draw(Iceway.TILESET,
+						_x + i * Iceway.TILESIZE,
+						_y,
+						0, 0, // tile position in tile set
+						Iceway.TILESIZE-2, Iceway.TILESIZE-2); // tile size
+			} else {
+				float factor = _meltTimer[i] / IcewayRow.MELT_TIME;
+				
+				// at defined melting point, the player can't stand on this block anymore
+				if(_tiles[i] == Tile.MELTING && factor <= IcewayRow.MELT_FACTOR_FALLING)
+					_tiles[i] = Tile.MOLTEN;
+				
+				// weighted position (factX) and size (factW) of sprite
+				float factW = (Iceway.TILESIZE-2)*factor;
+				float factX = (Iceway.TILESIZE-2) - factW;
+				
+				// draw tile
+				batch.draw(Iceway.TILESET,
+						_x + i * Iceway.TILESIZE + factX,
+						_y + factX,
+						factW, factW, // tile scaled size
+						0, 0, // tile position in tile set
+						Iceway.TILESIZE-2, Iceway.TILESIZE-2, // tile size
+						false, false); // don't flip sprite
+			}
 		}
 	}
 	
@@ -112,12 +173,11 @@ public class IcewayRow {
 	 */
 	public void setMolten() {
 		// melt tiles
-		/// TODO: melt as own state; animate
 		for(int i=0; i<_tiles.length; i++) {
-			_tiles[i] = Tile.NONE;
+			if(_tiles[i] != Tile.NORMAL) continue;
+			
+			_tiles[i] = Tile.MELTING;
 		}
-		
-		_isMolten = true;
 	}
 	
 	

@@ -7,7 +7,8 @@
 
 # Eisbahn
 
-* [ ] Lade Konfiguration für Eisbahn aus Datei
+* [x] Lade Konfiguration für Eisbahn aus Datei
+* [ ] Positioniere Schneemänner aus Konfiguration
 * [ ] *Idee gekippt* ~~Kacheln können noch keine zweite Farbe anzeigen.~~
 
 
@@ -23,11 +24,16 @@
 
 # Wolken
 
+* [ ] Wolkenfeld überarbeiten
+	* [ ] neu zeichnen
+	* [ ] langsamer scrollen
+	* [ ] weiter "unten" anzeigen
 * [x] Wolkenfeld erstellen
 * [x] Wolkenfeld einbauen
 
 
 # Welt
 
+* [ ] Bäume mit Schnee bedecken
 * [x] Welt erstellen
 * [x] Welt einbauen

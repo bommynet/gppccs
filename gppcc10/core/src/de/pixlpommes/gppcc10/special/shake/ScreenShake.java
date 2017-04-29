@@ -1,4 +1,4 @@
-package de.pixlpommes.gppcc10;
+package de.pixlpommes.gppcc10.special.shake;
 
 import java.util.Random;
 

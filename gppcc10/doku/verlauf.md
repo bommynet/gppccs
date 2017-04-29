@@ -43,3 +43,4 @@
 |        | Spieler kann von Eisbahn fallen | 0.50h | |
 |        | Spieler kann links/rechts von Eisbahn fallen | 0.10h | |
 |        | Standard CONFIGs werden nicht mehr gebraucht | 0.10h | 1.70h |
+| 29.04. | Spieler<->Loch verbessert | 0.50h | 0.50h |

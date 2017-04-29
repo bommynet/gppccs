@@ -179,25 +179,30 @@ public class Iceway {
 		
 		
 		// do collisions
-		if(_player.getX() < _offsetX
-				|| _player.getX() > _offsetX + COLS*TILESIZE) {
-			playerFallsOff();
-		}
+		// melt each row reached by the blow-flyers
 		for(IcewayRow row : _iceway) {
-			// melt each row reached by the blow-flyers
-			if(!row.isMolten() && row.getY() <= _flyer.getY()) {
+			if(row.getY() <= _flyer.getY() && !row.isMolten()) {
 				row.setMolten();
 			}
-			
-			// check if player walks on hole
-			if(row.getY() < _player.getY() + TILESIZE) {
-				// TODO: check step on hole, not overlapping with hole
-				for(int i=0; i<COLS; i++) {
-					Rectangle tile = new Rectangle(row.getX(i), row.getY(), 64, 64);
-					if(!_player.isSwitching()
-							&& checkCollision(tile, _player.getBounds())
-							&& row.getTile(i) == Tile.NONE) {
-						playerFallsOff();
+		}
+		
+		// check if player walks on hole
+		if(!_player.isSwitching()) {
+			// fall off iceway on left/right side
+			if(_player.getX() < _offsetX
+				|| _player.getX() > _offsetX + COLS*TILESIZE) {
+				playerFallsOff();
+			} else {
+				for(IcewayRow row : _iceway) {
+					if(row.getY() < _player.getY() + TILESIZE) {
+						// TODO: check step on hole, not overlapping with hole
+						for(int i=0; i<COLS; i++) {
+							Rectangle tile = new Rectangle(row.getX(i), row.getY(), 64, 64);
+							if(checkCollision(tile, _player.getBounds())
+									&& row.getTile(i) == Tile.NONE) {
+								playerFallsOff();
+							}
+						}
 					}
 				}
 			}

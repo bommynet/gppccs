@@ -2,6 +2,7 @@ package de.pixlpommes.gppcc10.iceway;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * The player.
@@ -141,7 +142,15 @@ public class Player {
 	 * @return
 	 */
 	public Rectangle getBounds() {
-		return new Rectangle(_x, _y, 64, 64);
+		return new Rectangle(_x, _y, 64, 64); /// TODO magic numbers
+	}
+	
+	/**
+	 * Get player sprite's center.
+	 * @return
+	 */
+	public Vector2 getCenterPoint() {
+		return new Vector2(_x + 32, _y + 32); /// TODO magic numbers
 	}
 	
 	

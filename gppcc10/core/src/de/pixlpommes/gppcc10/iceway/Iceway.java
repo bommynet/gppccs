@@ -229,9 +229,19 @@ public class Iceway {
 		}
 		
 		// check collisions between items <-> player
+		/* collide if:
+		 *  1. player isn't switching between two columns currently
+		 *  2. player's center is in between item bounds
+		 */
+		// check 1. - player not switching between columns
 		if(!_player.isSwitching()) {
 			for(Item item : _items.getList()) {
-				if(checkCollision(item.getBounds(), _player.getBounds())) {
+				
+				// check 2. - center is in between item
+				Rectangle bounds = item.getBounds();
+				Vector2 center = _player.getCenterPoint();
+				if(bounds.x < center.x && bounds.x+bounds.width > center.x
+						&& bounds.y < center.y && bounds.y+bounds.height > center.y) {
 					/// TODO: check for item type
 					_speed -= 100; // TODO: calculate speed reduce
 					item.kill();

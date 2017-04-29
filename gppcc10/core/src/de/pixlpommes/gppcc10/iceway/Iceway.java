@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 import de.pixlpommes.gppcc10.Gppcc10;
 import de.pixlpommes.gppcc10.iceway.IcewayRow.Tile;
@@ -187,20 +188,39 @@ public class Iceway {
 		}
 		
 		// check if player walks on hole
+		/* Idea behind collision check:
+		 * 	1. the player can fall down, if he is not jumping currently (!isSwitching)
+		 * 	2. each tile has a position and a size (x,y,w,h)
+		 * 	3. the player falls, if he overlaps more than 50% of it's size with a hole
+		 *     3.1 this can be reached by checking against the player sprite's center point
+		 *  4. left/right from the iceway everything counts as hole
+		 */
+		// check 1. - player's not switching
 		if(!_player.isSwitching()) {
-			// fall off iceway on left/right side
+			
+			// check 4. - fall off iceway on left/right side
 			if(_player.getX() < _offsetX
-				|| _player.getX() > _offsetX + COLS*TILESIZE) {
+				|| _player.getX() >= _offsetX + COLS*TILESIZE) {
 				playerFallsOff();
-			} else {
+			} 
+			// check 3. against 2. - player's center point is over a hole
+			else {
+				Vector2 center = _player.getCenterPoint();
+				
 				for(IcewayRow row : _iceway) {
-					if(row.getY() < _player.getY() + TILESIZE) {
-						// TODO: check step on hole, not overlapping with hole
+					// check that row, the player currently walks on, only
+					if(row.getY() < center.y && row.getY()+TILESIZE > center.y) {
+						
+						// check that column, the player currently walks on, only 
 						for(int i=0; i<COLS; i++) {
-							Rectangle tile = new Rectangle(row.getX(i), row.getY(), 64, 64);
-							if(checkCollision(tile, _player.getBounds())
-									&& row.getTile(i) == Tile.NONE) {
-								playerFallsOff();
+							if(row.getX(i) < center.x && row.getX(i)+TILESIZE > center.x) {
+								
+								// check if the tile represents a hole
+								if(row.getTile(i) == Tile.NONE) {
+									
+									// all checks are true -> the player is over a hole
+									playerFallsOff();
+								}
 							}
 						}
 					}

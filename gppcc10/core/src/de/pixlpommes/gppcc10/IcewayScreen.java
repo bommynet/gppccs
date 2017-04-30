@@ -2,18 +2,20 @@ package de.pixlpommes.gppcc10;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import de.pixlpommes.gppcc10.iceway.Iceway;
 
 /**
  * @author Thomas Borck - http://www.pixlpommes.de
  * @version 0.1
  */
-public class IcewayScreen implements Screen {
+public class IcewayScreen implements Screen, InputProcessor {
 	
 	// general
 	/** batch to render everything */
@@ -45,6 +47,7 @@ public class IcewayScreen implements Screen {
 
 	/** moving speed factor for world-layer */
 	private final float _speedFactorLayer_World = 0.2f;
+	
 
 	/**
 	 * 
@@ -70,7 +73,7 @@ public class IcewayScreen implements Screen {
 		_worldY = -Gppcc10.HALF_HEIGHT;
 
 		// add input handling
-		///Gdx.input.setInputProcessor(this);
+		Gdx.input.setInputProcessor(this);
 	}
 
 	/*
@@ -85,7 +88,7 @@ public class IcewayScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		// keyboard input
-		checkInput();
+		//checkInput();
 
 		// update positions
 		if (_iceway.isMoving()) {
@@ -174,11 +177,84 @@ public class IcewayScreen implements Screen {
 		// moving -> no more player move
 		if (!_iceway.isMoving())
 			return;
-
+		
+		// old input algorithm
 		if (Gdx.input.isKeyPressed(Keys.A)) {
 			_iceway.movePlayerBy(-Iceway.TILESIZE);
 		} else if (Gdx.input.isKeyPressed(Keys.D)) {
 			_iceway.movePlayerBy(Iceway.TILESIZE);
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.InputProcessor#keyDown(int)
+	 */
+	@Override
+	public boolean keyDown(int keycode) {
+		switch(keycode) {
+			case Keys.A:
+				_iceway.movePlayerLeft();
+				break;
+				
+			case Keys.D:
+				_iceway.movePlayerRight();
+				break;
+		}
+		
+		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.badlogic.gdx.InputProcessor#keyUp(int)
+	 */
+	@Override
+	public boolean keyUp(int keycode) {
+		switch(keycode) {
+			case Keys.A:
+				_iceway.movePlayerNot();
+				break;
+				
+			case Keys.D:
+				_iceway.movePlayerNot();
+				break;
+		}
+		
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

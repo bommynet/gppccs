@@ -18,8 +18,8 @@ Besonderheiten:
 	* [ ] ~~verliert dieser ein Leben / wird zurück gesetzt.~~
 	* [x] wird er *verlangsamt* ~~erst zurück geschoben und wenn er auch den unteren Bildschirmrand berührt, so verliert er ein Leben / wird zurück gesetzt~~.
 * Der Spieler bewegt sich rechts/links
-	* [ ] völlig frei von den Kachelgrößen.
-	* [x] an die Kacheln gebunden und kann sich nur zwischen den Spalten hin und her bewegen.
+	* [x] völlig frei von den Kachelgrößen.
+	* [ ] an die Kacheln gebunden und kann sich nur zwischen den Spalten hin und her bewegen.
 * Die Bahn kann sich auch auftrennen in zwei einzelne Wege, welche durch eine freie Fläche getrennt sind.
 
 ## Grafisches

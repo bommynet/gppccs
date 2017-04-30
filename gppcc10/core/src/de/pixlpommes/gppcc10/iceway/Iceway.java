@@ -55,8 +55,23 @@ public class Iceway {
 	/** the player's position in the level */
 	private int _levelLength, _levelCurrentPosition;
 
+	
+	// player
 	/** the player */
 	private Player _player;
+	
+	/** TODO: describe '_playerMoveLeft' */
+	private boolean _playerMoveLeft = false;
+	
+	/** TODO: describe '_playerMoveRight' */
+	private boolean _playerMoveRight = false;
+	
+	/** player's acceleration in pixel per second */
+	private float _playerAcc;
+	
+	/** TODO: describe '_playerVerticalSpeed' */
+	private float _playerVerticalSpeed, _playerVerticalMaxSpeed;
+	
 	
 	/** the bad, ice-melting blow-flyers */
 	private BlowFlyer _flyer;
@@ -106,6 +121,9 @@ public class Iceway {
 		_player.setPosition(
 				getX((int)(Iceway.COLS / 2)),
 				getY(2));
+		_playerAcc = 4f;
+		_playerVerticalSpeed = 0f;
+		_playerVerticalMaxSpeed = 200f;
 		
 		// setup blow-flyer
 		_flyer = new BlowFlyer(posX, -Gppcc10.HEIGHT);
@@ -174,7 +192,33 @@ public class Iceway {
 			}
 		}
 		
+		// update player speed and position
+		if(_icewayIsMoving && _playerMoveLeft) {
+			_playerVerticalSpeed -= _playerAcc;
+			if(_playerVerticalSpeed < -_playerVerticalMaxSpeed)
+				_playerVerticalSpeed = -_playerVerticalMaxSpeed;
+		} else if(_icewayIsMoving && _playerMoveRight) {
+			_playerVerticalSpeed += _playerAcc;
+			if(_playerVerticalSpeed > _playerVerticalMaxSpeed)
+				_playerVerticalSpeed = _playerVerticalMaxSpeed;
+		} else if(_icewayIsMoving && !(_playerMoveLeft || _playerMoveRight)) {
+			// slide if player wants to stop
+			if(_playerVerticalSpeed < 0) {
+				_playerVerticalSpeed += _playerAcc;
+				if(_playerVerticalSpeed > 0)
+					_playerVerticalSpeed = 0;
+			} else if(_playerVerticalSpeed > 0) {
+				_playerVerticalSpeed -= _playerAcc;
+				if(_playerVerticalSpeed < 0)
+					_playerVerticalSpeed = 0;
+			}
+		}
+		_player.setPosition(
+				_player.getX() + _playerVerticalSpeed*delta,
+				_player.getY());
 		_player.update(delta);
+		
+		
 		_flyer.update(delta, _speed);
 		_items.update(deltaSpeed);
 		
@@ -335,6 +379,30 @@ public class Iceway {
 	public void movePlayerBy(float pixels) {
 		float moveTo = _player.getX() + pixels;
 		_player.switchPos(moveTo);
+	}
+	
+	/**
+	 * TODO: describe function
+	 */
+	public void movePlayerLeft() {
+		_playerMoveLeft = true;
+		_playerMoveRight = false;
+	}
+	
+	/**
+	 * TODO: describe function
+	 */
+	public void movePlayerRight() {
+		_playerMoveLeft = false;
+		_playerMoveRight = true;
+	}
+	
+	/**
+	 * TODO: describe function
+	 */
+	public void movePlayerNot() {
+		_playerMoveLeft = false;
+		_playerMoveRight = false;
 	}
 	
 	/**

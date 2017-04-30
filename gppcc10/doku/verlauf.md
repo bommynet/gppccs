@@ -45,6 +45,7 @@
 |        | Standard CONFIGs werden nicht mehr gebraucht | 0.10h | 1.70h |
 | 29.04. | Spieler<->Loch verbessert | 0.50h | |
 |        | Spieler<->Loch komplett überarbeitet | 1.00h | |
-|        | Spieler<->Item komplett überarbeitet | 0.50h | 2.00h |
+|        | Spieler<->Item komplett überarbeitet | 0.50h | |
 |        | Kacheln können nun schmelzen | 1.50h | 3.00h |
-| 30.04. | Spieler bewegt sich nun frei auf dem Eisweg | 1.00h | 1.00h |
+| 30.04. | Spieler bewegt sich nun frei auf dem Eisweg | 1.00h | |
+|        | Game-UI skizziert | 2.50h | 3.50h |

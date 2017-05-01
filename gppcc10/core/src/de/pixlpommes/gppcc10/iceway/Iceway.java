@@ -197,11 +197,6 @@ public class Iceway extends Observable {
 				else
 					_score += SCORE_LEVEL_PROGRESS;
 				
-				/// TODO check for points and not for position
-				setChanged();
-				notifyObservers();
-				
-				
 				// TODO: select a random visible tile or something like config
 				if(Math.random() < 0.2) {
 					_items.add(_iceway.get(0).getX(3), topY, Item.Type.SNOWMAN);
@@ -238,6 +233,11 @@ public class Iceway extends Observable {
 		
 		_flyer.update(delta, _speed);
 		_items.update(deltaSpeed);
+		
+
+		/// TODO check for points and not for position
+		setChanged();
+		notifyObservers();
 		
 		
 		// do collisions
@@ -357,6 +357,13 @@ public class Iceway extends Observable {
 	 */
 	public float getSpeed() {
 		return _speed;
+	}
+	
+	/**
+	 * @return current player speed in %
+	 */
+	public float getSpeedRelative() {
+		return _speed / _maxSpeed;
 	}
 	
 	/**

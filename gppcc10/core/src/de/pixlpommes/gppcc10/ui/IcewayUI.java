@@ -24,6 +24,9 @@ public class IcewayUI implements Observer {
 	
 	/** TODO: describe 'ATLAS_NUMBERS_BIG' */
 	public final static TextureAtlas ATLAS_NUMBERS_BIG = new TextureAtlas(Gdx.files.internal("font/numbers_big.atlas"));
+
+	/** TODO: describe 'ATLAS_SPEED' */
+	public final static TextureAtlas ATLAS_SPEED = new TextureAtlas(Gdx.files.internal("graphics/plate_speed.atlas"));
 	
 	
 	/** TODO: describe 'PADDING' */
@@ -38,17 +41,22 @@ public class IcewayUI implements Observer {
 	private float _xPlate, _yPlate;
 	
 	/** TODO: describe '_score' */
-	private TextureRegion[] _score;
+	private TextureRegion[] _regionScore;
+	
+	/** TODO: describe '_regionSpeed' */
+	private TextureRegion _regionSpeed;
 	
 	
 	public IcewayUI() {
 		_xPlate = Gppcc10.HALF_WIDHT - UI_PLATE.getWidth() - PADDING;
 		_yPlate = Gppcc10.HALF_HEIGHT - UI_PLATE.getHeight() - PADDING;
 		
-		_score = new TextureRegion[SCORE_DIGITS];
-		for(int i=0; i<_score.length; i++) {
-			_score[i] = ATLAS_NUMBERS_BIG.findRegion("numbers_big", 0);
+		_regionScore = new TextureRegion[SCORE_DIGITS];
+		for(int i=0; i<_regionScore.length; i++) {
+			_regionScore[i] = ATLAS_NUMBERS_BIG.findRegion("numbers_big", 0);
 		}
+		
+		_regionSpeed = ATLAS_SPEED.findRegion("plate_speed", 0);
 	}
 	
 	
@@ -61,11 +69,14 @@ public class IcewayUI implements Observer {
 		batch.draw(UI_PLATE, _xPlate, _yPlate);
 		
 		// points - TODO: create dynamically
-		batch.draw(_score[0], _xPlate + 50, _yPlate + 76);
-		batch.draw(_score[1], _xPlate + 81, _yPlate + 76);
-		batch.draw(_score[2], _xPlate + 112, _yPlate + 76);
-		batch.draw(_score[3], _xPlate + 143, _yPlate + 76);
-		batch.draw(_score[4], _xPlate + 174, _yPlate + 76);
+		batch.draw(_regionScore[0], _xPlate + 50, _yPlate + 76);
+		batch.draw(_regionScore[1], _xPlate + 81, _yPlate + 76);
+		batch.draw(_regionScore[2], _xPlate + 112, _yPlate + 76);
+		batch.draw(_regionScore[3], _xPlate + 143, _yPlate + 76);
+		batch.draw(_regionScore[4], _xPlate + 174, _yPlate + 76);
+		
+		// speed
+		batch.draw(_regionSpeed, _xPlate + 136, _yPlate + 14);
 	}
 
 
@@ -76,12 +87,14 @@ public class IcewayUI implements Observer {
 	public void update(Observable obs, Object arg) {
 		if(!(obs instanceof Iceway)) return;
 		
+		Iceway iceway = (Iceway)obs;
+		
 		// update score value
-		int number = (int)((Iceway)obs).getScore();
+		int number = (int)iceway.getScore();
 		for(int i=SCORE_DIGITS-1; i>=0; i--) {
 			// use last digit for region id
 			int charId = number % 10;
-			_score[i] = ATLAS_NUMBERS_BIG.findRegion("numbers_big", charId);
+			_regionScore[i] = ATLAS_NUMBERS_BIG.findRegion("numbers_big", charId);
 			
 			// move to next digit
 			number = number / 10;
@@ -89,6 +102,17 @@ public class IcewayUI implements Observer {
 		
 		// TODO update progress
 		
-		// TODO update speed
+		// update speed
+		float speed = iceway.getSpeedRelative();
+		if(speed > 1.1f)
+			_regionSpeed = ATLAS_SPEED.findRegion("plate_speed", 4);
+		else if(speed > 0.67f)
+			_regionSpeed = ATLAS_SPEED.findRegion("plate_speed", 3);
+		else if(speed > 0.34f)
+			_regionSpeed = ATLAS_SPEED.findRegion("plate_speed", 2);
+		else if(speed > 0.01f)
+			_regionSpeed = ATLAS_SPEED.findRegion("plate_speed", 1);
+		else
+			_regionSpeed = ATLAS_SPEED.findRegion("plate_speed", 0);
 	}
 }

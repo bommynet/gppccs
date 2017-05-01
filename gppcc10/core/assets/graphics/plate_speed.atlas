@@ -1,0 +1,41 @@
+
+plate_speed.png
+size: 512,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+plate_speed
+  rotate: false
+  xy: 1, 1
+  size: 64, 43
+  orig: 64, 43
+  offset: 0, 0
+  index: 0
+plate_speed
+  rotate: false
+  xy: 66, 1
+  size: 64, 43
+  orig: 64, 43
+  offset: 0, 0
+  index: 1
+plate_speed
+  rotate: false
+  xy: 131, 1
+  size: 64, 43
+  orig: 64, 43
+  offset: 0, 0
+  index: 2
+plate_speed
+  rotate: false
+  xy: 196, 1
+  size: 64, 43
+  orig: 64, 43
+  offset: 0, 0
+  index: 3
+plate_speed
+  rotate: false
+  xy: 261, 1
+  size: 64, 43
+  orig: 64, 43
+  offset: 0, 0
+  index: 4

@@ -1,0 +1,76 @@
+
+numbers_big.png
+size: 128,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+numbers_big
+  rotate: false
+  xy: 1, 1
+  size: 28, 40
+  orig: 28, 40
+  offset: 0, 0
+  index: 0
+numbers_big
+  rotate: false
+  xy: 30, 1
+  size: 28, 40
+  orig: 28, 40
+  offset: 0, 0
+  index: 1
+numbers_big
+  rotate: false
+  xy: 59, 1
+  size: 28, 40
+  orig: 28, 40
+  offset: 0, 0
+  index: 2
+numbers_big
+  rotate: false
+  xy: 88, 1
+  size: 28, 40
+  orig: 28, 40
+  offset: 0, 0
+  index: 3
+numbers_big
+  rotate: false
+  xy: 1, 42
+  size: 28, 40
+  orig: 28, 40
+  offset: 0, 0
+  index: 4
+numbers_big
+  rotate: false
+  xy: 30, 42
+  size: 28, 40
+  orig: 28, 40
+  offset: 0, 0
+  index: 5
+numbers_big
+  rotate: false
+  xy: 59, 42
+  size: 28, 40
+  orig: 28, 40
+  offset: 0, 0
+  index: 6
+numbers_big
+  rotate: false
+  xy: 88, 42
+  size: 28, 40
+  orig: 28, 40
+  offset: 0, 0
+  index: 7
+numbers_big
+  rotate: false
+  xy: 1, 83
+  size: 28, 40
+  orig: 28, 40
+  offset: 0, 0
+  index: 8
+numbers_big
+  rotate: false
+  xy: 30, 83
+  size: 28, 40
+  orig: 28, 40
+  offset: 0, 0
+  index: 9

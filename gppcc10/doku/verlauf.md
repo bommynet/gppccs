@@ -50,3 +50,4 @@
 | 30.04. | Spieler bewegt sich nun frei auf dem Eisweg | 1.00h | |
 |        | Game-UI skizziert | 2.50h | 3.50h |
 | 01.05. | Fonts erstellt für UI | 2.00h | 2.00h |
+|        | IcewayUI gebaut und Score erstellt | 1.00h | 3.00h |

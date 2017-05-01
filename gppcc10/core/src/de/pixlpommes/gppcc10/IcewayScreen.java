@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.pixlpommes.gppcc10.iceway.Iceway;
+import de.pixlpommes.gppcc10.ui.IcewayUI;
 
 /**
  * @author Thomas Borck - http://www.pixlpommes.de
@@ -48,6 +49,9 @@ public class IcewayScreen implements Screen, InputProcessor {
 	/** moving speed factor for world-layer */
 	private final float _speedFactorLayer_World = 0.2f;
 	
+	
+	private IcewayUI ui = new IcewayUI();
+	
 
 	/**
 	 * 
@@ -74,6 +78,9 @@ public class IcewayScreen implements Screen, InputProcessor {
 
 		// add input handling
 		Gdx.input.setInputProcessor(this);
+		
+		// Observers
+		_iceway.addObserver(ui);
 	}
 
 	/*
@@ -122,6 +129,9 @@ public class IcewayScreen implements Screen, InputProcessor {
 		_batch.draw(_clouds, -Gppcc10.HALF_WIDHT, _cloudsY + Gppcc10.HEIGHT);
 		// 3. game (layer 'top')
 		_iceway.draw(_batch);
+		
+		// GUI
+		ui.draw(_batch);
 		_batch.end();
 	}
 	

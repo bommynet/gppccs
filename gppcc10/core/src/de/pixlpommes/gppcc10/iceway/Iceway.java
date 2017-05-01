@@ -2,6 +2,7 @@ package de.pixlpommes.gppcc10.iceway;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -19,7 +20,7 @@ import de.pixlpommes.gppcc10.iceway.Player.State;
  * @author Thomas Borck - http://www.pixlpommes.de
  * @version 1.0
  */
-public class Iceway {
+public class Iceway extends Observable {
 	
 	/** tiles count in width */
 	public final static int COLS = 7;
@@ -183,6 +184,10 @@ public class Iceway {
 				_levelCurrentPosition++;
 				if(_levelCurrentPosition >= _levelLength)
 					_levelCurrentPosition = _levelLength;
+				
+				/// TODO check for points and not for position
+				setChanged();
+				notifyObservers();
 				
 				
 				// TODO: select a random visible tile or something like config

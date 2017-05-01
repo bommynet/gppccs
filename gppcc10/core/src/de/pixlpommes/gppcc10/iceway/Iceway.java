@@ -30,6 +30,11 @@ public class Iceway extends Observable {
 
 	/** tile size in pixel */
 	public final static int TILESIZE = 66;
+	
+	
+	/** TODO: describe 'SCORE_LEVEL_PROGRESS' */
+	public final static int SCORE_LEVEL_PROGRESS = 10;
+	
 
 	/** texture including all tiles for ice way */
 	public final static Texture TILESET = new Texture(
@@ -55,6 +60,9 @@ public class Iceway extends Observable {
 	
 	/** the player's position in the level */
 	private int _levelLength, _levelCurrentPosition;
+	
+	/** player's score */
+	private int _score;
 
 	
 	// player
@@ -140,6 +148,8 @@ public class Iceway extends Observable {
 		_levelLength = _config.length + ROWS - 2;
 		_levelCurrentPosition = 0;
 		
+		_score = 0;
+		
 		/// TODO: start game by user input
 		_icewayIsMoving = true;
 	}
@@ -184,6 +194,8 @@ public class Iceway extends Observable {
 				_levelCurrentPosition++;
 				if(_levelCurrentPosition >= _levelLength)
 					_levelCurrentPosition = _levelLength;
+				else
+					_score += SCORE_LEVEL_PROGRESS;
 				
 				/// TODO check for points and not for position
 				setChanged();
@@ -345,6 +357,13 @@ public class Iceway extends Observable {
 	 */
 	public float getSpeed() {
 		return _speed;
+	}
+	
+	/**
+	 * @return current player score
+	 */
+	public int getScore() {
+		return _score;
 	}
 	
 	/**

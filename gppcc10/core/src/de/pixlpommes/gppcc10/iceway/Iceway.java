@@ -367,6 +367,13 @@ public class Iceway extends Observable {
 	}
 	
 	/**
+	 * @return current player position, relative to level length
+	 */
+	public float getPositionRelative() {
+		return (float)_levelCurrentPosition / (float)_levelLength;
+	}
+	
+	/**
 	 * @return current player score
 	 */
 	public int getScore() {

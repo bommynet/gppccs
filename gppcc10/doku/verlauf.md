@@ -52,3 +52,4 @@
 | 01.05. | Fonts erstellt für UI | 2.00h | |
 |        | IcewayUI gebaut und Score erstellt | 1.00h | |
 |        | IcewayUI Spieler-Geschwindigkeit hinzugefügt | 1.00h | 4.00h |
+| 02.05. | IcewayUI Spieler-Positionsmarker hinzugefügt | 1.00h | 1.00h |

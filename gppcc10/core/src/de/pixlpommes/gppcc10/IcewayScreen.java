@@ -112,6 +112,9 @@ public class IcewayScreen implements Screen, InputProcessor {
 			if (_worldY < -Gppcc10.HALF_HEIGHT - _world.getHeight())
 				_worldY = -Gppcc10.HALF_HEIGHT;
 		}
+		
+		// update ui animations
+		ui.update(delta);
 
 		// TODO: do a screen shake if needed
 		/// _shake.shakeUpdate(_batch, delta);

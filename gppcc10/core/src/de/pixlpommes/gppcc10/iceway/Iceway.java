@@ -141,7 +141,7 @@ public class Iceway extends Observable {
 		_items = new Items();
 				
 		// load a level, TODO: select level before
-		_config = getConfig("level/000.lvl");
+		_config = getConfig("level/000a.lvl");
 		_configNextRow = 0;
 		
 		// setup maximum level length
@@ -198,9 +198,9 @@ public class Iceway extends Observable {
 					_score += SCORE_LEVEL_PROGRESS;
 				
 				// TODO: select a random visible tile or something like config
-				if(Math.random() < 0.2) {
-					_items.add(_iceway.get(0).getX(3), topY, Item.Type.SNOWMAN);
-				}
+//				if(Math.random() < 0.2) {
+//					_items.add(_iceway.get(0).getX(3), topY, Item.Type.SNOWMAN);
+//				}
 			}
 		}
 		

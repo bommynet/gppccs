@@ -7,6 +7,7 @@ import java.util.Observable;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -169,39 +170,45 @@ public class Iceway extends Observable {
 		// speed for all rows at current frame (negative for moving down)
 		float deltaSpeed = _speed * delta * (-1);
 		
-		// update positions
-		for(int i=_iceway.size()-1; i>=0; i--) {
-			IcewayRow row = _iceway.get(i);
-			row.update(delta, deltaSpeed);
-			
-			// remove out-of-screen rows and add new ones
-			if(row.getY() < -Gppcc10.HALF_HEIGHT - 2*TILESIZE) {
-				// remove row
-				_iceway.remove(row);
+		if(_icewayIsMoving) {
+			// update positions
+			for(int i=_iceway.size()-1; i>=0; i--) {
+				IcewayRow row = _iceway.get(i);
+				row.update(delta, deltaSpeed);
 				
-				// add row on top
-				float topY = _iceway.get(_iceway.size()-1).getY() + TILESIZE;
-				Tile[] config = _config[_configNextRow];
-				IcewayRow newRow = new IcewayRow(_offsetX, topY, config);
-				_iceway.add(newRow);
-				
-				// select next config row
-				_configNextRow++;
-				if(_configNextRow >= _config.length)
-					_configNextRow = _config.length-1;
-				
-				// increase level position
-				_levelCurrentPosition++;
-				if(_levelCurrentPosition >= _levelLength)
-					_levelCurrentPosition = _levelLength;
-				else
-					_score += SCORE_LEVEL_PROGRESS;
-				
-				// TODO: select a random visible tile or something like config
-//				if(Math.random() < 0.2) {
-//					_items.add(_iceway.get(0).getX(3), topY, Item.Type.SNOWMAN);
-//				}
+				// remove out-of-screen rows and add new ones
+				if(row.getY() < -Gppcc10.HALF_HEIGHT - 2*TILESIZE) {
+					// remove row
+					_iceway.remove(row);
+					
+					// add row on top
+					float topY = _iceway.get(_iceway.size()-1).getY() + TILESIZE;
+					Tile[] config = _config[_configNextRow];
+					IcewayRow newRow = new IcewayRow(_offsetX, topY, config);
+					_iceway.add(newRow);
+					
+					// select next config row
+					_configNextRow++;
+					if(_configNextRow >= _config.length)
+						_configNextRow = _config.length-1;
+					
+					// increase level position
+					_levelCurrentPosition++;
+					if(_levelCurrentPosition >= _levelLength)
+						_levelCurrentPosition = _levelLength;
+					else
+						_score += SCORE_LEVEL_PROGRESS;
+					
+					// TODO: select a random visible tile or something like config
+	//				if(Math.random() < 0.2) {
+	//					_items.add(_iceway.get(0).getX(3), topY, Item.Type.SNOWMAN);
+	//				}
+				}
 			}
+			
+			
+			_flyer.update(delta, _speed);
+			_items.update(deltaSpeed);
 		}
 		
 		// update player speed and position
@@ -213,7 +220,7 @@ public class Iceway extends Observable {
 			_playerVerticalSpeed += _playerAcc;
 			if(_playerVerticalSpeed > _playerVerticalMaxSpeed)
 				_playerVerticalSpeed = _playerVerticalMaxSpeed;
-		} else if(_icewayIsMoving && !(_playerMoveLeft || _playerMoveRight)) {
+		} else if(!(_playerMoveLeft || _playerMoveRight) || !_icewayIsMoving) {
 			// slide if player wants to stop
 			if(_playerVerticalSpeed < 0) {
 				_playerVerticalSpeed += _playerAcc;
@@ -225,14 +232,11 @@ public class Iceway extends Observable {
 					_playerVerticalSpeed = 0;
 			}
 		}
+		
 		_player.setPosition(
 				_player.getX() + _playerVerticalSpeed*delta,
 				_player.getY());
 		_player.update(delta);
-		
-		
-		_flyer.update(delta, _speed);
-		_items.update(deltaSpeed);
 		
 
 		/// TODO check for points and not for position
@@ -356,7 +360,7 @@ public class Iceway extends Observable {
 	 * @return current iceway speed
 	 */
 	public float getSpeed() {
-		return _speed;
+		return _icewayIsMoving ? _speed : 0;
 	}
 	
 	/**

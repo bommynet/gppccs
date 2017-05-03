@@ -98,20 +98,19 @@ public class IcewayScreen implements Screen, InputProcessor {
 		//checkInput();
 
 		// update positions
-		if (_iceway.isMoving()) {
-			_iceway.update(delta);
+		_iceway.update(delta);
 
-			// update background layers (already negative!)
-			float deltaSpeed = _iceway.getSpeed() * delta;
+		// update background layers (already negative!)
+		float deltaSpeed = _iceway.getSpeed() * delta;
 
-			_cloudsY -= deltaSpeed * _speedFactorLayer_Clouds;
-			if (_cloudsY < -Gppcc10.HALF_HEIGHT - Gppcc10.HEIGHT)
-				_cloudsY = -Gppcc10.HALF_HEIGHT;
+		_cloudsY -= deltaSpeed * _speedFactorLayer_Clouds;
+		if (_cloudsY < -Gppcc10.HALF_HEIGHT - Gppcc10.HEIGHT)
+			_cloudsY = -Gppcc10.HALF_HEIGHT;
 
-			_worldY -= deltaSpeed * _speedFactorLayer_World;
-			if (_worldY < -Gppcc10.HALF_HEIGHT - _world.getHeight())
-				_worldY = -Gppcc10.HALF_HEIGHT;
-		}
+		_worldY -= deltaSpeed * _speedFactorLayer_World;
+		if (_worldY < -Gppcc10.HALF_HEIGHT - _world.getHeight())
+			_worldY = -Gppcc10.HALF_HEIGHT;
+		
 		
 		// update ui animations
 		ui.update(delta);

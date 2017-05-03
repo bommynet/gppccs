@@ -1,0 +1,174 @@
+
+banana.png
+size: 2048,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+banana_fall
+  rotate: false
+  xy: 2, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 0
+banana_fall
+  rotate: false
+  xy: 68, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 1
+banana_fall
+  rotate: false
+  xy: 134, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 2
+banana_fall
+  rotate: false
+  xy: 200, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 3
+banana_fall
+  rotate: false
+  xy: 266, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 4
+banana_fall
+  rotate: false
+  xy: 332, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 5
+banana_fall
+  rotate: false
+  xy: 398, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 6
+banana_fall
+  rotate: false
+  xy: 464, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 7
+banana_fall
+  rotate: false
+  xy: 530, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 8
+banana_fall
+  rotate: false
+  xy: 596, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 9
+banana_fall
+  rotate: false
+  xy: 596, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 11
+banana_fall
+  rotate: false
+  xy: 596, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 10
+banana_fall
+  rotate: false
+  xy: 662, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 12
+banana_fall
+  rotate: false
+  xy: 728, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 13
+banana_fall
+  rotate: false
+  xy: 794, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 14
+banana_fall
+  rotate: false
+  xy: 860, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 15
+banana_fall
+  rotate: false
+  xy: 926, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 16
+banana_fall
+  rotate: false
+  xy: 992, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 17
+banana_fall
+  rotate: false
+  xy: 1058, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 18
+banana_fall
+  rotate: false
+  xy: 1124, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 19
+banana_fall
+  rotate: false
+  xy: 1190, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 20
+banana_fall
+  rotate: false
+  xy: 1256, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 21
+banana_fall
+  rotate: false
+  xy: 1322, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 22
+banana_fall
+  rotate: false
+  xy: 1388, 2
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: 23

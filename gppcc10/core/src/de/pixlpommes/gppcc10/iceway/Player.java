@@ -1,6 +1,9 @@
 package de.pixlpommes.gppcc10.iceway;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -11,6 +14,9 @@ import com.badlogic.gdx.math.Vector2;
  * @version 0.5
  */
 public class Player {
+	
+	/** TODO: describe 'ATLAS_SPEED' */
+	public final static TextureAtlas ATLAS_PLAYER = new TextureAtlas(Gdx.files.internal("graphics/banana.atlas"));
 	
 	/** lower left corner of players position */
 	private float _x, _y;
@@ -30,6 +36,19 @@ public class Player {
 	/** pixels to move per frame while switching */
 	private float _switchingStep;
 	
+	
+	/** TODO: describe '_region' */
+	private TextureRegion _region;
+	
+	/** TODO: describe '_aniDelay' */
+	private float _aniTimer = 0.1f;
+	private float _aniDelay = 0.1f;
+	
+	/** TODO: describe '_maxFrame' */
+	private int _frame = 0;
+	private int _frameCount = 24;
+	
+	
 	/**
 	 * Create new player.
 	 * 
@@ -38,6 +57,8 @@ public class Player {
 	 */
 	public Player() {
 		_state = State.RUN;
+		
+		_region = ATLAS_PLAYER.findRegion("banana_fall", 0);
 	}
 	
 	/**
@@ -57,11 +78,18 @@ public class Player {
 	 * @param batch
 	 */
 	public void draw(Batch batch) {
-		// player is on 2. col, 2. row, 64w, 128h
-		batch.draw(Iceway.TILESET,
-				_x, _y, // position on screen
-				64, 64, // position on tile set
-				64, 128); // size on tile set
+		switch(_state) {
+			case FALL: // play falling animation
+				batch.draw(_region,	_x, _y);
+				break;
+				
+			default: // player is on 2. col, 2. row, 64w, 128h
+				batch.draw(Iceway.TILESET,
+						_x, _y, // position on screen
+						64, 64, // position on tile set
+						64, 128); // size on tile set
+				break;
+		}
 	}
 	
 	/**
@@ -81,8 +109,19 @@ public class Player {
 				}
 				break;
 			case FALL: // falling from skyway
-				System.out.println("fall");
-				_state = State.RUN;
+				if(_aniTimer > 0)
+					_aniTimer -= delta;
+				else {
+					_aniTimer = _aniDelay;
+					
+					_frame++;
+					if(_frame >= _frameCount) {
+						_frame = _frameCount-1;
+						_state = State.DEATH;
+					}
+					
+					_region = ATLAS_PLAYER.findRegion("banana_fall", _frame);
+				}
 				break;
 			case BLOCK: // blocked by ice cube
 				System.out.println("block");
@@ -171,6 +210,8 @@ public class Player {
 		BLOCK,
 		
 		/** player jumping/switching between columns */
-		JUMP;
+		JUMP,
+		
+		DEATH;
 	}
 }

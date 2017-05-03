@@ -54,3 +54,4 @@
 |        | IcewayUI Spieler-Geschwindigkeit hinzugefügt | 1.00h | 4.00h |
 | 02.05. | IcewayUI Spieler-Positionsmarker hinzugefügt | 1.00h | |
 |        | Zufällige Schneemänner deaktiviert, neues Level erstellt | 0.25h | 1.25h |
+| 03.05. | Spieler Fallanimation erstellt und implementiert | 2.50h | 2.50h |

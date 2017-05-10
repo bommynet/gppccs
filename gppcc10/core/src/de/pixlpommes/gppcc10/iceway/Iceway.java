@@ -191,7 +191,11 @@ public class Iceway extends Observable {
 					// add row on top
 					float topY = _iceway.get(_iceway.size()-1).getY() + TILESIZE;
 					Tile[] config = _config[_configNextRow];
-					IcewayRow newRow = new IcewayRow(_offsetX, topY, config);
+					IcewayRow newRow;
+					if(_levelCurrentPosition == _levelLength - 1) 
+						newRow = new IcewayRow(_offsetX, topY, config, true);
+					else
+						newRow = new IcewayRow(_offsetX, topY, config);
 					_iceway.add(newRow);
 					
 					// select next config row

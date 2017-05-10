@@ -16,6 +16,9 @@ public class IcewayRow {
 	/** TODO: describe '_y' */
 	private float _x, _y;
 	
+	/** TODO: describe '_isGoalRow' */
+	private boolean _isGoalRow;
+	
 	/** TODO: describe '_isMolten' */
 	private boolean _isMolten;
 	
@@ -42,6 +45,8 @@ public class IcewayRow {
 		for(int i=0; i<_meltTimer.length; i++)
 			_meltTimer[i] = IcewayRow.MELT_TIME;
 		
+		_isGoalRow = false;
+		
 		_tiles = new Tile[Iceway.COLS];
 		for(int i=0; i<_tiles.length; i++)
 			_tiles[i] = Tile.NORMAL;
@@ -50,8 +55,19 @@ public class IcewayRow {
 	/**
 	 * @param x
 	 * @param y
+	 * @param config
 	 */
 	public IcewayRow(float x, float y, Tile[] config) {
+		this(x, y, config, false);
+	}
+	
+	/**
+	 * @param x
+	 * @param y
+	 * @param config
+	 * @param goal
+	 */
+	public IcewayRow(float x, float y, Tile[] config, boolean goal) {
 		_x = x;
 		_y = y;
 		
@@ -59,6 +75,8 @@ public class IcewayRow {
 		_meltTimer = new float[Iceway.COLS];
 		for(int i=0; i<_meltTimer.length; i++)
 			_meltTimer[i] = IcewayRow.MELT_TIME;
+		
+		_isGoalRow = goal;
 		
 		_tiles = new Tile[config.length];
 		for(int i=0; i<_tiles.length; i++)
@@ -111,7 +129,7 @@ public class IcewayRow {
 				batch.draw(Iceway.TILESET,
 						_x + i * Iceway.TILESIZE,
 						_y,
-						0, 0, // tile position in tile set
+						(_isGoalRow ? 64 : 0), 0, // tile position in tile set
 						Iceway.TILESIZE-2, Iceway.TILESIZE-2); // tile size
 			} else {
 				float factor = _meltTimer[i] / IcewayRow.MELT_TIME;

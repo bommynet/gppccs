@@ -8,6 +8,7 @@
 # Eisbahn
 
 * [ ] Positioniere Schneemänner aus Konfiguration
+* [ ] **Fehler**: Ziellinie wird an der falschen Stelle erstellt.
 * [ ] **Fehler**: Eisbahnkachel == MOLTEN wird nicht korrekt erkannt... Spieler fällt nicht
 * [x] Lade Konfiguration für Eisbahn aus Datei
 * [ ] *Idee gekippt* ~~Kacheln können noch keine zweite Farbe anzeigen.~~

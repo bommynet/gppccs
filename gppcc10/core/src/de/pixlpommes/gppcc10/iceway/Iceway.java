@@ -82,10 +82,14 @@ public class Iceway extends Observable {
 	/** player's acceleration in pixel per second */
 	private float _playerAcc;
 	
+	/** the player moves up out of the screen */
+	private boolean _playerMovesUp;
+	
 	/** TODO: describe '_playerVerticalSpeed' */
 	private float _playerVerticalSpeed, _playerVerticalMaxSpeed;
 	
 	
+	// enemies
 	/** the bad, ice-melting blow-flyers */
 	private BlowFlyer _flyer;
 
@@ -197,9 +201,12 @@ public class Iceway extends Observable {
 					
 					// increase level position
 					_levelCurrentPosition++;
-					if(_levelCurrentPosition >= _levelLength)
+					if(_levelCurrentPosition >= _levelLength) {
 						_levelCurrentPosition = _levelLength;
-					else
+						
+						// set player has won!
+						playerWins();
+					} else
 						_score += SCORE_LEVEL_PROGRESS;
 					
 					// TODO: select a random visible tile or something like config
@@ -212,6 +219,12 @@ public class Iceway extends Observable {
 			
 			_flyer.update(delta, _speed);
 			_items.update(deltaSpeed);
+		} else if(!_icewayIsMoving && _playerMovesUp) {
+			// move player out of the screen
+			if(_player.getY() <= Gppcc10.HALF_HEIGHT)
+				_player.setPosition(
+						_player.getX(),
+						_player.getY() - deltaSpeed * 2.0f);
 		}
 		
 		// update player speed and position
@@ -360,6 +373,19 @@ public class Iceway extends Observable {
 		// notify handler
 		if(_winLostHandler != null)
 			_winLostHandler.gameLost();
+	}
+	
+	/**
+	 * Let the player win.
+	 */
+	public void playerWins() {
+		// 1. stop the iceway
+		_icewayIsMoving = false;
+		// 2. let the player move out of the screen
+		_playerMovesUp = true;
+		// 3. send event "player win"
+		if(_winLostHandler != null)
+			_winLostHandler.gameWon();
 	}
 	
 	/**

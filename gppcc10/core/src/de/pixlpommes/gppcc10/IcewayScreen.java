@@ -10,13 +10,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.pixlpommes.gppcc10.iceway.Iceway;
+import de.pixlpommes.gppcc10.iceway.WinLost;
 import de.pixlpommes.gppcc10.ui.IcewayUI;
 
 /**
  * @author Thomas Borck - http://www.pixlpommes.de
  * @version 0.1
  */
-public class IcewayScreen implements Screen, InputProcessor {
+public class IcewayScreen implements Screen, InputProcessor, WinLost {
 	
 	// general
 	/** batch to render everything */
@@ -24,6 +25,12 @@ public class IcewayScreen implements Screen, InputProcessor {
 
 	/** standard 2D camera */
 	private OrthographicCamera _cam;
+	
+	/** game is finished (won or lost) */
+	private boolean _gameFinished;
+	
+	/** game was won by the player */
+	private boolean _gameWon;
 
 	// LAYER 0
 	/** the iceway */
@@ -49,8 +56,9 @@ public class IcewayScreen implements Screen, InputProcessor {
 	/** moving speed factor for world-layer */
 	private final float _speedFactorLayer_World = 0.2f;
 	
-	
-	private IcewayUI ui = new IcewayUI();
+	// GUI
+	/** game ui */
+	private IcewayUI _gui = new IcewayUI();
 	
 
 	/**
@@ -60,6 +68,9 @@ public class IcewayScreen implements Screen, InputProcessor {
 		// setup graphics
 		_cam = new OrthographicCamera();
 		_batch = new SpriteBatch();
+		
+		_gameFinished = false;
+		_gameWon = false;
 
 		// _shake = new ScreenShake(_cam);
 
@@ -67,6 +78,7 @@ public class IcewayScreen implements Screen, InputProcessor {
 		int posX = -(Iceway.COLS * Iceway.TILESIZE) / 2;
 		int posY = -(Gppcc10.HEIGHT / 2);
 		_iceway = new Iceway(posX, posY);
+		_iceway.setWinLostHandler(this);
 
 		// setup cloud layer
 		_clouds = Iceway.TEXTURE_CLOUDS;
@@ -80,7 +92,7 @@ public class IcewayScreen implements Screen, InputProcessor {
 		Gdx.input.setInputProcessor(this);
 		
 		// Observers
-		_iceway.addObserver(ui);
+		_iceway.addObserver(_gui);
 	}
 
 	/*
@@ -113,7 +125,7 @@ public class IcewayScreen implements Screen, InputProcessor {
 		
 		
 		// update ui animations
-		ui.update(delta);
+		_gui.update(delta);
 
 		// TODO: do a screen shake if needed
 		/// _shake.shakeUpdate(_batch, delta);
@@ -133,7 +145,15 @@ public class IcewayScreen implements Screen, InputProcessor {
 		_iceway.draw(_batch);
 		
 		// GUI
-		ui.draw(_batch);
+		_gui.draw(_batch);
+		
+		// WIN / LOST
+		if(_gameFinished && _gameWon) {
+			System.out.println("WIN!");
+		} else if(_gameFinished && !_gameWon) {
+			System.out.println("LOST!");
+		}
+		
 		_batch.end();
 	}
 	
@@ -182,6 +202,25 @@ public class IcewayScreen implements Screen, InputProcessor {
 	public void dispose() {
 		// TODO Auto-generated method stub
 
+	}
+	
+
+	/* (non-Javadoc)
+	 * @see de.pixlpommes.gppcc10.iceway.WinLost#gameWon()
+	 */
+	@Override
+	public void gameWon() {
+		_gameWon = true;
+		_gameFinished = true;
+	}
+
+	/* (non-Javadoc)
+	 * @see de.pixlpommes.gppcc10.iceway.WinLost#gameLost()
+	 */
+	@Override
+	public void gameLost() {
+		_gameWon = false;
+		_gameFinished = true;
 	}
 
 	

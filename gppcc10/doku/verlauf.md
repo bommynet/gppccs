@@ -55,4 +55,5 @@
 | 02.05. | IcewayUI Spieler-Positionsmarker hinzugefügt | 1.00h | |
 |        | Zufällige Schneemänner deaktiviert, neues Level erstellt | 0.25h | 1.25h |
 | 03.05. | Spieler Fallanimation erstellt und implementiert | 2.50h | 2.50h |
-| 10.05. | Ziel-Kacheln erstellt | 0.25h | 0.25h |
+| 10.05. | Ziel-Kacheln erstellt | 0.25h | |
+|        | Handler für Gewonnen/Verloren eingebaut | 0.50h | 0.75h |

@@ -50,6 +50,9 @@ public class Iceway extends Observable {
 			Gdx.files.internal("graphics/woods.png"));
 
 	// general
+	/** TODO: describe '_winLostHandler' */
+	private WinLost _winLostHandler;
+	
 	/** iceway's bottom left corner on screen */
 	private int _offsetX, _offsetY;
 	
@@ -353,6 +356,18 @@ public class Iceway extends Observable {
 		// TODO: animate fall down
 		_player.changeState(State.FALL);
 		// TODO: special effect for 'death'
+		
+		// notify handler
+		if(_winLostHandler != null)
+			_winLostHandler.gameLost();
+	}
+	
+	/**
+	 * TODO: describe function
+	 * @param winLost
+	 */
+	public void setWinLostHandler(WinLost winLost) {
+		_winLostHandler = winLost;
 	}
 	
 	

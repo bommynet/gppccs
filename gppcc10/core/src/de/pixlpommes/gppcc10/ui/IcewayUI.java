@@ -24,6 +24,9 @@ public class IcewayUI implements Observer {
 	
 	/** TODO: describe 'ATLAS_NUMBERS_BIG' */
 	public final static TextureAtlas ATLAS_NUMBERS_BIG = new TextureAtlas(Gdx.files.internal("font/numbers_big.atlas"));
+	
+	/** TODO: describe 'ATLAS_CHARS_SMALL' */
+	public final static TextureAtlas ATLAS_CHARS_SMALL = new TextureAtlas(Gdx.files.internal("font/chars_small.atlas"));
 
 	/** TODO: describe 'ATLAS_SPEED' */
 	public final static TextureAtlas ATLAS_SPEED = new TextureAtlas(Gdx.files.internal("graphics/plate_speed.atlas"));

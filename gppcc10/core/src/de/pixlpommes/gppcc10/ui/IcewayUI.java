@@ -21,6 +21,9 @@ public class IcewayUI implements Observer {
 	/** TODO: describe 'UI_PLATE' */
 	public final static Texture UI_PLATE = new Texture(Gdx.files.internal("graphics/plate.png"));
 	
+	/** TODO: describe 'UI_OVERLAY' */
+	public final static Texture UI_OVERLAY = new Texture(Gdx.files.internal("graphics/overlay.png"));
+	
 	
 	/** TODO: describe 'ATLAS_NUMBERS_BIG' */
 	public final static TextureAtlas ATLAS_NUMBERS_BIG = new TextureAtlas(Gdx.files.internal("font/numbers_big.atlas"));

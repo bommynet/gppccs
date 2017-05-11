@@ -374,6 +374,9 @@ public class Iceway extends Observable {
 	 * Let the player fall of the iceway.
 	 */
 	public void playerFallsOff() {
+		// don't kill killed players...
+		if(_player.getState() != Player.State.RUN) return;
+		
 		// TODO: slow down iceway (not simply stop)
 		_icewayIsMoving = false;
 		// TODO: animate fall down
@@ -461,6 +464,20 @@ public class Iceway extends Observable {
 	 */
 	public boolean isMoving() {
 		return _icewayIsMoving;
+	}
+	
+	/**
+	 * @return true if game is started
+	 */
+	public boolean isGameStarted() {
+		return _gameStarted;
+	}
+
+	/**
+	 * @return true if animation for player dead is finished
+	 */
+	public boolean isPlayerDeadAnimationFinished() {
+		return _player.getState() == Player.State.DEATH;
 	}
 	
 	

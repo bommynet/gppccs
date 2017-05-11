@@ -144,11 +144,16 @@ public class IcewayScreen implements Screen, InputProcessor, WinLost {
 		// GUI
 		_gui.draw(_batch);
 		
+		// show "press any key"
+		if(!_iceway.isGameStarted()) {
+			_batch.draw(IcewayUI.UI_OVERLAY, -240, -120, 0, 0*240, 480, 240);
+		}
+		
 		// WIN / LOST
 		if(_gameFinished && _gameWon) {
-			System.out.println("WIN!");
-		} else if(_gameFinished && !_gameWon) {
-			System.out.println("LOST!");
+			_batch.draw(IcewayUI.UI_OVERLAY, -240, -120, 0, 2*240, 480, 240);
+		} else if(_gameFinished && !_gameWon && _iceway.isPlayerDeadAnimationFinished()) {
+			_batch.draw(IcewayUI.UI_OVERLAY, -240, -120, 0, 3*240, 480, 240);
 		}
 		
 		_batch.end();

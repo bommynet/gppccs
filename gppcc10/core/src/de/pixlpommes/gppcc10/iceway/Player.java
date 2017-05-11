@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import de.pixlpommes.gppcc10.iceway.Player.State;
+
 /**
  * The player.
  * 
@@ -83,6 +85,10 @@ public class Player {
 				batch.draw(_region,	_x, _y);
 				break;
 				
+			case DEATH:
+				// draw nothing!
+				break;
+				
 			default: // player is on 2. col, 2. row, 64w, 128h
 				batch.draw(Iceway.TILESET,
 						_x, _y, // position on screen
@@ -108,6 +114,7 @@ public class Player {
 					_state = State.RUN;
 				}
 				break;
+				
 			case FALL: // falling from skyway
 				if(_aniTimer > 0)
 					_aniTimer -= delta;
@@ -123,10 +130,12 @@ public class Player {
 					_region = ATLAS_PLAYER.findRegion("banana_fall", _frame);
 				}
 				break;
+				
 			case BLOCK: // blocked by ice cube
 				System.out.println("block");
 				_state = State.RUN;
 				break;
+				
 			case RUN: // running on skyway... nothing special to do
 			case DEATH: // just dead... nothing to update
 				break;
@@ -214,5 +223,14 @@ public class Player {
 		JUMP,
 		
 		DEATH;
+	}
+
+
+	/**
+	 * TODO: describe function
+	 * @return
+	 */
+	public State getState() {
+		return _state;
 	}
 }

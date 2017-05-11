@@ -61,3 +61,4 @@
 |        | Ziellinie eingebaut (noch fehlerhaft!) | 0.50h | 1.75h |
 | 11.05. | Spiel startet bei Tastendruck und Zielkacheln werden gezeigt | 1.00h | |
 |        | Unbenutzte imports und Funktionen entfernt. ProgressBar entfernt. | 0.10h | 1.10h |
+|        | Overlay-Skizzen für Spielstart, Ende (gewonnen) und Ende (verloren) erstellt | 1.00h | 2.10h |

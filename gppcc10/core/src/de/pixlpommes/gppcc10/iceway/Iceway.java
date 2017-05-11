@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Observable;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -106,6 +107,10 @@ public class Iceway extends Observable {
 	/** acceleration per second */
 	private float _accSpeed;
 	
+	/** TODO: describe '_gameStarted' */
+	private boolean _gameStarted;
+	
+	
 	// items and more
 	/** powerups and -downs */
 	private Items _items;
@@ -153,13 +158,14 @@ public class Iceway extends Observable {
 		_configNextRow = 0;
 		
 		// setup maximum level length
-		_levelLength = _config.length + ROWS - 2;
-		_levelCurrentPosition = 0;
+		_levelLength = _config.length;
+		_levelCurrentPosition = -ROWS+2;
 		
 		_score = 0;
 		
-		/// TODO: start game by user input
+		// start game by user input
 		_icewayIsMoving = true;
+		_gameStarted = false;
 	}
 	
 	/**
@@ -190,36 +196,41 @@ public class Iceway extends Observable {
 					
 					// add row on top
 					float topY = _iceway.get(_iceway.size()-1).getY() + TILESIZE;
-					Tile[] config = _config[_configNextRow];
-					IcewayRow newRow;
-					if(_levelCurrentPosition == _levelLength - 1) 
-						newRow = new IcewayRow(_offsetX, topY, config, true);
-					else
-						newRow = new IcewayRow(_offsetX, topY, config);
-					_iceway.add(newRow);
 					
-					// select next config row
-					_configNextRow++;
-					if(_configNextRow >= _config.length)
-						_configNextRow = _config.length-1;
-					
-					// increase level position
-					_levelCurrentPosition++;
-					if(_levelCurrentPosition >= _levelLength) {
-						_levelCurrentPosition = _levelLength;
+					// standard row if game isn't started
+					if(!_gameStarted) {
+						IcewayRow basicRow = new IcewayRow(_offsetX, topY);
+						_iceway.add(basicRow);
+					}
+					// get row from config and calculate level progress
+					else {
+						Tile[] config = _config[_configNextRow];
+						IcewayRow newRow;
+						if(_configNextRow == _config.length - 1) 
+							newRow = new IcewayRow(_offsetX, topY, config, true);
+						else
+							newRow = new IcewayRow(_offsetX, topY, config);
+						_iceway.add(newRow);
 						
-						// set player has won!
-						playerWins();
-					} else
-						_score += SCORE_LEVEL_PROGRESS;
-					
-					// TODO: select a random visible tile or something like config
-	//				if(Math.random() < 0.2) {
-	//					_items.add(_iceway.get(0).getX(3), topY, Item.Type.SNOWMAN);
-	//				}
+						// select next config row
+						_configNextRow++;
+						if(_configNextRow >= _config.length)
+							_configNextRow = _config.length-1;
+						
+						// increase level position
+						_levelCurrentPosition++;
+						if(_levelCurrentPosition >= _levelLength) {
+							_levelCurrentPosition = _levelLength;
+							
+							// set player has won!
+							playerWins();
+						} else {
+							if(_levelCurrentPosition >= 0)
+								_score += SCORE_LEVEL_PROGRESS;
+						}
+					}
 				}
 			}
-			
 			
 			_flyer.update(delta, _speed);
 			_items.update(deltaSpeed);
@@ -231,32 +242,39 @@ public class Iceway extends Observable {
 						_player.getY() - deltaSpeed * 2.0f);
 		}
 		
-		// update player speed and position
-		if(_icewayIsMoving && _playerMoveLeft) {
-			_playerVerticalSpeed -= _playerAcc;
-			if(_playerVerticalSpeed < -_playerVerticalMaxSpeed)
-				_playerVerticalSpeed = -_playerVerticalMaxSpeed;
-		} else if(_icewayIsMoving && _playerMoveRight) {
-			_playerVerticalSpeed += _playerAcc;
-			if(_playerVerticalSpeed > _playerVerticalMaxSpeed)
-				_playerVerticalSpeed = _playerVerticalMaxSpeed;
-		} else if(!(_playerMoveLeft || _playerMoveRight) || !_icewayIsMoving) {
-			// slide if player wants to stop
-			if(_playerVerticalSpeed < 0) {
-				_playerVerticalSpeed += _playerAcc;
-				if(_playerVerticalSpeed > 0)
-					_playerVerticalSpeed = 0;
-			} else if(_playerVerticalSpeed > 0) {
+		// process user input
+		if(_gameStarted) {
+			if(_icewayIsMoving && _playerMoveLeft) {
 				_playerVerticalSpeed -= _playerAcc;
-				if(_playerVerticalSpeed < 0)
-					_playerVerticalSpeed = 0;
+				if(_playerVerticalSpeed < -_playerVerticalMaxSpeed)
+					_playerVerticalSpeed = -_playerVerticalMaxSpeed;
+			} else if(_icewayIsMoving && _playerMoveRight) {
+				_playerVerticalSpeed += _playerAcc;
+				if(_playerVerticalSpeed > _playerVerticalMaxSpeed)
+					_playerVerticalSpeed = _playerVerticalMaxSpeed;
+			} else if(!(_playerMoveLeft || _playerMoveRight) || !_icewayIsMoving) {
+				// slide if player wants to stop
+				if(_playerVerticalSpeed < 0) {
+					_playerVerticalSpeed += _playerAcc;
+					if(_playerVerticalSpeed > 0)
+						_playerVerticalSpeed = 0;
+				} else if(_playerVerticalSpeed > 0) {
+					_playerVerticalSpeed -= _playerAcc;
+					if(_playerVerticalSpeed < 0)
+						_playerVerticalSpeed = 0;
+				}
 			}
+			
+			// update player speed and position
+			_player.setPosition(
+					_player.getX() + _playerVerticalSpeed*delta,
+					_player.getY());
+			_player.update(delta);
+		} else {
+			// let's start
+			if(Gdx.input.isKeyPressed(Keys.ANY_KEY))
+				_gameStarted = true;
 		}
-		
-		_player.setPosition(
-				_player.getX() + _playerVerticalSpeed*delta,
-				_player.getY());
-		_player.update(delta);
 		
 
 		/// TODO check for points and not for position

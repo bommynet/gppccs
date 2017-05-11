@@ -37,19 +37,7 @@ public class IcewayRow {
 	 * @param y
 	 */
 	public IcewayRow(float x, float y) {
-		_x = x;
-		_y = y;
-		
-		_isMolten = false;
-		_meltTimer = new float[Iceway.COLS];
-		for(int i=0; i<_meltTimer.length; i++)
-			_meltTimer[i] = IcewayRow.MELT_TIME;
-		
-		_isGoalRow = false;
-		
-		_tiles = new Tile[Iceway.COLS];
-		for(int i=0; i<_tiles.length; i++)
-			_tiles[i] = Tile.NORMAL;
+		this(x, y, null, false);
 	}
 	
 	/**
@@ -78,9 +66,15 @@ public class IcewayRow {
 		
 		_isGoalRow = goal;
 		
-		_tiles = new Tile[config.length];
-		for(int i=0; i<_tiles.length; i++)
-			_tiles[i] = config[i];
+		if(config == null) {
+			_tiles = new Tile[Iceway.COLS];
+			for(int i=0; i<_tiles.length; i++)
+				_tiles[i] = Tile.NORMAL;
+		} else {
+			_tiles = new Tile[config.length];
+			for(int i=0; i<_tiles.length; i++)
+				_tiles[i] = config[i];
+		}
 	}
 	
 	

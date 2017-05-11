@@ -8,8 +8,9 @@
 # Eisbahn
 
 * [ ] Positioniere Schneemänner aus Konfiguration
-* [ ] **Fehler**: Ziellinie wird an der falschen Stelle erstellt.
+* [ ] **Fehler**: Position der Kacheln oder des Spielers werden falsch berechnet.
 * [ ] **Fehler**: Eisbahnkachel == MOLTEN wird nicht korrekt erkannt... Spieler fällt nicht
+* [x] **Fehler**: Ziellinie wird an der falschen Stelle erstellt.
 * [x] Lade Konfiguration für Eisbahn aus Datei
 * [ ] *Idee gekippt* ~~Kacheln können noch keine zweite Farbe anzeigen.~~
 
@@ -19,8 +20,8 @@
 * [x] Sprite für Spieler
 * [ ] Animationen für Spieler
 	* [ ] laufen
-	* [ ] springen (zwischen Spalten der Eisbahn)
-	* [ ] fallen (von der Eisbahn)
+	* [ ] *Nicht mehr benötigt.* ~~springen (zwischen Spalten der Eisbahn)~~
+	* [x] fallen (von der Eisbahn)
 * [x] *Behoben.* ~~**Fehler**: Spieler kann zwei Felder gleichzeitig springen.~~
 
 

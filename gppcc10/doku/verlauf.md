@@ -57,5 +57,6 @@
 | 03.05. | Spieler Fallanimation erstellt und implementiert | 2.50h | 2.50h |
 | 10.05. | Ziel-Kacheln erstellt | 0.25h | |
 |        | Handler für Gewonnen/Verloren eingebaut | 0.50h | |
-|        | Gewinnt der Spieler, rennt dieser nach oben aus dem Spiel | 0.50h | 1.25h |
+|        | Gewinnt der Spieler, rennt dieser nach oben aus dem Spiel | 0.50h | |
 |        | Ziellinie eingebaut (noch fehlerhaft!) | 0.50h | 1.75h |
+| 11.05. | Spiel startet bei Tastendruck und Zielkacheln werden gezeigt | 1.00h | 1.00h |

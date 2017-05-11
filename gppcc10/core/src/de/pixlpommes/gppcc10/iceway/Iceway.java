@@ -8,7 +8,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -370,17 +369,6 @@ public class Iceway extends Observable {
 		_player.draw(batch);
 	}
 	
-	
-	/**
-	 * Check for collisions between two rectangles.
-	 * 
-	 * @param rect1
-	 * @param rect2
-	 * @return
-	 */
-	public boolean checkCollision(Rectangle rect1, Rectangle rect2) {
-		return rect1.overlaps(rect2);
-	}
 	
 	/**
 	 * Let the player fall of the iceway.

@@ -105,9 +105,6 @@ public class IcewayScreen implements Screen, InputProcessor, WinLost {
 		// clear screen
 		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		// keyboard input
-		//checkInput();
 
 		// update positions
 		_iceway.update(delta);
@@ -224,19 +221,6 @@ public class IcewayScreen implements Screen, InputProcessor, WinLost {
 	}
 
 	
-	public void checkInput() {
-		// moving -> no more player move
-		if (!_iceway.isMoving())
-			return;
-		
-		// old input algorithm
-		if (Gdx.input.isKeyPressed(Keys.A)) {
-			_iceway.movePlayerBy(-Iceway.TILESIZE);
-		} else if (Gdx.input.isKeyPressed(Keys.D)) {
-			_iceway.movePlayerBy(Iceway.TILESIZE);
-		}
-	}
-
 	/* (non-Javadoc)
 	 * @see com.badlogic.gdx.InputProcessor#keyDown(int)
 	 */

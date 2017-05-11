@@ -127,7 +127,8 @@ public class Player {
 				System.out.println("block");
 				_state = State.RUN;
 				break;
-			case RUN: // running on skyway
+			case RUN: // running on skyway... nothing special to do
+			case DEATH: // just dead... nothing to update
 				break;
 		}
 	}

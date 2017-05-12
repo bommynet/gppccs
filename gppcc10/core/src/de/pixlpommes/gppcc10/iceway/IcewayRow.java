@@ -17,7 +17,7 @@ public class IcewayRow {
 	private float _x, _y;
 	
 	/** TODO: describe '_isGoalRow' */
-	private boolean _isGoalRow;
+	private Type _rowType;
 	
 	/** TODO: describe '_isMolten' */
 	private boolean _isMolten;
@@ -37,7 +37,7 @@ public class IcewayRow {
 	 * @param y
 	 */
 	public IcewayRow(float x, float y) {
-		this(x, y, null, false);
+		this(x, y, null, Type.NORMAL);
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public class IcewayRow {
 	 * @param config
 	 */
 	public IcewayRow(float x, float y, Tile[] config) {
-		this(x, y, config, false);
+		this(x, y, config, Type.NORMAL);
 	}
 	
 	/**
@@ -55,7 +55,7 @@ public class IcewayRow {
 	 * @param config
 	 * @param goal
 	 */
-	public IcewayRow(float x, float y, Tile[] config, boolean goal) {
+	public IcewayRow(float x, float y, Tile[] config, Type type) {
 		_x = x;
 		_y = y;
 		
@@ -64,7 +64,7 @@ public class IcewayRow {
 		for(int i=0; i<_meltTimer.length; i++)
 			_meltTimer[i] = IcewayRow.MELT_TIME;
 		
-		_isGoalRow = goal;
+		_rowType = type;
 		
 		if(config == null) {
 			_tiles = new Tile[Iceway.COLS];
@@ -119,11 +119,18 @@ public class IcewayRow {
 			
 			// no scaling needed for non-melting tiles
 			if(_tiles[i] == Tile.NORMAL) {
+				// select graphic for tile
+				int srcXByType = 0;
+				if(_rowType == Type.FIRST)
+					srcXByType = 128;
+				else if(_rowType == Type.GOAL)
+					srcXByType = 64;
+				
 				// draw tile
 				batch.draw(Iceway.TILESET,
 						_x + i * Iceway.TILESIZE,
 						_y,
-						(_isGoalRow ? 64 : 0), 0, // tile position in tile set
+						srcXByType, 0, // tile position in tile set
 						Iceway.TILESIZE-2, Iceway.TILESIZE-2); // tile size
 			} else {
 				float factor = _meltTimer[i] / IcewayRow.MELT_TIME;
@@ -211,5 +218,22 @@ public class IcewayRow {
 		
 		/** show no tile */
 		NONE;
+	}
+	
+	/**
+	 * Possible type of graphics.
+	 * 
+	 * @author Thomas Borck - http://www.pixlpommes.de
+	 * @version 1.0
+	 */
+	public enum Type {
+		/** first row of the track */
+		FIRST,
+		
+		/** last row of the track */
+		GOAL,
+		
+		/** all other rows */
+		NORMAL;
 	}
 }

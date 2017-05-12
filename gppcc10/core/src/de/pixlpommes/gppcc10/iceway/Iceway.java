@@ -203,18 +203,20 @@ public class Iceway extends Observable {
 					}
 					// get row from config and calculate level progress
 					else {
-						Tile[] config = _config[_configNextRow];
+						int configId = _configNextRow >= _config.length ? _config.length-1 : _configNextRow;
+						Tile[] config = _config[configId];
 						IcewayRow newRow;
+						
 						if(_configNextRow == _config.length - 1) 
-							newRow = new IcewayRow(_offsetX, topY, config, true);
+							newRow = new IcewayRow(_offsetX, topY, config, IcewayRow.Type.GOAL);
+						else if(_configNextRow == 0)
+							newRow = new IcewayRow(_offsetX, topY, config, IcewayRow.Type.FIRST);
 						else
 							newRow = new IcewayRow(_offsetX, topY, config);
 						_iceway.add(newRow);
 						
 						// select next config row
 						_configNextRow++;
-						if(_configNextRow >= _config.length)
-							_configNextRow = _config.length-1;
 						
 						// increase level position
 						_levelCurrentPosition++;

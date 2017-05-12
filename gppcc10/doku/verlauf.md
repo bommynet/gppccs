@@ -62,4 +62,5 @@
 | 11.05. | Spiel startet bei Tastendruck und Zielkacheln werden gezeigt | 1.00h | |
 |        | Unbenutzte imports und Funktionen entfernt. ProgressBar entfernt. | 0.10h | |
 |        | Overlay-Skizzen für Spielstart, Ende (gewonnen) und Ende (verloren) erstellt | 1.00h | 2.10h |
-| 12.05. | Start- und Zielkacheln werden korrekt angezeigt | 0.75h | 0.75h |
+| 12.05. | Start- und Zielkacheln werden korrekt angezeigt | 0.75h | |
+|        | Spieler "ausrollen" lassen | 0.50h | 1.25h |

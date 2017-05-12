@@ -174,10 +174,14 @@ public class Iceway extends Observable {
 	 */
 	public void update(float delta) {
 		// speed up to max speed
-		if(_speed < _maxSpeed)
-			_speed += _accSpeed * delta;
-		else if(_speed > _maxSpeed)
+		_speed += _accSpeed * delta;
+		
+		if(_speed > _maxSpeed)
 			_speed = _maxSpeed;
+		else if(_speed < 0 && _accSpeed < 0) {
+			_speed = 0;
+			_icewayIsMoving = false;
+		}
 		
 		// speed for all rows at current frame (negative for moving down)
 		float deltaSpeed = _speed * delta * (-1);
@@ -245,16 +249,29 @@ public class Iceway extends Observable {
 		
 		// process user input
 		if(_gameStarted) {
-			if(_icewayIsMoving && _playerMoveLeft) {
-				_playerVerticalSpeed -= _playerAcc;
-				if(_playerVerticalSpeed < -_playerVerticalMaxSpeed)
-					_playerVerticalSpeed = -_playerVerticalMaxSpeed;
-			} else if(_icewayIsMoving && _playerMoveRight) {
-				_playerVerticalSpeed += _playerAcc;
-				if(_playerVerticalSpeed > _playerVerticalMaxSpeed)
-					_playerVerticalSpeed = _playerVerticalMaxSpeed;
-			} else if(!(_playerMoveLeft || _playerMoveRight) || !_icewayIsMoving) {
-				// slide if player wants to stop
+			if(_player.getState() == Player.State.RUN) {
+				if(_playerMoveLeft) {
+					_playerVerticalSpeed -= _playerAcc;
+					if(_playerVerticalSpeed < -_playerVerticalMaxSpeed)
+						_playerVerticalSpeed = -_playerVerticalMaxSpeed;
+				} else if(_playerMoveRight) {
+					_playerVerticalSpeed += _playerAcc;
+					if(_playerVerticalSpeed > _playerVerticalMaxSpeed)
+						_playerVerticalSpeed = _playerVerticalMaxSpeed;
+				} else if(!(_playerMoveLeft || _playerMoveRight)) {
+					// slide if player wants to stop
+					if(_playerVerticalSpeed < 0) {
+						_playerVerticalSpeed += _playerAcc;
+						if(_playerVerticalSpeed > 0)
+							_playerVerticalSpeed = 0;
+					} else if(_playerVerticalSpeed > 0) {
+						_playerVerticalSpeed -= _playerAcc;
+						if(_playerVerticalSpeed < 0)
+							_playerVerticalSpeed = 0;
+					}
+				}
+			} else {
+				// slide if player falls off
 				if(_playerVerticalSpeed < 0) {
 					_playerVerticalSpeed += _playerAcc;
 					if(_playerVerticalSpeed > 0)
@@ -380,7 +397,8 @@ public class Iceway extends Observable {
 		if(_player.getState() != Player.State.RUN) return;
 		
 		// TODO: slow down iceway (not simply stop)
-		_icewayIsMoving = false;
+		//_icewayIsMoving = false;
+		_accSpeed = -150.0f;
 		// TODO: animate fall down
 		_player.changeState(State.FALL);
 		// TODO: special effect for 'death'

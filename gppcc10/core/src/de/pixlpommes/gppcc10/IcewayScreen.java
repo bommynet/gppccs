@@ -44,7 +44,7 @@ public class IcewayScreen implements Screen, InputProcessor, WinLost {
 	private float _cloudsY;
 
 	/** moving speed factor for cloud-layer */
-	private final float _speedFactorLayer_Clouds = 0.4f;
+	private final float _speedFactorLayer_Clouds = 0.3f;
 
 	// LAYER 2
 	/** world as texture */

@@ -64,4 +64,5 @@
 |        | Overlay-Skizzen für Spielstart, Ende (gewonnen) und Ende (verloren) erstellt | 1.00h | 2.10h |
 | 12.05. | Start- und Zielkacheln werden korrekt angezeigt | 0.75h | |
 |        | Spieler "ausrollen" lassen | 0.50h | 1.25h |
-| 14.05. | Overlay-Schriftzüge (Win, Lost,...) neu erstellt | 1.00h | 1.00h |
+| 14.05. | Overlay-Schriftzüge (Win, Lost,...) neu erstellt | 1.00h | |
+|        | Wolken neu gespeichert und verlangsamt | 0.10h | 1.10h |

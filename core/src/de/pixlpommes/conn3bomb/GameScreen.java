@@ -1,99 +1,148 @@
 package de.pixlpommes.conn3bomb;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
- * <p>TODO: short class description.</p>
+ * <p>
+ * TODO: short class description.
+ * </p>
  *
- * <p>TODO: detailed class description.</p>
+ * <p>
+ * TODO: detailed class description.
+ * </p>
  *
  * @author Thomas Borck
  */
 public class GameScreen implements Screen {
-	
-	/** TODO: describe _arena */
-	private Arena _arena;
-	
-	/** TODO: describe _insert */
-	private Inserter _insert;
-	
-	/** TODO: describe _player */
-	private Player _player;
-	
-	
-	public GameScreen() {
-		_arena = new Arena();
-		_arena.setOffset(0, 0);
-		
-		_insert = new Inserter();
-		_insert.setOffset(0, 10);
-		
-		_player = new Player();
-		_player.setOffset(0, -10);
-	}
-	
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.badlogic.gdx.Screen#show()
-	 */
-	@Override
-	public void show() {
-	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.badlogic.gdx.Screen#render(float)
-	 */
-	@Override
-	public void render(float delta) {
-	}
+    // LIBGDX
+    /** batch to render everything on screen */
+    private SpriteBatch _batch;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.badlogic.gdx.Screen#resize(int, int)
-	 */
-	@Override
-	public void resize(int width, int height) {
-	}
+    /** standard 2D camera */
+    private OrthographicCamera _cam;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.badlogic.gdx.Screen#pause()
-	 */
-	@Override
-	public void pause() {
-	}
+    // GAME
+    /** the game mainly happens in the arena */
+    private Arena _arena;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.badlogic.gdx.Screen#resume()
-	 */
-	@Override
-	public void resume() {
-	}
+    /** the inserter changes the arena randomly */
+    private Inserter _insert;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.badlogic.gdx.Screen#hide()
-	 */
-	@Override
-	public void hide() {
-	}
+    /** the player changes the arena controlled */
+    private Player _player;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.badlogic.gdx.Screen#dispose()
-	 */
-	@Override
-	public void dispose() {
-	}
+    /**
+     * Create simple game screen.
+     */
+    public GameScreen() {
+
+	// libGdx
+	_cam = new OrthographicCamera();
+	_batch = new SpriteBatch();
+
+	// game objects
+	_arena = new Arena();
+	_arena.setOffset(0, 0);
+
+	_insert = new Inserter();
+	_insert.setOffset(0, 10);
+
+	_player = new Player();
+	_player.setOffset(0, -10);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.badlogic.gdx.Screen#show()
+     */
+    @Override
+    public void show() {
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.badlogic.gdx.Screen#render(float)
+     */
+    @Override
+    public void render(float delta) {
+	// update logic
+	_arena.update(delta);
+	_insert.update(delta);
+	_player.update(delta);
+
+	// clear screen
+	Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
+	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+	// draw content
+	_batch.begin();
+	
+	_arena.draw(_batch);
+	_insert.draw(_batch);
+	_player.draw(_batch);
+	
+	_batch.end();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.badlogic.gdx.Screen#resize(int, int)
+     */
+    @Override
+    public void resize(int width, int height) {
+	Gdx.app.log("BattleScreen", "resize called (" + width + "x" + height + ")");
+
+	// update camera
+	_cam.viewportWidth = width;
+	_cam.viewportHeight = height;
+	_cam.update();
+
+	// update renderer
+	_batch.setProjectionMatrix(_cam.combined);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.badlogic.gdx.Screen#pause()
+     */
+    @Override
+    public void pause() {
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.badlogic.gdx.Screen#resume()
+     */
+    @Override
+    public void resume() {
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.badlogic.gdx.Screen#hide()
+     */
+    @Override
+    public void hide() {
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.badlogic.gdx.Screen#dispose()
+     */
+    @Override
+    public void dispose() {
+    }
 
 }

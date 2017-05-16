@@ -20,6 +20,19 @@ public class GameScreen implements Screen {
 	/** TODO: describe _player */
 	private Player _player;
 	
+	
+	public GameScreen() {
+		_arena = new Arena();
+		_arena.setOffset(0, 0);
+		
+		_insert = new Inserter();
+		_insert.setOffset(0, 10);
+		
+		_player = new Player();
+		_player.setOffset(0, -10);
+	}
+	
+	
 	/*
 	 * (non-Javadoc)
 	 * 

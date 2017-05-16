@@ -1,5 +1,7 @@
 package de.pixlpommes.conn3bomb;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
+
 /**
  * <p>The player.</p>
  *
@@ -9,10 +11,24 @@ package de.pixlpommes.conn3bomb;
  *
  * @author Thomas Borck
  */
-public class Player {
+public class Player extends ScreenObject {
 
-	// BASIC SETUP
-	/** lower left corner of the player area */
-	private float _offsetX, _offsetY;
+	/**
+	 * 
+	 */
+	public Player() {
+		this.setOffset(0, 0);
+	}
 
+	@Override
+	public void draw(Batch batch) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(float delta) {
+		// TODO Auto-generated method stub
+		
+	}
 }

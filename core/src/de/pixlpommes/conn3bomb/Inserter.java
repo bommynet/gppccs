@@ -1,5 +1,7 @@
 package de.pixlpommes.conn3bomb;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
+
 /**
  * <p>The inserter.</p>
  *
@@ -8,10 +10,25 @@ package de.pixlpommes.conn3bomb;
  *
  * @author Thomas Borck
  */
-public class Inserter {
+public class Inserter extends ScreenObject {
 
-	// BASIC SETUP
-	/** lower left corner of the inserter */
-	private float _offsetX, _offsetY;
+	/**
+	 * 
+	 */
+	public Inserter() {
+		this.setOffset(0, 0);
+	}
+
+	@Override
+	public void draw(Batch batch) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(float delta) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -61,11 +61,13 @@ public class Arena extends ScreenObject {
         _tiles = new int[COLS * ROWS];
         IntStream.range(0, _tiles.length).forEach(index -> _tiles[index] = -1);
 
-        /// TODO remove!
+        /// TODO remove! /////////////////
         _tiles[0] = 0;
         _tiles[(ROWS - 1) * 2] = 1;
         _tiles[(ROWS - 1) * 2 + 1] = 0;
-        _tiles[COLS * ROWS - 4] = 2;
+        _tiles[COLS * ROWS - 8] = 2;
+        _tiles[COLS * ROWS - 6] = 2;
+        //////////////////////////////////
 
         _tilePos = new float[COLS * ROWS][2];
         IntStream.range(0, _tilePos.length).forEach(index -> {
@@ -103,7 +105,7 @@ public class Arena extends ScreenObject {
         IntStream.range(0, _tiles.length).forEach(index -> {
             if (_tiles[index] != -1) {
                 batch.draw(TILES, _offsetX + _tilePos[index][0],
-                        _offsetY + _timedOffsetY + _tilePos[index][1],
+                        _offsetY - _timedOffsetY + _tilePos[index][1],
                         _tiles[index] * TILESIZE, 0, TILESIZE, TILESIZE);
             }
         });
@@ -134,7 +136,7 @@ public class Arena extends ScreenObject {
             // reset timer
             _moveTimer = _moveDelay;
         }
-        _timedOffsetY = _moveTimer / _moveDelay * TILESIZE;
+        _timedOffsetY = (1.0f - _moveTimer / _moveDelay) * TILESIZE;
         
         // TODO check destroyables
     }

@@ -47,12 +47,20 @@ public class GameScreen implements Screen {
 
 	// game objects
 	_arena = new Arena();
-	_arena.setOffset(0, 0);
+	int x = -((Arena.COLS * Arena.TILESIZE) / 2);
+	int y = -((Arena.ROWS * Arena.TILESIZE) / 2);
+	_arena.setOffset(x, y);
 
+	// inserter area is above the arena
 	_insert = new Inserter();
+	x = (int) (_arena.getOffsetX());
+    y = (int) (_arena.getOffsetY() + Arena.ROWS * Arena.TILESIZE);
 	_insert.setOffset(0, 10);
 
+	// player area is below the arena
 	_player = new Player();
+    x = (int) (_arena.getOffsetX());
+    y = (int) (_arena.getOffsetY() - Arena.TILESIZE);
 	_player.setOffset(0, -10);
     }
 

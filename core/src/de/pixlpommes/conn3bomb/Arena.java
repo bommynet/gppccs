@@ -142,4 +142,15 @@ public class Arena extends ScreenObject {
 		// TODO check destroyables
 	}
 
+	/**
+	 * Adds a block on top of the arena.
+	 * 
+	 * @param column
+	 * @param block
+	 */
+	public void addTop(int column, int block) {
+		// TODO: if top block != -1 -> lose
+		int index = (column + 1) * ROWS - 1;
+		_tiles[index] = block;
+	}
 }

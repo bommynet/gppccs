@@ -17,6 +17,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  * @author Thomas Borck
  */
 public class Inserter extends ScreenObject {
+	
+	/** reference to game arena */
+	private Arena _arena;
 
 	/** TODO: describe _state */
 	private State _state;
@@ -30,8 +33,10 @@ public class Inserter extends ScreenObject {
 	/**
 	 * 
 	 */
-	public Inserter() {
+	public Inserter(Arena arena) {
 		this.setOffset(0, 0);
+		
+		_arena = arena;
 
 		_timer = _timerDelay = 2f;
 		_state = State.COUNTDOWN;
@@ -98,7 +103,10 @@ public class Inserter extends ScreenObject {
 
 			case RESET :
 				// TODO: transfer block to arena
-				IntStream.range(0, _tiles.length).forEach(i -> _tiles[i] = -1);
+				IntStream.range(0, _tiles.length).forEach(i -> {
+					if(_tiles[i] >= 0) _arena.addTop(i, _tiles[i]);
+					_tiles[i] = -1;
+				});
 
 				// reset timer
 				_timer = _timerDelay;

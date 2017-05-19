@@ -153,4 +153,16 @@ public class Arena extends ScreenObject {
 		int index = (column + 1) * ROWS - 1;
 		_tiles[index] = block;
 	}
+
+	/**
+	 * Adds a block at he bottom of the arena.
+	 * 
+	 * @param column
+	 * @param block
+	 */
+	public void addBottom(int column, int block) {
+		// TODO: if bottom block != -1 -> move block up
+		int index = column * ROWS;
+		_tiles[index] = block;
+	}
 }

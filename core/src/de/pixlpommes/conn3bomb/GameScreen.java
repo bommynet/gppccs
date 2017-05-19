@@ -58,7 +58,7 @@ public class GameScreen implements Screen {
 		_insert.setOffset(x, y);
 
 		// player area is below the arena
-		_player = new Player();
+		_player = new Player(_arena);
 		x = (int) (_arena.getOffsetX());
 		y = (int) (_arena.getOffsetY() - Arena.TILESIZE);
 		_player.setOffset(x, y);
@@ -86,7 +86,7 @@ public class GameScreen implements Screen {
 		_player.update(delta);
 
 		// clear screen
-		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
+		Gdx.gl.glClearColor(0.553f, 0.651f, 0.711f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		// draw content

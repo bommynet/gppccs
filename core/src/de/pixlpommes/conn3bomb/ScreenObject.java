@@ -3,32 +3,37 @@ package de.pixlpommes.conn3bomb;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 /**
- * <p>A basic screen object.</p>
+ * <p>
+ * A basic screen object.
+ * </p>
  *
- * <p>Each drawable game class should inherit this class for basic function.</p>
+ * <p>
+ * Each drawable game class should inherit this class for basic function.
+ * </p>
  *
  * @author Thomas Borck
  */
 public abstract class ScreenObject {
-	
+
 	/** lower left corner of this object */
 	protected float _offsetX, _offsetY;
-	
+
 	/**
 	 * Draw object on screen.
 	 * 
-	 * @param batch handles graphical functions
+	 * @param batch
+	 *            handles graphical functions
 	 */
 	public abstract void draw(Batch batch);
-	
+
 	/**
 	 * Update objects logic.
 	 * 
-	 * @param delta time elapsed since last update
+	 * @param delta
+	 *            time elapsed since last update
 	 */
 	public abstract void update(float delta);
-	
-	
+
 	/**
 	 * Set offset to position object on screen.
 	 * 
@@ -39,7 +44,7 @@ public abstract class ScreenObject {
 		_offsetX = x;
 		_offsetY = y;
 	}
-	
+
 	/**
 	 * Set offset for x to position object on screen.
 	 * 
@@ -57,14 +62,14 @@ public abstract class ScreenObject {
 	public void setOffsetY(float y) {
 		_offsetY = y;
 	}
-	
+
 	/**
 	 * @return x offset as position of this object on screen
 	 */
 	public float getOffsetX() {
 		return _offsetX;
 	}
-	
+
 	/**
 	 * @return y offset as position of this object on screen
 	 */

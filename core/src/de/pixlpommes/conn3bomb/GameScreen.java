@@ -19,138 +19,139 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class GameScreen implements Screen {
 
-    // LIBGDX
-    /** batch to render everything on screen */
-    private SpriteBatch _batch;
+	// LIBGDX
+	/** batch to render everything on screen */
+	private SpriteBatch _batch;
 
-    /** standard 2D camera */
-    private OrthographicCamera _cam;
+	/** standard 2D camera */
+	private OrthographicCamera _cam;
 
-    // GAME
-    /** the game mainly happens in the arena */
-    private Arena _arena;
+	// GAME
+	/** the game mainly happens in the arena */
+	private Arena _arena;
 
-    /** the inserter changes the arena randomly */
-    private Inserter _insert;
+	/** the inserter changes the arena randomly */
+	private Inserter _insert;
 
-    /** the player changes the arena controlled */
-    private Player _player;
+	/** the player changes the arena controlled */
+	private Player _player;
 
-    /**
-     * Create simple game screen.
-     */
-    public GameScreen() {
+	/**
+	 * Create simple game screen.
+	 */
+	public GameScreen() {
 
-	// libGdx
-	_cam = new OrthographicCamera();
-	_batch = new SpriteBatch();
+		// libGdx
+		_cam = new OrthographicCamera();
+		_batch = new SpriteBatch();
 
-	// game objects
-	_arena = new Arena();
-	int x = -((Arena.COLS * Arena.TILESIZE) / 2);
-	int y = -((Arena.ROWS * Arena.TILESIZE) / 2);
-	_arena.setOffset(x, y);
+		// game objects
+		_arena = new Arena();
+		int x = -((Arena.COLS * Arena.TILESIZE) / 2);
+		int y = -((Arena.ROWS * Arena.TILESIZE) / 2);
+		_arena.setOffset(x, y);
 
-	// inserter area is above the arena
-	_insert = new Inserter();
-	x = (int) (_arena.getOffsetX());
-    y = (int) (_arena.getOffsetY() + Arena.ROWS * Arena.TILESIZE);
-	_insert.setOffset(0, 10);
+		// inserter area is above the arena
+		_insert = new Inserter();
+		x = (int) (_arena.getOffsetX());
+		y = (int) (_arena.getOffsetY() + Arena.ROWS * Arena.TILESIZE);
+		_insert.setOffset(0, 10);
 
-	// player area is below the arena
-	_player = new Player();
-    x = (int) (_arena.getOffsetX());
-    y = (int) (_arena.getOffsetY() - Arena.TILESIZE);
-	_player.setOffset(0, -10);
-    }
+		// player area is below the arena
+		_player = new Player();
+		x = (int) (_arena.getOffsetX());
+		y = (int) (_arena.getOffsetY() - Arena.TILESIZE);
+		_player.setOffset(0, -10);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.badlogic.gdx.Screen#show()
-     */
-    @Override
-    public void show() {
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#show()
+	 */
+	@Override
+	public void show() {
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.badlogic.gdx.Screen#render(float)
-     */
-    @Override
-    public void render(float delta) {
-	// update logic
-	_arena.update(delta);
-	_insert.update(delta);
-	_player.update(delta);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#render(float)
+	 */
+	@Override
+	public void render(float delta) {
+		// update logic
+		_arena.update(delta);
+		_insert.update(delta);
+		_player.update(delta);
 
-	// clear screen
-	Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
-	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		// clear screen
+		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-	// draw content
-	_batch.begin();
-	
-	_arena.draw(_batch);
-	_insert.draw(_batch);
-	_player.draw(_batch);
-	
-	_batch.end();
-    }
+		// draw content
+		_batch.begin();
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.badlogic.gdx.Screen#resize(int, int)
-     */
-    @Override
-    public void resize(int width, int height) {
-	Gdx.app.log("BattleScreen", "resize called (" + width + "x" + height + ")");
+		_arena.draw(_batch);
+		_insert.draw(_batch);
+		_player.draw(_batch);
 
-	// update camera
-	_cam.viewportWidth = width;
-	_cam.viewportHeight = height;
-	_cam.update();
+		_batch.end();
+	}
 
-	// update renderer
-	_batch.setProjectionMatrix(_cam.combined);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#resize(int, int)
+	 */
+	@Override
+	public void resize(int width, int height) {
+		Gdx.app.log("BattleScreen",
+				"resize called (" + width + "x" + height + ")");
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.badlogic.gdx.Screen#pause()
-     */
-    @Override
-    public void pause() {
-    }
+		// update camera
+		_cam.viewportWidth = width;
+		_cam.viewportHeight = height;
+		_cam.update();
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.badlogic.gdx.Screen#resume()
-     */
-    @Override
-    public void resume() {
-    }
+		// update renderer
+		_batch.setProjectionMatrix(_cam.combined);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.badlogic.gdx.Screen#hide()
-     */
-    @Override
-    public void hide() {
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#pause()
+	 */
+	@Override
+	public void pause() {
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.badlogic.gdx.Screen#dispose()
-     */
-    @Override
-    public void dispose() {
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#resume()
+	 */
+	@Override
+	public void resume() {
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#hide()
+	 */
+	@Override
+	public void hide() {
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.badlogic.gdx.Screen#dispose()
+	 */
+	@Override
+	public void dispose() {
+	}
 
 }

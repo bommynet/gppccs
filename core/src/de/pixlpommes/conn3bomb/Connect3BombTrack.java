@@ -6,12 +6,14 @@ import com.badlogic.gdx.Game;
  * @author Thomas Borck
  */
 public class Connect3BombTrack extends Game {
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.ApplicationListener#create()
 	 */
 	@Override
-	public void create () {
+	public void create() {
 		this.setScreen(new GameScreen());
 	}
 }

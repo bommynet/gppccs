@@ -136,7 +136,8 @@ public class Arena extends ScreenObject {
             // reset timer
             _moveTimer = _moveDelay;
         }
-        _timedOffsetY = (1.0f - _moveTimer / _moveDelay) * TILESIZE;
+        /// TODO reactivet
+        /// _timedOffsetY = (1.0f - _moveTimer / _moveDelay) * TILESIZE;
         
         // TODO check destroyables
     }

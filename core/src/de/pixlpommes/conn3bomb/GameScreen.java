@@ -55,13 +55,13 @@ public class GameScreen implements Screen {
 		_insert = new Inserter();
 		x = (int) (_arena.getOffsetX());
 		y = (int) (_arena.getOffsetY() + Arena.ROWS * Arena.TILESIZE);
-		_insert.setOffset(0, 10);
+		_insert.setOffset(x, y);
 
 		// player area is below the arena
 		_player = new Player();
 		x = (int) (_arena.getOffsetX());
 		y = (int) (_arena.getOffsetY() - Arena.TILESIZE);
-		_player.setOffset(0, -10);
+		_player.setOffset(x, y);
 	}
 
 	/*

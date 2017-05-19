@@ -1,5 +1,7 @@
 package de.pixlpommes.conn3bomb;
 
+import java.util.stream.IntStream;
+
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 /**
@@ -22,6 +24,9 @@ public class Inserter extends ScreenObject {
 	/** TODO: describe _timerDelay */
 	private float _timer, _timerDelay;
 
+	/** TODO: describe _blocks */
+	private int[] _tiles;
+
 	/**
 	 * 
 	 */
@@ -30,6 +35,9 @@ public class Inserter extends ScreenObject {
 
 		_timer = _timerDelay = 2f;
 		_state = State.COUNTDOWN;
+
+		_tiles = new int[Arena.COLS];
+		IntStream.range(0, _tiles.length).forEach(i -> _tiles[i] = -1);
 	}
 
 	/*
@@ -41,8 +49,13 @@ public class Inserter extends ScreenObject {
 	 */
 	@Override
 	public void draw(Batch batch) {
-		// TODO Auto-generated method stub
-
+		IntStream.range(0, _tiles.length).forEach(index -> {
+			if (_tiles[index] != -1) {
+				batch.draw(Arena.TILES, _offsetX + index * Arena.TILESIZE,
+						_offsetY, _tiles[index] * Arena.TILESIZE, 0,
+						Arena.TILESIZE, Arena.TILESIZE);
+			}
+		});
 	}
 
 	/*
@@ -64,19 +77,32 @@ public class Inserter extends ScreenObject {
 
 			case CREATE :
 				// TODO: create random block/bomb
+				int rndIndex = (int) (Math.random() * _tiles.length);
+				int rndBlock = (int) (Math.random() * 3);
+				_tiles[rndIndex] = rndBlock;
+
 				// TODO: start throw-in-animation
+				_timer = _timerDelay; /// remove
 				_state = State.ANIMATE;
 				break;
 
 			case ANIMATE :
 				// TODO: animate block throw-in
 				// TODO: if animation ends, reset timer for next round
+				if (_timer < 0) {
+					_state = State.RESET;
+				} else {
+					_timer -= delta;
+				}
 				break;
 
 			case RESET :
 				// TODO: transfer block to arena
+				IntStream.range(0, _tiles.length).forEach(i -> _tiles[i] = -1);
+
 				// reset timer
 				_timer = _timerDelay;
+
 				// restart timer
 				_state = State.COUNTDOWN;
 				break;

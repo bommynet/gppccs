@@ -3,6 +3,7 @@ package de.pixlpommes.conn3bomb;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -149,13 +150,27 @@ public class Arena extends ScreenObject {
                 .forEach(tile -> {
                     int idx = (int) ((tile.x - _offsetX) / Tiles.TILESIZE);
                     int idy = (int) ((tile.y - _offsetY) / Tiles.TILESIZE);
-                    int id  = idx * ROWS + idy;
-                    
+                    int id = idx * ROWS + idy;
+
                     // fixate tile if tile is over an empty tile and
-                    // tile doesn't overlap other movable tile
-                    if(_tiles[id] == -1) {
-                        _tiles[id] = tile.id;
-                        remove.add(tile);
+                    if (_tiles[id] == -1) {
+                        // tile doesn't overlap any other down moving
+                        // movable tile
+                        Stream<Movable> stream = _tilesMove.stream()
+                                .filter(move -> !move.moveUp)
+                                .filter(tile2 -> {
+                                    return tile.x >= tile2.x
+                                            && tile.x <= tile2.x
+                                                    + Tiles.TILESIZE
+                                            && tile.y >= tile2.y
+                                            && tile.y <= tile2.y
+                                                    + Tiles.TILESIZE;
+                                });
+
+                        if (stream.count() == 0) {
+                            _tiles[id] = tile.id;
+                            remove.add(tile);
+                        }
                     }
                 });
 

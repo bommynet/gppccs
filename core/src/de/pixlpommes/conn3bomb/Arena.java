@@ -54,11 +54,8 @@ public class Arena extends ScreenObject {
 		_tilesMoveSpeed = (float) Tiles.TILESIZE / 2f;;
 
 		/// TODO remove! /////////////////
-		this.add(0, 0, 0);
-		this.add(1, ROWS - 1, 1);
-		this.add(1, ROWS - 2, 0);
-		this.add(COLS - 1, ROWS - 8, 2);
-		this.add(COLS - 1, ROWS - 6, 2);
+		this.add(0, ROWS - 8, 2, false);
+		this.add(0, ROWS - 6, 2, false);
 		//////////////////////////////////
 
 		_tilePos = new float[COLS * ROWS][2];
@@ -111,22 +108,37 @@ public class Arena extends ScreenObject {
 		// TODO update animation frames -> conveyor band
 
 		// TODO update block/bomb positions
-		float currentSpeed = _tilesMoveSpeed * delta * (-1);
+		float currentSpeed = _tilesMoveSpeed * delta;
 		_tilesMove.forEach(tile -> tile.updateY(currentSpeed));
 
-		// movables -> fixated when
 		// hold removable items in separate list to avoid null-pointers
 		List<Movable> remove = new ArrayList<>();
 
-		// 1. tile reached bottom line
+		// movables -> fixated when
 		_tilesMove.forEach(tile -> {
+			int idx = (int) ((tile.x - _offsetX) / Tiles.TILESIZE);
+
+			// 1. tile reached bottom line
 			if (tile.y <= _offsetY) {
-				int idx = (int) ((tile.x - _offsetX) / Tiles.TILESIZE);
 				_tiles[idx * ROWS] = tile.id;
 				remove.add(tile);
 			}
+			// 2. tile reached fixed block
+			else {
+				int idy = (int) ((tile.y - _offsetY) / Tiles.TILESIZE);
+				if (idy < 0)
+					return; // bottom line already checked
+
+				int index = idx * ROWS + idy;
+
+				if (_tilePos[index][1] + Tiles.TILESIZE >= tile.y - _offsetY
+						&& _tiles[index] != -1) {
+					_tiles[index + 1] = tile.id;
+					remove.add(tile);
+				}
+			}
 		});
-		
+
 		// remove items stored in 'remove'
 		_tilesMove.removeAll(remove);
 
@@ -140,9 +152,9 @@ public class Arena extends ScreenObject {
 	 * @param row
 	 * @param id
 	 */
-	public void add(int column, int row, int id) {
+	public void add(int column, int row, int id, boolean moveUp) {
 		Movable tile = new Movable(id, _offsetX + column * Tiles.TILESIZE,
-				_offsetY + row * Tiles.TILESIZE);
+				_offsetY + row * Tiles.TILESIZE, moveUp);
 		_tilesMove.add(tile);
 
 		// TODO: differentiate between top and bottom throw in
@@ -156,7 +168,7 @@ public class Arena extends ScreenObject {
 	 */
 	public void addTop(int column, int block) {
 		// TODO: if top block != -1 -> lose
-		this.add(column, ROWS, block);
+		this.add(column, ROWS, block, false);
 		// int index = (column + 1) * ROWS - 1;
 		// _tiles[index] = block;
 	}
@@ -169,8 +181,9 @@ public class Arena extends ScreenObject {
 	 */
 	public void addBottom(int column, int block) {
 		// TODO: if bottom block != -1 -> move block up
-		int index = column * ROWS;
-		_tiles[index] = block;
+		this.add(column, 0, block, true);
+		// int index = column * ROWS;
+		// _tiles[index] = block;
 	}
 
 	/**
@@ -195,22 +208,26 @@ public class Arena extends ScreenObject {
 		/** TODO: describe id */
 		public int id;
 
+		/** TODO: describe moveUp */
+		public boolean moveUp;
+
 		/**
 		 * @param id
 		 * @param x
 		 * @param y
 		 */
-		public Movable(int id, float x, float y) {
+		public Movable(int id, float x, float y, boolean moveUp) {
 			this.id = id;
 			this.x = x;
 			this.y = y;
+			this.moveUp = moveUp;
 		}
 
 		/**
 		 * @param diffY
 		 */
 		public void updateY(float diffY) {
-			this.y += diffY;
+			this.y += (moveUp ? 5 * diffY : -diffY );
 		}
 	}
 }

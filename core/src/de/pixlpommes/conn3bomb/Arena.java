@@ -51,14 +51,14 @@ public class Arena extends ScreenObject {
 		IntStream.range(0, _tiles.length).forEach(index -> _tiles[index] = -1);
 
 		_tilesMove = new ArrayList<>();
-		_tilesMoveSpeed = (float)Tiles.TILESIZE / 2f;;
+		_tilesMoveSpeed = (float) Tiles.TILESIZE / 2f;;
 
 		/// TODO remove! /////////////////
 		this.add(0, 0, 0);
-		this.add(1, ROWS-1, 1);
-		this.add(1, ROWS-2, 0);
-		this.add(COLS - 1, ROWS-8, 2);
-		this.add(COLS - 1, ROWS-6, 2);
+		this.add(1, ROWS - 1, 1);
+		this.add(1, ROWS - 2, 0);
+		this.add(COLS - 1, ROWS - 8, 2);
+		this.add(COLS - 1, ROWS - 6, 2);
 		//////////////////////////////////
 
 		_tilePos = new float[COLS * ROWS][2];
@@ -95,9 +95,10 @@ public class Arena extends ScreenObject {
 			Tiles.drawBlock(batch, _tiles[index], _offsetX + _tilePos[index][0],
 					_offsetY + _tilePos[index][1]);
 		});
-		
+
 		// draw movable blocks/bombs
-		_tilesMove.forEach(tile -> Tiles.drawBlock(batch, tile.id, tile.x, tile.y));
+		_tilesMove.forEach(
+				tile -> Tiles.drawBlock(batch, tile.id, tile.x, tile.y));
 	}
 
 	/*
@@ -112,6 +113,22 @@ public class Arena extends ScreenObject {
 		// TODO update block/bomb positions
 		float currentSpeed = _tilesMoveSpeed * delta * (-1);
 		_tilesMove.forEach(tile -> tile.updateY(currentSpeed));
+
+		// movables -> fixated when
+		// hold removable items in separate list to avoid null-pointers
+		List<Movable> remove = new ArrayList<>();
+
+		// 1. tile reached bottom line
+		_tilesMove.forEach(tile -> {
+			if (tile.y <= _offsetY) {
+				int idx = (int) ((tile.x - _offsetX) / Tiles.TILESIZE);
+				_tiles[idx * ROWS] = tile.id;
+				remove.add(tile);
+			}
+		});
+		
+		// remove items stored in 'remove'
+		_tilesMove.removeAll(remove);
 
 		// TODO check destroyables
 	}
@@ -140,8 +157,8 @@ public class Arena extends ScreenObject {
 	public void addTop(int column, int block) {
 		// TODO: if top block != -1 -> lose
 		this.add(column, ROWS, block);
-//		int index = (column + 1) * ROWS - 1;
-//		_tiles[index] = block;
+		// int index = (column + 1) * ROWS - 1;
+		// _tiles[index] = block;
 	}
 
 	/**

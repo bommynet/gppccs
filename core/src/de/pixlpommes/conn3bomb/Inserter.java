@@ -17,7 +17,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  * @author Thomas Borck
  */
 public class Inserter extends ScreenObject {
-	
+
 	/** reference to game arena */
 	private Arena _arena;
 
@@ -35,7 +35,7 @@ public class Inserter extends ScreenObject {
 	 */
 	public Inserter(Arena arena) {
 		this.setOffset(0, 0);
-		
+
 		_arena = arena;
 
 		_timer = _timerDelay = 2f;
@@ -55,11 +55,8 @@ public class Inserter extends ScreenObject {
 	@Override
 	public void draw(Batch batch) {
 		IntStream.range(0, _tiles.length).forEach(index -> {
-			if (_tiles[index] != -1) {
-				batch.draw(Arena.TILES, _offsetX + index * Arena.TILESIZE,
-						_offsetY, _tiles[index] * Arena.TILESIZE, 0,
-						Arena.TILESIZE, Arena.TILESIZE);
-			}
+			Tiles.drawBlock(batch, _tiles[index],
+					_offsetX + index * Tiles.TILESIZE, _offsetY);
 		});
 	}
 
@@ -104,12 +101,15 @@ public class Inserter extends ScreenObject {
 			case RESET :
 				// TODO: transfer block to arena
 				IntStream.range(0, _tiles.length).forEach(i -> {
-					if(_tiles[i] >= 0) _arena.addTop(i, _tiles[i]);
+					if (_tiles[i] >= 0)
+						_arena.addTop(i, _tiles[i]);
 					_tiles[i] = -1;
 				});
 
 				// reset timer
-				_timer = _timerDelay;
+				/// _timer = _timerDelay;
+				// reset timer to random time [1, _timerDelay)
+				_timer = (float) (Math.random() * (1 - _timerDelay) + 1);
 
 				// restart timer
 				_state = State.COUNTDOWN;

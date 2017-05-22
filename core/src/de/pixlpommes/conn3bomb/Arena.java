@@ -2,8 +2,6 @@ package de.pixlpommes.conn3bomb;
 
 import java.util.stream.IntStream;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 /**
@@ -27,15 +25,7 @@ public class Arena extends ScreenObject {
 	/** TODO: describe ROWS */
 	public final static int ROWS = 12;
 
-	// GRAPHICS
-	/** TODO: describe TILESIZE */
-	public final static int TILESIZE = 48;
-
-	/** TODO: describe TILES */
-	public final static Texture TILES = new Texture(
-			Gdx.files.internal("tiles.png"));
-
-	// GAME
+		// GAME
 	/** the tiles as raw data */
 	private int[] _tiles;
 
@@ -74,8 +64,8 @@ public class Arena extends ScreenObject {
 			int idx = index / ROWS;
 			int idy = index % ROWS;
 
-			_tilePos[index][0] = idx * TILESIZE; // x
-			_tilePos[index][1] = idy * TILESIZE; // y
+			_tilePos[index][0] = idx * Tiles.TILESIZE; // x
+			_tilePos[index][1] = idy * Tiles.TILESIZE; // y
 		});
 
 		_timedOffsetY = 0;
@@ -95,19 +85,16 @@ public class Arena extends ScreenObject {
 
 		// TODO draw conveyor band
 		IntStream.range(0, _tiles.length).forEach(index -> {
-			batch.draw(TILES, _offsetX + _tilePos[index][0],
-					_offsetY + _tilePos[index][1], 0, 3 * TILESIZE, TILESIZE,
-					TILESIZE);
-
+			Tiles.drawConvoyer(batch, // batch to draw on
+					_offsetX + _tilePos[index][0], // screen x
+					_offsetY + _tilePos[index][1] // screen y
+			);
 		});
 
 		// TODO draw blocks/bombs
 		IntStream.range(0, _tiles.length).forEach(index -> {
-			if (_tiles[index] != -1) {
-				batch.draw(TILES, _offsetX + _tilePos[index][0],
-						_offsetY - _timedOffsetY + _tilePos[index][1],
-						_tiles[index] * TILESIZE, 0, TILESIZE, TILESIZE);
-			}
+			Tiles.drawBlock(batch, _tiles[index], _offsetX + _tilePos[index][0],
+					_offsetY - _timedOffsetY + _tilePos[index][1]);
 		});
 	}
 

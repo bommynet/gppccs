@@ -1,7 +1,5 @@
 package de.pixlpommes.conn3bomb;
 
-import java.util.stream.IntStream;
-
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -55,16 +53,12 @@ public class Player extends ScreenObject implements InputProcessor {
 	 */
 	@Override
 	public void draw(Batch batch) {
-		// TODO: draw player
-		batch.draw(Arena.TILES, _offsetX + _pos * Arena.TILESIZE, _offsetY,
-				3 * Arena.TILESIZE, 2 * Arena.TILESIZE, Arena.TILESIZE,
-				Arena.TILESIZE);
-
 		// draw block
-		if (_tile != -1) {
-			batch.draw(Arena.TILES, _offsetX + _pos * Arena.TILESIZE, _offsetY,
-					_tile * Arena.TILESIZE, 0, Arena.TILESIZE, Arena.TILESIZE);
-		}
+		Tiles.drawBlock(batch, _tile, _offsetX + _pos * Tiles.TILESIZE,
+				_offsetY);
+
+		// TODO: draw player
+		Tiles.drawPlayer(batch, _offsetX + _pos * Tiles.TILESIZE, _offsetY);
 	}
 
 	/*

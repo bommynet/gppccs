@@ -46,10 +46,9 @@ public class GameScreen implements Screen {
 		_batch = new SpriteBatch();
 
 		// game objects
-		_arena = new Arena();
 		int x = -((Arena.COLS * Tiles.TILESIZE) / 2);
 		int y = -((Arena.ROWS * Tiles.TILESIZE) / 2);
-		_arena.setOffset(x, y);
+		_arena = new Arena(x, y);
 
 		// inserter area is above the arena
 		_insert = new Inserter(_arena);

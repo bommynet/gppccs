@@ -1,5 +1,7 @@
 package de.pixlpommes.conn3bomb;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.IntStream;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -25,38 +27,38 @@ public class Arena extends ScreenObject {
 	/** TODO: describe ROWS */
 	public final static int ROWS = 12;
 
-		// GAME
-	/** the tiles as raw data */
+	// GAME
+	/** <i>fixated</i> tiles */
 	private int[] _tiles;
 
 	/** each tile has it's position on the screen as (x,y) tuple */
 	private float[][] _tilePos;
 
-	/** all tiles moving the same speed, so use one var for all */
-	private float _timedOffsetY;
+	/** <i>movable</i> tiles */
+	private List<Movable> _tilesMove;
 
-	/** current elapsed time for move timer */
-	private float _moveTimer;
-
-	/** maximum time needed to move blocks one row down */
-	private float _moveDelay;
+	/** speed for all movable tiles (pixels per second) */
+	private float _tilesMoveSpeed;
 
 	/**
 	 * 
 	 */
-	public Arena() {
-		this.setOffset(0, 0);
+	public Arena(int offsetX, int offsetY) {
+		this.setOffset(offsetX, offsetY);
 
-		// setup game data
+		// initialize tiles
 		_tiles = new int[COLS * ROWS];
 		IntStream.range(0, _tiles.length).forEach(index -> _tiles[index] = -1);
 
+		_tilesMove = new ArrayList<>();
+		_tilesMoveSpeed = (float)Tiles.TILESIZE / 2f;;
+
 		/// TODO remove! /////////////////
-		_tiles[0] = 0;
-		_tiles[(ROWS - 1) * 2] = 1;
-		_tiles[(ROWS - 1) * 2 + 1] = 0;
-		_tiles[COLS * ROWS - 8] = 2;
-		_tiles[COLS * ROWS - 6] = 2;
+		this.add(0, 0, 0);
+		this.add(1, ROWS-1, 1);
+		this.add(1, ROWS-2, 0);
+		this.add(COLS - 1, ROWS-8, 2);
+		this.add(COLS - 1, ROWS-6, 2);
 		//////////////////////////////////
 
 		_tilePos = new float[COLS * ROWS][2];
@@ -67,9 +69,6 @@ public class Arena extends ScreenObject {
 			_tilePos[index][0] = idx * Tiles.TILESIZE; // x
 			_tilePos[index][1] = idy * Tiles.TILESIZE; // y
 		});
-
-		_timedOffsetY = 0;
-		_moveTimer = _moveDelay = 2f;
 	}
 
 	/*
@@ -83,7 +82,7 @@ public class Arena extends ScreenObject {
 	public void draw(Batch batch) {
 		// TODO draw background
 
-		// TODO draw conveyor band
+		// draw conveyor band
 		IntStream.range(0, _tiles.length).forEach(index -> {
 			Tiles.drawConvoyer(batch, // batch to draw on
 					_offsetX + _tilePos[index][0], // screen x
@@ -91,11 +90,14 @@ public class Arena extends ScreenObject {
 			);
 		});
 
-		// TODO draw blocks/bombs
+		// draw fixated blocks/bombs
 		IntStream.range(0, _tiles.length).forEach(index -> {
 			Tiles.drawBlock(batch, _tiles[index], _offsetX + _tilePos[index][0],
-					_offsetY - _timedOffsetY + _tilePos[index][1]);
+					_offsetY + _tilePos[index][1]);
 		});
+		
+		// draw movable blocks/bombs
+		_tilesMove.forEach(tile -> Tiles.drawBlock(batch, tile.id, tile.x, tile.y));
 	}
 
 	/*
@@ -108,25 +110,25 @@ public class Arena extends ScreenObject {
 		// TODO update animation frames -> conveyor band
 
 		// TODO update block/bomb positions
-		_moveTimer -= delta;
-		if (_moveTimer < 0) {
-			// move down blocks
-			IntStream.range(0, _tiles.length).forEach(index -> {
-				int idy = index % ROWS;
-
-				if (idy > 0 && _tiles[index - 1] == -1) {
-					_tiles[index - 1] = _tiles[index];
-					_tiles[index] = -1;
-				}
-			});
-
-			// reset timer
-			_moveTimer = _moveDelay;
-		}
-		/// TODO reactivate
-		/// _timedOffsetY = (1.0f - _moveTimer / _moveDelay) * TILESIZE;
+		float currentSpeed = _tilesMoveSpeed * delta * (-1);
+		_tilesMove.forEach(tile -> tile.updateY(currentSpeed));
 
 		// TODO check destroyables
+	}
+
+	/**
+	 * Adds a new block to arena.
+	 * 
+	 * @param column
+	 * @param row
+	 * @param id
+	 */
+	public void add(int column, int row, int id) {
+		Movable tile = new Movable(id, _offsetX + column * Tiles.TILESIZE,
+				_offsetY + row * Tiles.TILESIZE);
+		_tilesMove.add(tile);
+
+		// TODO: differentiate between top and bottom throw in
 	}
 
 	/**
@@ -137,8 +139,9 @@ public class Arena extends ScreenObject {
 	 */
 	public void addTop(int column, int block) {
 		// TODO: if top block != -1 -> lose
-		int index = (column + 1) * ROWS - 1;
-		_tiles[index] = block;
+		this.add(column, ROWS, block);
+//		int index = (column + 1) * ROWS - 1;
+//		_tiles[index] = block;
 	}
 
 	/**
@@ -151,5 +154,46 @@ public class Arena extends ScreenObject {
 		// TODO: if bottom block != -1 -> move block up
 		int index = column * ROWS;
 		_tiles[index] = block;
+	}
+
+	/**
+	 * <p>
+	 * TODO: short class description.
+	 * </p>
+	 *
+	 * <p>
+	 * TODO: detailed class description.
+	 * </p>
+	 *
+	 * @author Thomas Borck
+	 */
+	private class Movable {
+
+		/** TODO: describe x */
+		public float x;
+
+		/** TODO: describe y */
+		public float y;
+
+		/** TODO: describe id */
+		public int id;
+
+		/**
+		 * @param id
+		 * @param x
+		 * @param y
+		 */
+		public Movable(int id, float x, float y) {
+			this.id = id;
+			this.x = x;
+			this.y = y;
+		}
+
+		/**
+		 * @param diffY
+		 */
+		public void updateY(float diffY) {
+			this.y += diffY;
+		}
 	}
 }

@@ -103,6 +103,16 @@ public class Player extends ScreenObject implements InputProcessor {
             _tile[0] = _tile[1];
             _tile[1] = _tile[2];
             _tile[2] = (int) (Math.random() * Tiles.COLORS_COUNT);
+            
+            // 20% chance to add bomb instead of block
+            if(Math.random() > 0.8)
+                _tile[2] += 10;
+        }
+        else if (keycode == Keys.CONTROL_LEFT) {
+//            _arena.addBottom(_pos, _tile[0] + 10);
+//            _tile[0] = _tile[1];
+//            _tile[1] = _tile[2];
+//            _tile[2] = (int) (Math.random() * Tiles.COLORS_COUNT);
         }
 
         return false;

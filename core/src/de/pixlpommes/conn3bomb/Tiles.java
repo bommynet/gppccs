@@ -51,11 +51,12 @@ public class Tiles {
         if (id == -1)
             return;
 
-        int tilePosX = (id + 1) * Tiles.TILESIZE;
+        int tilePosX = (id > 9 ? (id - 10 + 1) : (id + 1)) * Tiles.TILESIZE;
+        int tilePosY = (id > 9 ? 2 : 1) * Tiles.TILESIZE;
 
         batch.draw(TILES, // tile set file
                 x, y, // position on screen
-                tilePosX, Tiles.TILESIZE, // tile position in file
+                tilePosX, tilePosY, // tile position in file
                 Tiles.TILESIZE, Tiles.TILESIZE// tile size
         );
     }
@@ -91,7 +92,7 @@ public class Tiles {
     public static void drawPlayer(Batch batch, float x, float y) {
         batch.draw(TILES, // tile set file
                 x, y, // position on screen
-                3 * Tiles.TILESIZE, 2 * Tiles.TILESIZE, // tile position in file
+                3 * Tiles.TILESIZE, 0 * Tiles.TILESIZE, // tile position in file
                 TILESIZE, TILESIZE// tile size
         );
     }

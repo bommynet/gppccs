@@ -36,8 +36,11 @@ public class Arena extends ScreenObject {
     /** <i>movable</i> tiles */
     private List<Movable> _tilesMove;
 
-    /** speed for all movable tiles (pixels per second) */
-    private float _tilesMoveSpeed;
+    /** speed for all tiles on conveyor band (pixels per second) */
+    private float _moveSpeedConveyor;
+
+    /** speed for all tiles fired by player (pixels per second) */
+    private float _moveSpeedPlayerTiles;
 
     /**
      * 
@@ -50,7 +53,8 @@ public class Arena extends ScreenObject {
         IntStream.range(0, _tiles.length).forEach(index -> _tiles[index] = -1);
 
         _tilesMove = new ArrayList<>();
-        _tilesMoveSpeed = (float) Tiles.TILESIZE / 2f;
+        _moveSpeedConveyor = (float) Tiles.TILESIZE / 2f;
+        _moveSpeedPlayerTiles = (float) Tiles.TILESIZE * 5;
 
         /// TODO remove! /////////////////
         this.add(0, ROWS - 8, 2, false);
@@ -107,8 +111,11 @@ public class Arena extends ScreenObject {
         // TODO update animation frames -> conveyor band
 
         // TODO update block/bomb positions
-        float currentSpeed = _tilesMoveSpeed * delta;
-        _tilesMove.forEach(tile -> tile.updateY(currentSpeed));
+        float conveyorSpeed = _moveSpeedConveyor * delta * (-1);
+        float playerSpeed = _moveSpeedPlayerTiles * delta;
+
+        _tilesMove.forEach(tile -> tile
+                .updateY(tile.moveUp ? playerSpeed : conveyorSpeed));
 
         // hold removable items in separate list to avoid null-pointers
         List<Movable> remove = new ArrayList<>();
@@ -260,7 +267,7 @@ public class Arena extends ScreenObject {
          * @param diffY
          */
         public void updateY(float diffY) {
-            this.y += (moveUp ? 5 * diffY : -diffY);
+            this.y += diffY;
         }
     }
 }

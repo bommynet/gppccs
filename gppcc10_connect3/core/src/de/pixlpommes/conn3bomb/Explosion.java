@@ -7,18 +7,14 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 /**
  * <p>
- * TODO: short class description.
- * </p>
- *
- * <p>
- * TODO: detailed class description.
+ * Explosion handler.
  * </p>
  *
  * @author Thomas Borck
  */
 public class Explosion {
 
-	/** TODO: describe '_explosions' */
+	/** all existing explosions */
 	private List<Element> _explosions;
 
 	/** time between each frame */
@@ -27,12 +23,15 @@ public class Explosion {
 	/** frames per animation */
 	private int _maxFrames = 7;
 
+	/**
+	 * Instantiate explosion handler.
+	 */
 	public Explosion() {
 		_explosions = new ArrayList<>();
 	}
 
 	/**
-	 * TODO: describe function
+	 * Draw explosions.
 	 * 
 	 * @param batch
 	 */
@@ -42,7 +41,7 @@ public class Explosion {
 	}
 
 	/**
-	 * TODO: describe function
+	 * Update explosions.
 	 * 
 	 * @param delta
 	 */
@@ -60,26 +59,32 @@ public class Explosion {
 			}
 		}
 	}
-	
+
+	/**
+	 * Add a new explosion to handle.
+	 * 
+	 * @param x
+	 *            screen x
+	 * @param y
+	 *            screen y
+	 * @param colorId
+	 *            id [0,3]
+	 */
 	public void add(float x, float y, int colorId) {
 		Element e = new Element();
 		e.x = x;
 		e.y = y;
 		e.colorId = colorId;
-		
+
 		e.frame = 0;
 		e.timer = _maxDelay;
-		
+
 		_explosions.add(e);
 	}
 
 	/**
 	 * <p>
-	 * TODO: short class description.
-	 * </p>
-	 *
-	 * <p>
-	 * TODO: detailed class description.
+	 * Explosions as atom element.
 	 * </p>
 	 *
 	 * @author Thomas Borck

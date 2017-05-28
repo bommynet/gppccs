@@ -42,6 +42,9 @@ public class Arena extends ScreenObject {
 	/** speed for all tiles fired by player (pixels per second) */
 	private float _moveSpeedPlayerTiles;
 
+	/** show and animate explosions */
+	private Explosion _explosion;
+
 	/**
 	 * 
 	 */
@@ -69,6 +72,8 @@ public class Arena extends ScreenObject {
 			_tilePos[index][0] = idx * Tiles.TILESIZE; // x
 			_tilePos[index][1] = idy * Tiles.TILESIZE; // y
 		});
+
+		_explosion = new Explosion();
 	}
 
 	/*
@@ -97,6 +102,8 @@ public class Arena extends ScreenObject {
 
 		// draw movable blocks/bombs
 		_tilesMove.forEach(tile -> Tiles.drawBlock(batch, tile.id, tile.x, tile.y));
+
+		_explosion.draw(batch);
 	}
 
 	/*
@@ -183,14 +190,24 @@ public class Arena extends ScreenObject {
 		// remove items stored in 'remove'
 		_tilesMove.removeAll(remove);
 
+		// update explosions
+		_explosion.update(delta);
+
 		// check for destroyables
 		List<Integer> indexesDestroy = new ArrayList<>();
-		//indexesDestroy.addAll(this.findDestroyable_RowsAndCols());
+		// indexesDestroy.addAll(this.findDestroyable_RowsAndCols());
 		indexesDestroy.addAll(this.findDestroyable_Connected());
 
 		// destroy destroyables
 		indexesDestroy.forEach(index -> {
-			// TODO: animate destruction
+			// add explosion
+			float x = _offsetX + _tilePos[index][0];
+			float y = _offsetY + _tilePos[index][1];
+			int color = _tiles[index];
+			color = color > 9 ? color - 10 : color;
+			_explosion.add(x, y, color);
+
+			// remove block
 			_tiles[index] = -1;
 		});
 
@@ -305,7 +322,7 @@ public class Arena extends ScreenObject {
 		if (locType == -1)
 			locType = _tiles[index];
 		// current block is in the list already
-		else if(list.contains(index))
+		else if (list.contains(index))
 			return;
 		// types are equal -> add it to the list
 		else if (locType == _tiles[index] || locType - 10 == _tiles[index])

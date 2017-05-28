@@ -1,7 +1,6 @@
 package de.pixlpommes.conn3bomb;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.IntStream;
 import com.badlogic.gdx.graphics.g2d.Batch;

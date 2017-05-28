@@ -1,6 +1,7 @@
 package de.pixlpommes.conn3bomb;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.IntStream;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -129,17 +130,17 @@ public class Arena extends ScreenObject {
 			// 2. tile reached fixed block
 			else {
 				int idy = (int) ((tile.y - _offsetY) / Tiles.TILESIZE);
-//				if (idy < 0)
-//					return; // bottom line already checked
-//
-//				if (idy >= ROWS)
-//					return; // TODO: handle full columns / game over
+				// if (idy < 0)
+				// return; // bottom line already checked
+				//
+				// if (idy >= ROWS)
+				// return; // TODO: handle full columns / game over
 
 				int index = this.getIndexByPosition(idx, idy);
 				int indexAbove = this.getIndexByPosition(idx, idy + 1);
-				
+
 				// something went wrong if one index is invalid
-				if(index == -1 || indexAbove == -1) {
+				if (index == -1 || indexAbove == -1) {
 					// TODO: handle error
 					return;
 				}
@@ -155,7 +156,13 @@ public class Arena extends ScreenObject {
 		_tilesMove.stream().filter(tile -> tile.moveUp).forEach(tile -> {
 			int idx = (int) ((tile.x - _offsetX) / Tiles.TILESIZE);
 			int idy = (int) ((tile.y - _offsetY) / Tiles.TILESIZE);
-			int id = idx * ROWS + idy;
+
+			int id = this.getIndexByPosition(idx, idy);
+
+			if (id == -1) {
+				// TODO: something went wrong
+				return;
+			}
 
 			// fixate tile if tile is over an empty tile and
 			if (_tiles[id] == -1) {
@@ -177,8 +184,153 @@ public class Arena extends ScreenObject {
 		// remove items stored in 'remove'
 		_tilesMove.removeAll(remove);
 
-		// TODO check destroyables
-		// 0. create list to hold all destroyables
+		// check for destroyables
+		List<Integer> indexesDestroy = new ArrayList<>();
+		//indexesDestroy.addAll(this.findDestroyable_RowsAndCols());
+		indexesDestroy.addAll(this.findDestroyable_Connected());
+
+		// destroy destroyables
+		indexesDestroy.forEach(index -> {
+			// TODO: animate destruction
+			_tiles[index] = -1;
+		});
+
+		// if there are destroyed blocks, everything else should fall down
+		if (indexesDestroy.size() > 0) {
+			for (int index = 0; index < _tiles.length; index++) {
+				Movable m = new Movable(_tiles[index], _offsetX + _tilePos[index][0], _offsetY + _tilePos[index][1],
+						false);
+				_tiles[index] = -1;
+
+				_tilesMove.add(m);
+			}
+		}
+	}
+
+	/**
+	 * TODO: describe function
+	 * 
+	 * @param x
+	 * @param y
+	 * @return index defined by x and y, or -1
+	 */
+	private int getIndexByPosition(int x, int y) {
+		if (x < 0 || x >= COLS || y < 0 || y >= ROWS)
+			return -1;
+
+		return x * ROWS + y;
+	}
+
+	/**
+	 * Adds a new block to arena.
+	 * 
+	 * @param column
+	 * @param row
+	 * @param id
+	 */
+	public void add(int column, int row, int id, boolean moveUp) {
+		Movable tile = new Movable(id, _offsetX + column * Tiles.TILESIZE, _offsetY + row * Tiles.TILESIZE, moveUp);
+		_tilesMove.add(tile);
+
+		// TODO: differentiate between top and bottom throw in
+	}
+
+	/**
+	 * Adds a block on top of the arena.
+	 * 
+	 * @param column
+	 * @param block
+	 */
+	public void addTop(int column, int block) {
+		// TODO: if top block != -1 -> lose
+		this.add(column, ROWS, block, false);
+		// int index = (column + 1) * ROWS - 1;
+		// _tiles[index] = block;
+	}
+
+	/**
+	 * Adds a block at he bottom of the arena.
+	 * 
+	 * @param column
+	 * @param block
+	 */
+	public void addBottom(int column, int block) {
+		// TODO: if bottom block != -1 -> move block up
+		this.add(column, 0, block, true);
+		// int index = column * ROWS;
+		// _tiles[index] = block;
+	}
+
+	/**
+	 * Find destroyable blocks.
+	 * 
+	 * If there is a bomb connected to one or more blocks of the same color,
+	 * then destroy all these blocks. Blocks of the same color that are
+	 * connected to connected blocks, will be destroyed to.
+	 * 
+	 * @return a list of indexes of destroybale blocks
+	 */
+	public List<Integer> findDestroyable_Connected() {
+		// store destroyables
+		List<Integer> indexesDestroy = new ArrayList<>();
+
+		for (int x = 0; x < COLS; x++) {
+			for (int y = 0; y < ROWS; y++) {
+				int index = this.getIndexByPosition(x, y);
+
+				if (_tiles[index] > 9 && !indexesDestroy.contains(index)) {
+					this.findConnectedTo(indexesDestroy, x, y, -1);
+				}
+			}
+		}
+
+		return indexesDestroy;
+	}
+
+	/**
+	 * TODO: describe function
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	private void findConnectedTo(List<Integer> list, int x, int y, int type) {
+		int locType = type;
+		int index = this.getIndexByPosition(x, y);
+
+		// index invalid
+		if (index == -1)
+			return;
+
+		// no type selected currently
+		if (locType == -1)
+			locType = _tiles[index];
+		// current block is in the list already
+		else if(list.contains(index))
+			return;
+		// types are equal -> add it to the list
+		else if (locType == _tiles[index] || locType - 10 == _tiles[index])
+			list.add(index);
+		// nothing to do anymore
+		else
+			return;
+
+		this.findConnectedTo(list, x - 1, y, locType); // left neighbor
+		this.findConnectedTo(list, x + 1, y, locType); // right neighbor
+		this.findConnectedTo(list, x, y - 1, locType); // bottom neighbor
+		this.findConnectedTo(list, x, y + 1, locType); // to neighbor
+	}
+
+	/**
+	 * Find destroyable blocks.
+	 * 
+	 * If there are three or more blocks in a row or column (including a bomb),
+	 * then these lines will be marked as destroyable.
+	 * 
+	 * @return a list of indexes of destroybale blocks
+	 */
+	public List<Integer> findDestroyable_RowsAndCols() {
+		// store destroyables
 		List<Integer> indexesDestroy = new ArrayList<>();
 
 		// 1. search for bombs
@@ -263,76 +415,7 @@ public class Arena extends ScreenObject {
 			}
 		}
 
-		// destroy destroyables
-		indexesDestroy.forEach(index -> {
-			// TODO: animate destruction
-			_tiles[index] = -1;
-		});
-
-		// if there are destroyed blocks, everything else should fall down
-		if (indexesDestroy.size() > 0) {
-			for (int index = 0; index < _tiles.length; index++) {
-				Movable m = new Movable(_tiles[index], _offsetX + _tilePos[index][0], _offsetY + _tilePos[index][1],
-						false);
-				_tiles[index] = -1;
-
-				_tilesMove.add(m);
-			}
-		}
-	}
-
-	/**
-	 * TODO: describe function
-	 * 
-	 * @param x
-	 * @param y
-	 * @return index defined by x and y, or -1
-	 */
-	private int getIndexByPosition(int x, int y) {
-		if (x < 0 || x >= COLS || y < 0 || y >= ROWS)
-			return -1;
-
-		return x * ROWS + y;
-	}
-
-	/**
-	 * Adds a new block to arena.
-	 * 
-	 * @param column
-	 * @param row
-	 * @param id
-	 */
-	public void add(int column, int row, int id, boolean moveUp) {
-		Movable tile = new Movable(id, _offsetX + column * Tiles.TILESIZE, _offsetY + row * Tiles.TILESIZE, moveUp);
-		_tilesMove.add(tile);
-
-		// TODO: differentiate between top and bottom throw in
-	}
-
-	/**
-	 * Adds a block on top of the arena.
-	 * 
-	 * @param column
-	 * @param block
-	 */
-	public void addTop(int column, int block) {
-		// TODO: if top block != -1 -> lose
-		this.add(column, ROWS, block, false);
-		// int index = (column + 1) * ROWS - 1;
-		// _tiles[index] = block;
-	}
-
-	/**
-	 * Adds a block at he bottom of the arena.
-	 * 
-	 * @param column
-	 * @param block
-	 */
-	public void addBottom(int column, int block) {
-		// TODO: if bottom block != -1 -> move block up
-		this.add(column, 0, block, true);
-		// int index = column * ROWS;
-		// _tiles[index] = block;
+		return indexesDestroy;
 	}
 
 	/**

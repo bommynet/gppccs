@@ -172,18 +172,19 @@ public class Arena extends ScreenObject {
 
 			// fixate tile if tile is over an empty tile and
 			if (_tiles[id] == -1) {
-				// tile doesn't overlap any other down moving
-				// movable tile
-				long count = _tilesMove.stream().filter(move -> !move.moveUp).filter(other -> {
-					return tile.x >= other.x && tile.x <= other.x + Tiles.TILESIZE && tile.y >= other.y
-							&& tile.y <= other.y + Tiles.TILESIZE;
-				}).count();
-
-				// no overlapping means -> fixate tile
-				if (count == 0) {
+//				// tile doesn't overlap any other down moving movable tile
+//				long count = _tilesMove.stream().filter(move -> !move.moveUp).filter(other -> {
+//					// overlapping when over the same cell id
+//					int otherIdx = (int) ((other.x - _offsetX) / Tiles.TILESIZE);
+//					int otherIdy = (int) ((other.y - _offsetY) / Tiles.TILESIZE);
+//					return idx == otherIdx && idy == otherIdy;
+//				}).count();
+//
+//				// no overlapping means -> fixate tile
+//				if (count == 0) {
 					_tiles[id] = tile.id;
 					remove.add(tile);
-				}
+//				}
 			}
 		});
 

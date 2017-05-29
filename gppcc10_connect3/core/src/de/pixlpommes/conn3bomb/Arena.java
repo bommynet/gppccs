@@ -29,10 +29,10 @@ public class Arena extends ScreenObject {
 	// GAME
 	/** <i>fixed</i> tiles */
 	private List<Tile> _tilesFixed;
-	
+
 	/** downwards <i>moving</i> tiles */
 	private List<Tile> _tilesDown;
-	
+
 	/** upwards <i>moving</i> tiles */
 	private List<Tile> _tilesUp;
 
@@ -56,27 +56,26 @@ public class Arena extends ScreenObject {
 		IntStream.range(0, ROWS * COLS).forEach(index -> {
 			int idx = index / ROWS;
 			int idy = index % ROWS;
-			
+
 			float posX = idx * Tiles.TILESIZE; // x
 			float posY = idy * Tiles.TILESIZE; // y
 			int id = -1;
-			
+
 			Tile tile = new Tile(posX, posY, id);
 			_tilesFixed.add(index, tile);
 		});
-		
+
 		// initialize tiles: movable - empty lists
 		_tilesDown = new ArrayList<>();
 		_tilesUp = new ArrayList<>();
-		
+
 		// initialize explosion handler
 		_explosion = new Explosion();
-		
+
 		// setup speed
 		_moveSpeedConveyor = (float) Tiles.TILESIZE / 2f;
 		_moveSpeedPlayerTiles = (float) Tiles.TILESIZE * 5;
 
-		
 		/// TODO remove! /////////////////
 		this.add(0, ROWS - 8, 2, false);
 		this.add(0, ROWS - 6, 2, false);
@@ -108,8 +107,8 @@ public class Arena extends ScreenObject {
 		});
 
 		// draw movable blocks/bombs
-		_tilesDown.forEach(tile -> Tiles.drawBlock(batch, tile.id,  _offsetX + tile.x, _offsetY + tile.y));
-		_tilesUp.forEach(tile -> Tiles.drawBlock(batch, tile.id,  _offsetX + tile.x, _offsetY + tile.y));
+		_tilesDown.forEach(tile -> Tiles.drawBlock(batch, tile.id, _offsetX + tile.x, _offsetY + tile.y));
+		_tilesUp.forEach(tile -> Tiles.drawBlock(batch, tile.id, _offsetX + tile.x, _offsetY + tile.y));
 
 		_explosion.draw(batch, _offsetX, _offsetY);
 	}
@@ -181,21 +180,19 @@ public class Arena extends ScreenObject {
 
 			// 1. tile is over an empty tile and
 			if (_tilesFixed.get(id).id == -1) {
-				// TODO: fix bug!
-				// // tile doesn't overlap any other down moving movable tile
-				// long count = _tilesMove.stream().filter(move ->
-				// !move.moveUp).filter(other -> {
-				// // overlapping when over the same cell id
-				// int otherIdx = (int) ((other.x - _offsetX) / Tiles.TILESIZE);
-				// int otherIdy = (int) ((other.y - _offsetY) / Tiles.TILESIZE);
-				// return idx == otherIdx && idy == otherIdy;
-				// }).count();
-				//
-				// // no overlapping means -> fixate tile
-				// if (count == 0) {
-				_tilesFixed.get(id).id = tile.id;
-				remove.add(tile);
-				// }
+				// tile doesn't overlap any other down moving movable tile
+				long count = _tilesDown.stream().filter(down -> {
+					// overlapping when over the same cell id
+					int otherIdx = (int) (down.x / Tiles.TILESIZE);
+					int otherIdy = (int) (down.y / Tiles.TILESIZE);
+					return idx == otherIdx && idy == otherIdy;
+				}).count();
+
+				// no overlapping means -> fixate tile
+				if (count == 0) {
+					_tilesFixed.get(id).id = tile.id;
+					remove.add(tile);
+				}
 			}
 		});
 
@@ -227,8 +224,9 @@ public class Arena extends ScreenObject {
 		// if there are destroyed blocks, everything else should fall down
 		if (indexesDestroy.size() > 0) {
 			for (int index = 0; index < _tilesFixed.size(); index++) {
-				if(_tilesFixed.get(index).id == -1) continue;
-				
+				if (_tilesFixed.get(index).id == -1)
+					continue;
+
 				Tile tile = new Tile(_tilesFixed.get(index).x, _tilesFixed.get(index).y, _tilesFixed.get(index).id);
 				_tilesDown.add(tile);
 
@@ -260,10 +258,10 @@ public class Arena extends ScreenObject {
 	 */
 	public void add(int column, int row, int id, boolean moveUp) {
 		Tile tile = new Tile(column * Tiles.TILESIZE, row * Tiles.TILESIZE, id);
-		
-		if(moveUp) {
+
+		if (moveUp) {
 			_tilesUp.add(tile);
-		} else if(!moveUp) {
+		} else if (!moveUp) {
 			_tilesDown.add(tile);
 		}
 	}
@@ -389,8 +387,8 @@ public class Arena extends ScreenObject {
 				int curIndex = this.getIndexByPosition(curX, y);
 
 				// 1. columns from x to 0
-				while (!(curIndex == -1)
-						&& (_tilesFixed.get(curIndex).id == _tilesFixed.get(index).id || _tilesFixed.get(curIndex).id == _tilesFixed.get(index).id - 10)) {
+				while (!(curIndex == -1) && (_tilesFixed.get(curIndex).id == _tilesFixed.get(index).id
+						|| _tilesFixed.get(curIndex).id == _tilesFixed.get(index).id - 10)) {
 					indexesVertical.add(curIndex);
 
 					curX--;
@@ -401,8 +399,8 @@ public class Arena extends ScreenObject {
 				curIndex = this.getIndexByPosition(curX, y);
 
 				// 2. columns from x + 1 to COLS - 1
-				while (!(curIndex == -1)
-						&& (_tilesFixed.get(curIndex).id == _tilesFixed.get(index).id || _tilesFixed.get(curIndex).id == _tilesFixed.get(index).id - 10)) {
+				while (!(curIndex == -1) && (_tilesFixed.get(curIndex).id == _tilesFixed.get(index).id
+						|| _tilesFixed.get(curIndex).id == _tilesFixed.get(index).id - 10)) {
 					indexesVertical.add(curIndex);
 
 					curX++;
@@ -419,8 +417,8 @@ public class Arena extends ScreenObject {
 				int curY = y;
 				curIndex = this.getIndexByPosition(x, curY);
 				// 1. rows from y to 0
-				while (!(curIndex == -1)
-						&& (_tilesFixed.get(curIndex).id == _tilesFixed.get(index).id || _tilesFixed.get(curIndex).id == _tilesFixed.get(index).id - 10)) {
+				while (!(curIndex == -1) && (_tilesFixed.get(curIndex).id == _tilesFixed.get(index).id
+						|| _tilesFixed.get(curIndex).id == _tilesFixed.get(index).id - 10)) {
 					indexesHorizontal.add(curIndex);
 
 					curY--;
@@ -430,8 +428,8 @@ public class Arena extends ScreenObject {
 				curY = y + 1;
 				curIndex = this.getIndexByPosition(x, curY);
 				// 2. rows from y + 1 to ROWS - 1
-				while (!(curIndex == -1)
-						&& (_tilesFixed.get(curIndex).id == _tilesFixed.get(index).id || _tilesFixed.get(curIndex).id == _tilesFixed.get(index).id - 10)) {
+				while (!(curIndex == -1) && (_tilesFixed.get(curIndex).id == _tilesFixed.get(index).id
+						|| _tilesFixed.get(curIndex).id == _tilesFixed.get(index).id - 10)) {
 					indexesHorizontal.add(curIndex);
 
 					curY++;

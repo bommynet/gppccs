@@ -35,9 +35,9 @@ public class Explosion {
 	 * 
 	 * @param batch
 	 */
-	public void draw(Batch batch) {
-		_explosions.stream()
-				.forEach(element -> Tiles.drawExplosion(batch, element.x, element.y, element.colorId, element.frame));
+	public void draw(Batch batch, float offsetX, float offsetY) {
+		_explosions.stream().forEach(element -> Tiles.drawExplosion(batch, element.x + offsetX, element.y + offsetY,
+				element.colorId, element.frame));
 	}
 
 	/**

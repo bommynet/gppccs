@@ -1,10 +1,16 @@
-package de.pixlpommes.conn3bomb;
+package de.pixlpommes.conn3bomb.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import de.pixlpommes.conn3bomb.GameApp;
+import de.pixlpommes.conn3bomb.Tiles;
+import de.pixlpommes.conn3bomb.game.Arena;
+import de.pixlpommes.conn3bomb.game.Inserter;
+import de.pixlpommes.conn3bomb.game.Player;
 
 /**
  * <p>
@@ -20,11 +26,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class GameScreen implements Screen {
 
 	// LIBGDX
-	/** batch to render everything on screen */
-	private SpriteBatch _batch;
-
-	/** standard 2D camera */
-	private OrthographicCamera _cam;
+	/** the game app */
+	private final GameApp _app;
 
 	// GAME
 	/** the game mainly happens in the arena */
@@ -38,12 +41,13 @@ public class GameScreen implements Screen {
 
 	/**
 	 * Create simple game screen.
+	 * 
+	 * @param app
+	 *            the one and only game app
 	 */
-	public GameScreen() {
-
-		// libGdx
-		_cam = new OrthographicCamera();
-		_batch = new SpriteBatch();
+	public GameScreen(final GameApp app) {
+		// the game application
+		_app = app;
 
 		// game objects
 		int x = -((Arena.COLS * Tiles.TILESIZE) / 2);
@@ -89,13 +93,13 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		// draw content
-		_batch.begin();
+		_app.batch.begin();
 
-		_arena.draw(_batch);
-		_insert.draw(_batch);
-		_player.draw(_batch);
+		_arena.draw(_app.batch);
+		_insert.draw(_app.batch);
+		_player.draw(_app.batch);
 
-		_batch.end();
+		_app.batch.end();
 	}
 
 	/*
@@ -105,16 +109,15 @@ public class GameScreen implements Screen {
 	 */
 	@Override
 	public void resize(int width, int height) {
-		Gdx.app.log("BattleScreen",
-				"resize called (" + width + "x" + height + ")");
+		Gdx.app.log("BattleScreen", "resize called (" + width + "x" + height + ")");
 
 		// update camera
-		_cam.viewportWidth = width;
-		_cam.viewportHeight = height;
-		_cam.update();
+		_app.camera.viewportWidth = width;
+		_app.camera.viewportHeight = height;
+		_app.camera.update();
 
 		// update renderer
-		_batch.setProjectionMatrix(_cam.combined);
+		_app.batch.setProjectionMatrix(_app.camera.combined);
 	}
 
 	/*

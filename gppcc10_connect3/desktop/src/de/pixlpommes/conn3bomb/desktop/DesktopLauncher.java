@@ -2,7 +2,7 @@ package de.pixlpommes.conn3bomb.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import de.pixlpommes.conn3bomb.Connect3BombTrack;
+import de.pixlpommes.conn3bomb.GameApp;
 
 /**
  * <p>
@@ -28,6 +28,6 @@ public class DesktopLauncher {
         config.height = 800;
 
         // start game
-        new LwjglApplication(new Connect3BombTrack(), config);
+        new LwjglApplication(new GameApp(), config);
     }
 }

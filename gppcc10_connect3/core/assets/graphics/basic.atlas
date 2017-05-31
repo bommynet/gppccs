@@ -60,7 +60,7 @@ basic_bomb_yellow
   orig: 48, 48
   offset: 0, 0
   index: 0
-basic_exp_blue
+basic_conveyor
   rotate: false
   xy: 102, 152
   size: 48, 48
@@ -73,186 +73,200 @@ basic_exp_blue
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 1
+  index: 0
 basic_exp_blue
   rotate: false
   xy: 2, 2
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 2
+  index: 1
 basic_exp_blue
   rotate: false
   xy: 52, 52
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 3
+  index: 2
 basic_exp_blue
   rotate: false
   xy: 102, 102
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 4
+  index: 3
 basic_exp_blue
   rotate: false
   xy: 152, 152
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 5
+  index: 4
 basic_exp_blue
   rotate: false
   xy: 202, 202
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 6
-basic_exp_green
+  index: 5
+basic_exp_blue
   rotate: false
   xy: 52, 2
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 0
+  index: 6
 basic_exp_green
   rotate: false
   xy: 102, 52
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 1
+  index: 0
 basic_exp_green
   rotate: false
   xy: 152, 102
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 2
+  index: 1
 basic_exp_green
   rotate: false
   xy: 202, 152
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 3
+  index: 2
 basic_exp_green
   rotate: false
   xy: 252, 202
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 4
+  index: 3
 basic_exp_green
   rotate: false
   xy: 102, 2
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 5
+  index: 4
 basic_exp_green
   rotate: false
   xy: 152, 52
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 6
-basic_exp_red
+  index: 5
+basic_exp_green
   rotate: false
   xy: 202, 102
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 0
+  index: 6
 basic_exp_red
   rotate: false
   xy: 252, 152
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 1
+  index: 0
 basic_exp_red
   rotate: false
   xy: 302, 202
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 2
+  index: 1
 basic_exp_red
   rotate: false
   xy: 152, 2
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 3
+  index: 2
 basic_exp_red
   rotate: false
   xy: 202, 52
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 4
+  index: 3
 basic_exp_red
   rotate: false
   xy: 252, 102
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 5
+  index: 4
 basic_exp_red
   rotate: false
   xy: 302, 152
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 6
-basic_exp_yellow
+  index: 5
+basic_exp_red
   rotate: false
   xy: 352, 202
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 0
+  index: 6
 basic_exp_yellow
   rotate: false
   xy: 202, 2
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 1
+  index: 0
 basic_exp_yellow
   rotate: false
   xy: 252, 52
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 2
+  index: 1
 basic_exp_yellow
   rotate: false
   xy: 302, 102
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 3
+  index: 2
 basic_exp_yellow
   rotate: false
   xy: 352, 152
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 4
+  index: 3
 basic_exp_yellow
   rotate: false
   xy: 402, 202
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
-  index: 5
+  index: 4
 basic_exp_yellow
   rotate: false
   xy: 252, 2
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
+  index: 5
+basic_exp_yellow
+  rotate: false
+  xy: 302, 52
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
   index: 6
+basic_player
+  rotate: false
+  xy: 352, 102
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 0

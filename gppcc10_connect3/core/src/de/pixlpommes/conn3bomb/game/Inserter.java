@@ -1,8 +1,11 @@
-package de.pixlpommes.conn3bomb;
+package de.pixlpommes.conn3bomb.game;
 
 import java.util.stream.IntStream;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+
+import de.pixlpommes.conn3bomb.ScreenObject;
+import de.pixlpommes.conn3bomb.Tiles;
 
 /**
  * <p>

@@ -3,6 +3,8 @@ package de.pixlpommes.conn3bomb;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * <p>
@@ -26,17 +28,17 @@ public class Tiles {
 	/** tile set as single file */
 	public final static Texture TILES = new Texture(Gdx.files.internal("tiles.png"));
 
+	/** standard graphic atlas */
+	public final static TextureAtlas ATLAS = new TextureAtlas(Gdx.files.internal("graphics/basic.atlas"));
+
 	/**
 	 * @param batch
 	 * @param x
 	 * @param y
 	 */
 	public static void drawConvoyer(Batch batch, float x, float y) {
-		batch.draw(TILES, // tile set file
-				x, y, // position on screen
-				0, 2 * Tiles.TILESIZE, // tile position in file
-				Tiles.TILESIZE, Tiles.TILESIZE // tile size
-		);
+		TextureRegion region = ATLAS.findRegion("basic_conveyor");
+		batch.draw(region, x, y);
 	}
 
 	/**
@@ -49,11 +51,26 @@ public class Tiles {
 	 * @param frame
 	 */
 	public static void drawExplosion(Batch batch, float x, float y, int colorId, int frame) {
-		batch.draw(TILES, // tile set file
-				x, y, // position on screen
-				(colorId + 1) * Tiles.TILESIZE, (3 + frame) * Tiles.TILESIZE, // tile position in file
-				Tiles.TILESIZE, Tiles.TILESIZE // tile size
-		);
+		String str;
+
+		switch (colorId) {
+		case 1:
+			str = "basic_exp_green";
+			break;
+		case 2:
+			str = "basic_exp_red";
+			break;
+		case 3:
+			str = "basic_exp_yellow";
+			break;
+		default:
+			str = "basic_exp_blue";
+			break;
+		}
+
+		TextureRegion region = ATLAS.findRegion(str, frame);
+
+		batch.draw(region, x, y);
 	}
 
 	/**

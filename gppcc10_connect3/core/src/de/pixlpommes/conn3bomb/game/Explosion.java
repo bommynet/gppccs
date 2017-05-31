@@ -1,9 +1,11 @@
-package de.pixlpommes.conn3bomb;
+package de.pixlpommes.conn3bomb.game;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+
+import de.pixlpommes.conn3bomb.Tiles;
 
 /**
  * <p>

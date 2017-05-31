@@ -52,7 +52,7 @@ public class GameScreen implements Screen {
 		// game objects
 		int x = -((Arena.COLS * Tiles.TILESIZE) / 2);
 		int y = -((Arena.ROWS * Tiles.TILESIZE) / 2);
-		_arena = new Arena(x, y);
+		_arena = new Arena(app, x, y);
 
 		// inserter area is above the arena
 		_insert = new Inserter(_arena);

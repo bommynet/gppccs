@@ -47,6 +47,7 @@ public class LoadingScreen implements Screen {
 
 		// load assets in queue
 		_app.assets.load("tiles.png", Texture.class);
+		_app.assets.load("graphics/band.png", Texture.class);
 
 		// init progress
 		_progress = 0.0f;

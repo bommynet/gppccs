@@ -3,10 +3,12 @@ package de.pixlpommes.conn3bomb.game;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
+
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
+import de.pixlpommes.conn3bomb.GameApp;
 import de.pixlpommes.conn3bomb.ScreenObject;
-import de.pixlpommes.conn3bomb.Tiles;
 
 /**
  * <p>
@@ -28,6 +30,13 @@ public class Arena extends ScreenObject {
 
 	/** TODO: describe ROWS */
 	public final static int ROWS = 12;
+	
+	/** TODO: describe 'TILESIZE' */
+	public final static int TILESIZE = 48;
+
+	// LIBGDX
+	/** the game app */
+	private final GameApp _app;
 
 	// GAME
 	/** <i>fixed</i> tiles */
@@ -51,7 +60,8 @@ public class Arena extends ScreenObject {
 	/**
 	 * 
 	 */
-	public Arena(int offsetX, int offsetY) {
+	public Arena(GameApp app, int offsetX, int offsetY) {
+		_app = app;
 		this.setOffset(offsetX, offsetY);
 
 		// initialize tiles: fixed - predefined with position and id = -1
@@ -60,8 +70,8 @@ public class Arena extends ScreenObject {
 			int idx = index / ROWS;
 			int idy = index % ROWS;
 
-			float posX = idx * Tiles.TILESIZE; // x
-			float posY = idy * Tiles.TILESIZE; // y
+			float posX = idx * TILESIZE; // x
+			float posY = idy * TILESIZE; // y
 			int id = -1;
 
 			Tile tile = new Tile(posX, posY, id);
@@ -76,8 +86,8 @@ public class Arena extends ScreenObject {
 		_explosion = new Explosion();
 
 		// setup speed
-		_moveSpeedConveyor = (float) Tiles.TILESIZE / 2f;
-		_moveSpeedPlayerTiles = (float) Tiles.TILESIZE * 5;
+		_moveSpeedConveyor = (float) TILESIZE / 2f;
+		_moveSpeedPlayerTiles = (float) TILESIZE * 5;
 
 		/// TODO remove! /////////////////
 		this.add(0, ROWS - 8, 2, false);
@@ -97,23 +107,57 @@ public class Arena extends ScreenObject {
 		// TODO draw background
 
 		// draw conveyor band
-		_tilesFixed.stream().forEach(tile -> {
-			Tiles.drawConvoyer(batch, // batch to draw on
-					_offsetX + tile.x, // screen x
-					_offsetY + tile.y // screen y
-			);
-		});
+		_tilesFixed.stream().forEach(tile -> drawConvoyerBand(0, _offsetX + tile.x, _offsetY + tile.y));
 
 		// draw fixated blocks/bombs
-		_tilesFixed.stream().forEach(tile -> {
-			Tiles.drawBlock(batch, tile.id, _offsetX + tile.x, _offsetY + tile.y);
-		});
+		_tilesFixed.stream().forEach(tile -> drawBlock(tile.id, _offsetX + tile.x, _offsetY + tile.y));
 
 		// draw movable blocks/bombs
-		_tilesDown.forEach(tile -> Tiles.drawBlock(batch, tile.id, _offsetX + tile.x, _offsetY + tile.y));
-		_tilesUp.forEach(tile -> Tiles.drawBlock(batch, tile.id, _offsetX + tile.x, _offsetY + tile.y));
+		_tilesDown.forEach(tile -> drawBlock(tile.id, _offsetX + tile.x, _offsetY + tile.y));
+		_tilesUp.forEach(tile -> drawBlock(tile.id, _offsetX + tile.x, _offsetY + tile.y));
 
 		_explosion.draw(batch, _offsetX, _offsetY);
+	}
+
+	/**
+	 * TODO: describe function
+	 * 
+	 * @param tileId
+	 * @param x
+	 * @param y
+	 */
+	private void drawBlock(int tileId, float x, float y) {
+		// tile id == -1 -> invisible, so don't draw it
+		if (tileId == -1)
+			return;
+
+		int tilePosX = (tileId > 9 ? (tileId - 10 + 1) : (tileId + 1)) * TILESIZE;
+		int tilePosY = (tileId > 9 ? 2 : 1) * TILESIZE;
+
+		// Texture tiles = _app.assets.get("tiles.png", Texture.class);
+		Texture tiles = _app.assets.get("tiles.png");
+
+		_app.batch.draw(tiles, // tile set file
+				x, y, // position on screen
+				tilePosX, tilePosY, // tile position in file
+				TILESIZE, TILESIZE// tile size
+		);
+	}
+	
+	/**
+	 * TODO: describe function
+	 * @param frame
+	 * @param x
+	 * @param y
+	 */
+	private void drawConvoyerBand(int frame, float x, float y) {
+		Texture tiles = _app.assets.get("graphics/band.png");
+
+		_app.batch.draw(tiles, // tile set file
+				x, y, // position on screen
+				frame * TILESIZE, 0, // tile position in file
+				TILESIZE, TILESIZE// tile size
+		);
 	}
 
 	/*
@@ -137,7 +181,7 @@ public class Arena extends ScreenObject {
 
 		// movables (top-down) -> fixated, if
 		_tilesDown.stream().forEach(tile -> {
-			int idx = (int) (tile.x / Tiles.TILESIZE);
+			int idx = (int) (tile.x / TILESIZE);
 
 			// 1. tile reached bottom line
 			if (tile.y <= 0) {
@@ -146,7 +190,7 @@ public class Arena extends ScreenObject {
 			}
 			// 2. tile reached fixed block
 			else {
-				int idy = (int) (tile.y / Tiles.TILESIZE);
+				int idy = (int) (tile.y / TILESIZE);
 				// if (idy < 0)
 				// return; // bottom line already checked
 				//
@@ -162,7 +206,7 @@ public class Arena extends ScreenObject {
 					return;
 				}
 
-				if (_tilesFixed.get(index).y + Tiles.TILESIZE >= tile.y && _tilesFixed.get(index).id != -1) {
+				if (_tilesFixed.get(index).y + TILESIZE >= tile.y && _tilesFixed.get(index).id != -1) {
 					_tilesFixed.get(indexAbove).id = tile.id;
 					remove.add(tile);
 				}
@@ -171,8 +215,8 @@ public class Arena extends ScreenObject {
 
 		// movables (bottom-up) -> fixated, if
 		_tilesUp.stream().forEach(tile -> {
-			int idx = (int) (tile.x / Tiles.TILESIZE);
-			int idy = (int) (tile.y / Tiles.TILESIZE);
+			int idx = (int) (tile.x / TILESIZE);
+			int idy = (int) (tile.y / TILESIZE);
 
 			int id = this.getIndexByPosition(idx, idy);
 
@@ -186,8 +230,8 @@ public class Arena extends ScreenObject {
 				// tile doesn't overlap any other down moving movable tile
 				long count = _tilesDown.stream().filter(down -> {
 					// overlapping when over the same cell id
-					int otherIdx = (int) (down.x / Tiles.TILESIZE);
-					int otherIdy = (int) (down.y / Tiles.TILESIZE);
+					int otherIdx = (int) (down.x / TILESIZE);
+					int otherIdy = (int) (down.y / TILESIZE);
 					return idx == otherIdx && idy == otherIdy;
 				}).count();
 
@@ -260,7 +304,7 @@ public class Arena extends ScreenObject {
 	 * @param id
 	 */
 	public void add(int column, int row, int id, boolean moveUp) {
-		Tile tile = new Tile(column * Tiles.TILESIZE, row * Tiles.TILESIZE, id);
+		Tile tile = new Tile(column * TILESIZE, row * TILESIZE, id);
 
 		if (moveUp) {
 			_tilesUp.add(tile);

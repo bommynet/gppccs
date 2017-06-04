@@ -20,7 +20,7 @@ import de.pixlpommes.conn3bomb.ScreenObject;
  * handles throw-ins by player and inserter.
  * </p>
  * 
- * @author Thomas Borck
+ * @author Thomas Borck - http://www.pixlpommes.de
  */
 public class Arena extends ScreenObject {
 

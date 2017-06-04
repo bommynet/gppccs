@@ -36,19 +36,20 @@ public class Inserter extends ScreenObject {
 
 	/** TODO: describe _blocks */
 	private int[] _tiles;
-	
+
 	/** TODO: describe '_texture' */
-	private Texture _texture;
+	private Texture _texture, _band;
 
 	/**
 	 * 
 	 */
-	public Inserter(Arena arena, Texture texture) {
+	public Inserter(Arena arena, Texture texture, Texture band) {
 		this.setOffset(0, 0);
 
 		_arena = arena;
-		
+
 		_texture = texture;
+		_band = band;
 
 		_timer = _timerDelay = 2f;
 		_state = State.COUNTDOWN;
@@ -66,12 +67,30 @@ public class Inserter extends ScreenObject {
 	 */
 	@Override
 	public void draw(Batch batch) {
+		// draw landing area
+		IntStream.range(0, _tiles.length).forEach(index -> {
+			drawConvoyerBand(batch, 0, _offsetX + index * Tiles.TILESIZE, _offsetY, 1f);
+		});
+
+		// draw blocks
 		if (_state == State.ANIMATE) {
+			float factor = _timer / _timerDelay;
+
 			IntStream.range(0, _tiles.length).forEach(index -> {
+				if (_tiles[index] == -1)
+					return;
+
+				// draw shadow
+				float shadow = Arena.TILESIZE / 2f - Arena.TILESIZE / 2f * (1f - factor);
+
+				drawConvoyerBand(batch, 5, shadow + _offsetX + index * Arena.TILESIZE, shadow + _offsetY, 1f - factor);
+
+				// draw falling block
 				drawBlock(batch, // batch to draw in
 						_tiles[index], // block id
-						_offsetX + index * Tiles.TILESIZE, _timerY, // position on screen
-						1f + _timer / _timerDelay * 0.75f // scaling
+						_offsetX + index * Tiles.TILESIZE, _timerY, // position
+																	// on screen
+						1f + factor * 0.75f // scaling
 				);
 			});
 		} else {
@@ -80,9 +99,29 @@ public class Inserter extends ScreenObject {
 			});
 		}
 	}
-	
+
 	/**
 	 * TODO: describe function
+	 * 
+	 * @param frame
+	 * @param x
+	 * @param y
+	 */
+	private void drawConvoyerBand(Batch batch, int frame, float x, float y, float sizeFactor) {
+		float size = Arena.TILESIZE * sizeFactor;
+
+		batch.draw(_band, // tile set file
+				x, y, // position on screen
+				size, size, // drawing tile sized
+				frame * Arena.TILESIZE, 0, // tile position in file
+				Arena.TILESIZE, Arena.TILESIZE, // tile size
+				false, false // mirroring
+		);
+	}
+
+	/**
+	 * TODO: describe function
+	 * 
 	 * @param batch
 	 * @param id
 	 * @param x

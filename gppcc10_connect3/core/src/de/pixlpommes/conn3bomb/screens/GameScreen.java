@@ -2,6 +2,7 @@ package de.pixlpommes.conn3bomb.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 
 import de.pixlpommes.conn3bomb.GameApp;
 import de.pixlpommes.conn3bomb.Tiles;
@@ -58,7 +59,7 @@ public class GameScreen extends ScreenAdapter {
 		_arena = new Arena(_app, x, y);
 
 		// inserter area is above the arena
-		_insert = new Inserter(_arena, _app.assets.get("tiles.png"));
+		_insert = new Inserter(_arena, _app.assets.get("tiles.png"), _app.assets.get("graphics/band.png"));
 		x = (int) (_arena.getOffsetX());
 		y = (int) (_arena.getOffsetY() + Arena.ROWS * Tiles.TILESIZE);
 		_insert.setOffset(x, y);
@@ -85,8 +86,8 @@ public class GameScreen extends ScreenAdapter {
 		// draw content
 		_app.batch.begin();
 
-		_arena.draw(_app.batch);
 		_insert.draw(_app.batch);
+		_arena.draw(_app.batch);
 		_player.draw(_app.batch);
 
 		_app.batch.end();

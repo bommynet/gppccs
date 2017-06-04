@@ -44,6 +44,9 @@ public class GameScreen extends ScreenAdapter {
 	 */
 	@Override
 	public void show() {
+		// for debug purposes only
+		super.show();
+		
 		// game objects
 		int x = -((Arena.COLS * Tiles.TILESIZE) / 2);
 		int y = -((Arena.ROWS * Tiles.TILESIZE) / 2);

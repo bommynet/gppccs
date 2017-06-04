@@ -26,6 +26,9 @@ public class LoadingScreen extends ScreenAdapter {
 	/** count queued assets */
 	private int _countQueued;
 
+	/** loading bar texture */
+	private Texture _texBar;
+
 	/**
 	 * Create loading screen.
 	 * 
@@ -34,6 +37,8 @@ public class LoadingScreen extends ScreenAdapter {
 	 */
 	public LoadingScreen(final GameApp app) {
 		super(app);
+
+		_texBar = new Texture(Gdx.files.internal("graphics/loading.png"));
 	}
 
 	/*
@@ -44,7 +49,7 @@ public class LoadingScreen extends ScreenAdapter {
 	public void show() {
 		// for debug purposes only
 		super.show();
-		
+
 		// load assets in queue
 		_app.assets.load("tiles.png", Texture.class);
 		_app.assets.load("graphics/band.png", Texture.class);
@@ -65,6 +70,18 @@ public class LoadingScreen extends ScreenAdapter {
 		// clear screen
 		Gdx.gl.glClearColor(0.553f, 0.651f, 0.711f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		int partWidth = (int) (100.0f * _progress);
+
+		_app.batch.begin();
+
+		// draw empty bar as 'base'
+		_app.batch.draw(_texBar, -50, -8, 100, 16, 0, 16, 100, 16, false, false);
+
+		// draw filled bar partial as progress
+		_app.batch.draw(_texBar, -50, -8, partWidth, 16, 0, 0, partWidth, 16, false, false);
+
+		_app.batch.end();
 	}
 
 	/*
@@ -86,8 +103,8 @@ public class LoadingScreen extends ScreenAdapter {
 		_countCurrent = _app.assets.getLoadedAssets();
 
 		// console log
-		Gdx.app.log("Loading %:", "" + (_progress * 100));
-		Gdx.app.log("Loading #:", _countCurrent + "/" + _countQueued);
+		// Gdx.app.log("Loading %:", "" + (_progress * 100));
+		// Gdx.app.log("Loading #:", _countCurrent + "/" + _countQueued);
 
 		// TODO: draw fancy progress stuff
 

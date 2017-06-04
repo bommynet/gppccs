@@ -34,6 +34,9 @@ public class Arena extends ScreenObject {
 	/** TODO: describe 'TILESIZE' */
 	public final static int TILESIZE = 48;
 
+	/** TODO: describe 'COLORS_COUNT' */
+	public final static int COLORS_COUNT = 3;
+
 	// LIBGDX
 	/** the game app */
 	private final GameApp _app;

@@ -2,9 +2,11 @@ package de.pixlpommes.conn3bomb.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+
 import de.pixlpommes.conn3bomb.GameApp;
 import de.pixlpommes.conn3bomb.Tiles;
 import de.pixlpommes.conn3bomb.game.Arena;
+import de.pixlpommes.conn3bomb.game.GameInput;
 import de.pixlpommes.conn3bomb.game.Inserter;
 import de.pixlpommes.conn3bomb.game.Player;
 
@@ -26,6 +28,9 @@ public class GameScreen extends ScreenAdapter {
 
 	/** the player changes the arena controlled */
 	private Player _player;
+	
+	/** player input handling */
+	private GameInput _input;
 
 	/**
 	 * Create simple game screen.
@@ -59,10 +64,12 @@ public class GameScreen extends ScreenAdapter {
 		_insert.setOffset(x, y);
 
 		// player area is below the arena
-		_player = new Player(_arena);
+		_player = new Player(_app.assets.get("tiles.png"));
 		x = (int) (_arena.getOffsetX());
 		y = (int) (_arena.getOffsetY() - Tiles.TILESIZE);
 		_player.setOffset(x, y);
+		
+		_input = new GameInput(_arena, _player);
 	}
 
 	/*

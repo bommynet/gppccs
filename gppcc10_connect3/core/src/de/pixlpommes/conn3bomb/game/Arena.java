@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 import de.pixlpommes.conn3bomb.GameApp;
 import de.pixlpommes.conn3bomb.ScreenObject;
+import de.pixlpommes.conn3bomb.screens.ScoreListener;
 
 /**
  * <p>
@@ -31,7 +32,7 @@ public class Arena extends ScreenObject {
 
 	/** TODO: describe ROWS */
 	public final static int ROWS = 12;
-	
+
 	/** TODO: describe 'TILESIZE' */
 	public final static int TILESIZE = 48;
 
@@ -61,6 +62,9 @@ public class Arena extends ScreenObject {
 	/** show and animate explosions */
 	private Explosion _explosion;
 
+	/** TODO: describe '_scoreListeners' */
+	private List<ScoreListener> _scoreListeners;
+
 	/**
 	 * 
 	 */
@@ -88,6 +92,9 @@ public class Arena extends ScreenObject {
 
 		// initialize explosion handler
 		_explosion = new Explosion();
+
+		// listeners
+		_scoreListeners = new ArrayList<>();
 
 		// setup speed
 		_moveSpeedConveyor = (float) TILESIZE / 2f;
@@ -193,10 +200,11 @@ public class Arena extends ScreenObject {
 
 				if (_tilesFixed.get(index).y + TILESIZE >= tile.y && _tilesFixed.get(index).id != -1) {
 					// lose if top tile is not empty!
-					if(_tilesFixed.get(indexAbove).id != -1) {
-						Gdx.app.log("Column full", ""+idx); /// TODO remove log
+					if (_tilesFixed.get(indexAbove).id != -1) {
+						Gdx.app.log("Column full", "" + idx); /// TODO remove
+																/// log
 					}
-					
+
 					_tilesFixed.get(indexAbove).id = tile.id;
 					remove.add(tile);
 				}
@@ -260,6 +268,14 @@ public class Arena extends ScreenObject {
 
 		// if there are destroyed blocks, everything else should fall down
 		if (indexesDestroy.size() > 0) {
+			// score!
+			long score = indexesDestroy.size() * 10;
+			// first destroyable is a bomb! everytime!
+			float x = _tilesFixed.get(indexesDestroy.get(0)).x + _offsetX; 
+			float y = _tilesFixed.get(indexesDestroy.get(0)).y + _offsetY;
+			_scoreListeners.stream().forEach(listener -> listener.scored(score, x, y));
+
+			// let fall blocks down
 			for (int index = 0; index < _tilesFixed.size(); index++) {
 				if (_tilesFixed.get(index).id == -1)
 					continue;
@@ -323,6 +339,15 @@ public class Arena extends ScreenObject {
 	public void addBottom(int column, int block) {
 		// TODO: if bottom block != -1 -> move block up
 		this.add(column, 0, block, true);
+	}
+
+	/**
+	 * TODO: describe function
+	 * 
+	 * @param listener
+	 */
+	public void addScoreListener(ScoreListener listener) {
+		_scoreListeners.add(listener);
 	}
 
 	/**

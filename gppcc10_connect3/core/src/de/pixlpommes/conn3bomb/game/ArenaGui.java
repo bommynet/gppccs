@@ -1,5 +1,6 @@
 package de.pixlpommes.conn3bomb.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 import de.pixlpommes.conn3bomb.GameApp;
@@ -64,4 +65,23 @@ public class ArenaGui extends ScreenObject {
 
 	}
 
+	/**
+	 * TODO: describe function
+	 * @return
+	 */
+	public float getComboFactor() {
+		return _comboFactor;
+	}
+
+	/**
+	 * TODO: describe function
+	 * @param score
+	 */
+	public void addScore(long score) {
+		// TODO animate score adding?
+		
+		// add score to current score
+		_score += score;
+		Gdx.app.log("Score", ""+_score);
+	}
 }

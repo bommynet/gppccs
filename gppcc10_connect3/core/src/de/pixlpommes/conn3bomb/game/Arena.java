@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
@@ -191,6 +192,11 @@ public class Arena extends ScreenObject {
 				}
 
 				if (_tilesFixed.get(index).y + TILESIZE >= tile.y && _tilesFixed.get(index).id != -1) {
+					// lose if top tile is not empty!
+					if(_tilesFixed.get(indexAbove).id != -1) {
+						Gdx.app.log("Column full", ""+idx); /// TODO remove log
+					}
+					
 					_tilesFixed.get(indexAbove).id = tile.id;
 					remove.add(tile);
 				}

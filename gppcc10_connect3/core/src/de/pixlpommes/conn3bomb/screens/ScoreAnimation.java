@@ -1,6 +1,7 @@
 package de.pixlpommes.conn3bomb.screens;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
@@ -30,6 +31,9 @@ public class ScoreAnimation extends ScreenObject {
 
 	/** TODO: describe 'MOVE_UP_BY' */
 	private final static float MOVE_UP_BY = 100;
+	
+	/** one ui font */
+	private final static BitmapFont font = new BitmapFont();
 
 	// REFERENCES
 	/** TODO: describe '_gui' */
@@ -74,17 +78,7 @@ public class ScoreAnimation extends ScreenObject {
 	public void draw(Batch batch) {
 		if(_state == State.FINISHED) return;
 		
-		ShapeRenderer sr = new ShapeRenderer();
-		sr.setProjectionMatrix(batch.getProjectionMatrix());
-		
-		batch.end();
-		sr.begin(ShapeType.Filled);
-		
-		sr.setColor(1, 0, 0, 1);
-		sr.rect(_offsetX, _offsetY, 10, 3);
-		
-		sr.end();
-		batch.begin();
+		font.draw(batch, ""+_score, _offsetX, _offsetY);
 	}
 
 	/*

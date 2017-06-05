@@ -109,9 +109,6 @@ public class Arena extends ScreenObject {
 	public void draw(Batch batch) {
 		// TODO draw background
 
-		// draw conveyor band
-		_tilesFixed.stream().forEach(tile -> drawConvoyerBand(0, _offsetX + tile.x, _offsetY + tile.y));
-
 		// draw fixated blocks/bombs
 		_tilesFixed.stream().forEach(tile -> drawBlock(tile.id, _offsetX + tile.x, _offsetY + tile.y));
 
@@ -143,22 +140,6 @@ public class Arena extends ScreenObject {
 		_app.batch.draw(tiles, // tile set file
 				x, y, // position on screen
 				tilePosX, tilePosY, // tile position in file
-				TILESIZE, TILESIZE// tile size
-		);
-	}
-	
-	/**
-	 * TODO: describe function
-	 * @param frame
-	 * @param x
-	 * @param y
-	 */
-	private void drawConvoyerBand(int frame, float x, float y) {
-		Texture tiles = _app.assets.get("graphics/band.png");
-
-		_app.batch.draw(tiles, // tile set file
-				x, y, // position on screen
-				frame * TILESIZE, 0, // tile position in file
 				TILESIZE, TILESIZE// tile size
 		);
 	}

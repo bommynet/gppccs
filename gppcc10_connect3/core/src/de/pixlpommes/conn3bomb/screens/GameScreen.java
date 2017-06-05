@@ -29,9 +29,13 @@ public class GameScreen extends ScreenAdapter {
 
 	/** the player changes the arena controlled */
 	private Player _player;
-	
+
 	/** player input handling */
 	private GameInput _input;
+
+	// TEXTURES
+	/** TODO: describe '_texBackground' */
+	private Texture _texBackground;
 
 	/**
 	 * Create simple game screen.
@@ -41,6 +45,8 @@ public class GameScreen extends ScreenAdapter {
 	 */
 	public GameScreen(final GameApp app) {
 		super(app);
+		
+		_texBackground = _app.assets.get("graphics/arenabg.png");
 	}
 
 	/*
@@ -52,7 +58,7 @@ public class GameScreen extends ScreenAdapter {
 	public void show() {
 		// for debug purposes only
 		super.show();
-		
+
 		// game objects
 		int x = -((Arena.COLS * Tiles.TILESIZE) / 2);
 		int y = -((Arena.ROWS * Tiles.TILESIZE) / 2);
@@ -69,7 +75,7 @@ public class GameScreen extends ScreenAdapter {
 		x = (int) (_arena.getOffsetX());
 		y = (int) (_arena.getOffsetY() - Tiles.TILESIZE);
 		_player.setOffset(x, y);
-		
+
 		_input = new GameInput(_arena, _player);
 	}
 
@@ -85,6 +91,9 @@ public class GameScreen extends ScreenAdapter {
 
 		// draw content
 		_app.batch.begin();
+
+		// draw background: convoyer bands
+		_app.batch.draw(_texBackground, _arena.getOffsetX(), _arena.getOffsetY());
 
 		_insert.draw(_app.batch);
 		_arena.draw(_app.batch);

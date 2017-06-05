@@ -67,11 +67,6 @@ public class Inserter extends ScreenObject {
 	 */
 	@Override
 	public void draw(Batch batch) {
-		// draw landing area
-		IntStream.range(0, _tiles.length).forEach(index -> {
-			drawConvoyerBand(batch, 0, _offsetX + index * Tiles.TILESIZE, _offsetY, 1f);
-		});
-
 		// draw blocks
 		if (_state == State.ANIMATE) {
 			float factor = _timer / _timerDelay;
@@ -83,6 +78,7 @@ public class Inserter extends ScreenObject {
 				// draw shadow
 				float shadow = Arena.TILESIZE / 2f - Arena.TILESIZE / 2f * (1f - factor);
 
+				// TODO: create shadow in an other way
 				drawConvoyerBand(batch, 5, shadow + _offsetX + index * Arena.TILESIZE, shadow + _offsetY, 1f - factor);
 
 				// draw falling block

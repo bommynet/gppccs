@@ -6,14 +6,10 @@ import de.pixlpommes.conn3bomb.GameApp;
 
 /**
  * <p>
- * TODO: short class description.
+ * Start desktop/pc version.
  * </p>
  *
- * <p>
- * TODO: detailed class description.
- * </p>
- *
- * @author Thomas Borck
+ * @author Thomas Borck - http://www.pixlpommes.de
  */
 public class DesktopLauncher {
 
@@ -24,8 +20,9 @@ public class DesktopLauncher {
         // create game configuration
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
-        config.width = 800;
-        config.height = 800;
+        config.width = GameApp.WIDTH;
+        config.height = GameApp.HEIGHT;
+        config.resizable = false;
 
         // start game
         new LwjglApplication(new GameApp(), config);

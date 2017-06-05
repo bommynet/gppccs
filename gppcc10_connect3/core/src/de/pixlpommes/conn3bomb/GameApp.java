@@ -8,10 +8,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.pixlpommes.conn3bomb.screens.LoadingScreen;
 
 /**
- * @author Thomas Borck
+ * @author Thomas Borck - http://www.pixlpommes.de
  */
 public class GameApp extends Game {
 	
+	// GLOBALS
+	public final static int WIDTH = 800;
+	public final static int HEIGHT = 800;
+	public final static int HALF_WIDTH = WIDTH / 2;
+	public final static int HALF_HEIGHT = HEIGHT / 2;
+	
+	// LIBGDX
 	/** one global camera */
 	public OrthographicCamera camera;
 	

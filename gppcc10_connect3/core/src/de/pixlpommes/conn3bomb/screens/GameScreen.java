@@ -35,6 +35,9 @@ public class GameScreen extends ScreenAdapter {
 
 	// TEXTURES
 	/** TODO: describe '_texBackground' */
+	private Texture _texConvoyerBand;
+
+	/** TODO: describe '_texBackground' */
 	private Texture _texBackground;
 
 	/**
@@ -45,7 +48,8 @@ public class GameScreen extends ScreenAdapter {
 	 */
 	public GameScreen(final GameApp app) {
 		super(app);
-		
+
+		_texConvoyerBand = _app.assets.get("graphics/convoyerband.png");
 		_texBackground = _app.assets.get("graphics/arenabg.png");
 	}
 
@@ -60,8 +64,8 @@ public class GameScreen extends ScreenAdapter {
 		super.show();
 
 		// game objects
-		int x = -((Arena.COLS * Tiles.TILESIZE) / 2);
-		int y = -((Arena.ROWS * Tiles.TILESIZE) / 2);
+		int x = -GameApp.HALF_WIDTH + 256; // -((Arena.COLS * Tiles.TILESIZE) / 2);
+		int y = -GameApp.HALF_HEIGHT + 88; //-((Arena.ROWS * Tiles.TILESIZE) / 2);
 		_arena = new Arena(_app, x, y);
 
 		// inserter area is above the arena
@@ -92,8 +96,9 @@ public class GameScreen extends ScreenAdapter {
 		// draw content
 		_app.batch.begin();
 
-		// draw background: convoyer bands
-		_app.batch.draw(_texBackground, _arena.getOffsetX(), _arena.getOffsetY());
+		// draw background
+		_app.batch.draw(_texBackground, -GameApp.HALF_WIDTH, -GameApp.HALF_HEIGHT);
+		_app.batch.draw(_texConvoyerBand, _arena.getOffsetX(), _arena.getOffsetY());
 
 		_insert.draw(_app.batch);
 		_arena.draw(_app.batch);

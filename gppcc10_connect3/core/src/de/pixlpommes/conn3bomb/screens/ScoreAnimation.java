@@ -78,6 +78,7 @@ public class ScoreAnimation extends ScreenObject {
 	public void draw(Batch batch) {
 		if(_state == State.FINISHED) return;
 		
+		// score
 		font.draw(batch, ""+_score, _offsetX, _offsetY);
 	}
 

@@ -3,6 +3,7 @@ package de.pixlpommes.conn3bomb.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.MathUtils;
 
 import de.pixlpommes.conn3bomb.GameApp;
@@ -55,6 +56,7 @@ public class LoadingScreen extends ScreenAdapter {
 		_app.assets.load("graphics/band.png", Texture.class);
 		_app.assets.load("graphics/convoyerband.png", Texture.class);
 		_app.assets.load("graphics/arenabg.png", Texture.class);
+		_app.assets.load("fonts/score.fnt", BitmapFont.class);
 
 		// init progress
 		_progress = 0.0f;

@@ -19,4 +19,9 @@ public interface ScoreListener {
 	 * @param y
 	 */
 	public void scored(long score, float x, float y);
+	
+	/**
+	 * TODO: describe function
+	 */
+	public void comboed();
 }

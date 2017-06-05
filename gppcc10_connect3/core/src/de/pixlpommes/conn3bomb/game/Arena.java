@@ -273,7 +273,10 @@ public class Arena extends ScreenObject {
 			// first destroyable is a bomb! everytime!
 			float x = _tilesFixed.get(indexesDestroy.get(0)).x + _offsetX; 
 			float y = _tilesFixed.get(indexesDestroy.get(0)).y + _offsetY;
-			_scoreListeners.stream().forEach(listener -> listener.scored(score, x, y));
+			_scoreListeners.stream().forEach(listener -> {
+				listener.scored(score, x, y);
+				listener.comboed();
+			});
 
 			// let fall blocks down
 			for (int index = 0; index < _tilesFixed.size(); index++) {

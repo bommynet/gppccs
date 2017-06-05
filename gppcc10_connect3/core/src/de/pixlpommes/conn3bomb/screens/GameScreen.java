@@ -93,7 +93,7 @@ public class GameScreen extends ScreenAdapter implements ScoreListener {
 		
 		// GUI
 		_gui = new ArenaGui(_app);
-		_gui.setOffset(GameApp.HALF_WIDTH - 150, -200); /// TODO positioning
+		_gui.setOffset(GameApp.HALF_WIDTH - 225, -200); /// TODO positioning
 		
 		// score animator
 		_scoreAnimation = new ArrayList<>();
@@ -122,6 +122,7 @@ public class GameScreen extends ScreenAdapter implements ScoreListener {
 		_insert.draw(_app.batch);
 		_arena.draw(_app.batch);
 		_player.draw(_app.batch);
+		_gui.draw(_app.batch);
 
 		_scoreAnimation.stream().forEach(score -> score.draw(_app.batch));
 		
@@ -138,6 +139,7 @@ public class GameScreen extends ScreenAdapter implements ScoreListener {
 		_arena.update(delta);
 		_insert.update(delta);
 		_player.update(delta);
+		_gui.update(delta);
 		
 		// update score animation and transfer points to gui
 		for(int i = _scoreAnimation.size()-1; i >= 0; i--) {
@@ -160,5 +162,10 @@ public class GameScreen extends ScreenAdapter implements ScoreListener {
 		
 		ScoreAnimation ani = new ScoreAnimation(_gui, scaledScore, x, y);
 		_scoreAnimation.add(ani);
+	}
+
+	@Override
+	public void comboed() {
+		_gui.firedCombo();
 	}
 }
